@@ -56,11 +56,16 @@ or similar — and serve the same paths.
 | glyf | `NeueCometVariable.ttf` | the web, `@font-face`, anywhere variable-font support is uncertain |
 | CFF2 | `NeueCometVariable.otf` | desktop installs — smaller file, nicer curves |
 
-The CFF2 build is not yet verified across browsers and platforms. Variable CFF2
-in particular has patchy support on older Windows/DirectWrite and some Linux
-stacks, so **glyf stays the default for the web**. Test it before you rely on it.
+The CFF2 build is verified in **Chromium** — both axes interpolate, and the
+rendered output is indistinguishable from the glyf build at every weight and
+optical size tested, roman and italic. It is **not yet verified in Firefox,
+Safari, or on Windows**, where variable CFF2 has historically been weaker. So
+**glyf stays the default for the web** until that testing is done.
 
 `make install_var` installs the glyf version, `make install_var_otf` the CFF2 one.
+
+`misc/tools/compare-vf-formats.py` rasterises both builds and compares them
+pixel by pixel, which is how the equivalence above was established.
 
 ## What you get
 
