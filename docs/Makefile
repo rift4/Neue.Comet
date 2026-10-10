@@ -58,51 +58,51 @@ optimize-images:
 
 dist: info lab/index.html
 info: fonts _data/fontinfo.json lab/glyphinfo.json
-fonts: font-files/Inter-Regular.woff2
+fonts: font-files/NeueComet-Regular.woff2
 
 FONTS_SRC := \
-	$(FONTDIR)/static/Inter-Black.woff2 \
-	$(FONTDIR)/static/Inter-BlackItalic.woff2 \
-	$(FONTDIR)/static/Inter-Bold.woff2 \
-	$(FONTDIR)/static/Inter-BoldItalic.woff2 \
-	$(FONTDIR)/static/Inter-ExtraBold.woff2 \
-	$(FONTDIR)/static/Inter-ExtraBoldItalic.woff2 \
-	$(FONTDIR)/static/Inter-ExtraLight.woff2 \
-	$(FONTDIR)/static/Inter-ExtraLightItalic.woff2 \
-	$(FONTDIR)/static/Inter-Italic.woff2 \
-	$(FONTDIR)/static/Inter-Light.woff2 \
-	$(FONTDIR)/static/Inter-LightItalic.woff2 \
-	$(FONTDIR)/static/Inter-Medium.woff2 \
-	$(FONTDIR)/static/Inter-MediumItalic.woff2 \
-	$(FONTDIR)/static/Inter-Regular.woff2 \
-	$(FONTDIR)/static/Inter-SemiBold.woff2 \
-	$(FONTDIR)/static/Inter-SemiBoldItalic.woff2 \
-	$(FONTDIR)/static/Inter-Thin.woff2 \
-	$(FONTDIR)/static/Inter-ThinItalic.woff2 \
-	$(FONTDIR)/static/InterDisplay-Black.woff2 \
-	$(FONTDIR)/static/InterDisplay-BlackItalic.woff2 \
-	$(FONTDIR)/static/InterDisplay-Bold.woff2 \
-	$(FONTDIR)/static/InterDisplay-BoldItalic.woff2 \
-	$(FONTDIR)/static/InterDisplay-ExtraBold.woff2 \
-	$(FONTDIR)/static/InterDisplay-ExtraBoldItalic.woff2 \
-	$(FONTDIR)/static/InterDisplay-ExtraLight.woff2 \
-	$(FONTDIR)/static/InterDisplay-ExtraLightItalic.woff2 \
-	$(FONTDIR)/static/InterDisplay-Italic.woff2 \
-	$(FONTDIR)/static/InterDisplay-Light.woff2 \
-	$(FONTDIR)/static/InterDisplay-LightItalic.woff2 \
-	$(FONTDIR)/static/InterDisplay-Medium.woff2 \
-	$(FONTDIR)/static/InterDisplay-MediumItalic.woff2 \
-	$(FONTDIR)/static/InterDisplay-Regular.woff2 \
-	$(FONTDIR)/static/InterDisplay-SemiBold.woff2 \
-	$(FONTDIR)/static/InterDisplay-SemiBoldItalic.woff2 \
-	$(FONTDIR)/static/InterDisplay-Thin.woff2 \
-	$(FONTDIR)/static/InterDisplay-ThinItalic.woff2 \
-  $(FONTDIR)/var/InterVariable.woff2 \
-  $(FONTDIR)/var/InterVariable-Italic.woff2 \
-  $(FONTDIR)/var/InterVariable.ttf
+	$(FONTDIR)/static/NeueComet-Black.woff2 \
+	$(FONTDIR)/static/NeueComet-BlackItalic.woff2 \
+	$(FONTDIR)/static/NeueComet-Bold.woff2 \
+	$(FONTDIR)/static/NeueComet-BoldItalic.woff2 \
+	$(FONTDIR)/static/NeueComet-ExtraBold.woff2 \
+	$(FONTDIR)/static/NeueComet-ExtraBoldItalic.woff2 \
+	$(FONTDIR)/static/NeueComet-ExtraLight.woff2 \
+	$(FONTDIR)/static/NeueComet-ExtraLightItalic.woff2 \
+	$(FONTDIR)/static/NeueComet-Italic.woff2 \
+	$(FONTDIR)/static/NeueComet-Light.woff2 \
+	$(FONTDIR)/static/NeueComet-LightItalic.woff2 \
+	$(FONTDIR)/static/NeueComet-Medium.woff2 \
+	$(FONTDIR)/static/NeueComet-MediumItalic.woff2 \
+	$(FONTDIR)/static/NeueComet-Regular.woff2 \
+	$(FONTDIR)/static/NeueComet-SemiBold.woff2 \
+	$(FONTDIR)/static/NeueComet-SemiBoldItalic.woff2 \
+	$(FONTDIR)/static/NeueComet-Thin.woff2 \
+	$(FONTDIR)/static/NeueComet-ThinItalic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-Black.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-BlackItalic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-Bold.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-BoldItalic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-ExtraBold.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-ExtraBoldItalic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-ExtraLight.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-ExtraLightItalic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-Italic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-Light.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-LightItalic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-Medium.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-MediumItalic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-Regular.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-SemiBold.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-SemiBoldItalic.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-Thin.woff2 \
+	$(FONTDIR)/static/NeueCometDisplay-ThinItalic.woff2 \
+  $(FONTDIR)/var/NeueCometVariable.woff2 \
+  $(FONTDIR)/var/NeueCometVariable-Italic.woff2 \
+  $(FONTDIR)/var/NeueCometVariable.ttf
 
-font-files/Inter-Regular.woff2: $(FONTS_SRC)
-	rm -rf font-files/Inter*
+font-files/NeueComet-Regular.woff2: $(FONTS_SRC)
+	rm -rf font-files/NeueComet*
 	mkdir -p font-files
 	cp -a $^ font-files/
 	$(Q)touch $@
@@ -116,13 +116,13 @@ lab/index.html: ../version.txt ../misc/tools/patch-version.py
 	. $(VENV); python ../misc/tools/patch-version.py $@
 
 _data/fontinfo.json: ../misc/tools/fontinfo.py
-_data/fontinfo.json: font-files/Inter-Regular.woff2
+_data/fontinfo.json: font-files/NeueComet-Regular.woff2
 	. $(VENV); python ../misc/tools/fontinfo.py -pretty $< > $@
 
 lab/glyphinfo.json: ../misc/tools/gen-glyphinfo.py ../misc/UnicodeData.txt
-lab/glyphinfo.json: ../build/ufo/Inter-Regular.ufo
+lab/glyphinfo.json: ../build/ufo/NeueComet-Regular.ufo
 	. $(VENV); python ../misc/tools/gen-glyphinfo.py -ucd ../misc/UnicodeData.txt $< > $@
-../build/ufo/Inter-Regular.ufo: $(wildcard ../build/ufo/Inter-Regular.ufo/*.plist)
+../build/ufo/NeueComet-Regular.ufo: $(wildcard ../build/ufo/NeueComet-Regular.ufo/*.plist)
 	touch $@
 
 .PHONY: default build build-tmp serve serve-pub dist info fonts

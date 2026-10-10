@@ -1,0 +1,161 @@
+---
+layout: none
+---
+{%- assign font_v = site.data.fontinfo[0].version -%}
+/*
+
+  DEPRECATED -- instead, please use https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@main/docs/neue-comet.css
+
+*/
+@font-face {
+  font-family: 'NeueCometDisplay var';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('font-files/NeueCometVariable.woff2?v={{font_v}}') format('woff2');
+  font-variation-settings: "opsz" 32;
+}
+@font-face {
+  font-family: 'NeueCometDisplay var';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('font-files/NeueCometVariable-Italic.woff2?v={{font_v}}') format('woff2');
+  font-variation-settings: "opsz" 32;
+}
+
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-Thin.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-ThinItalic.woff2?v={{font_v}}") format("woff2");
+}
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-ExtraLight.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-ExtraLightItalic.woff2?v={{font_v}}") format("woff2");
+}
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-Light.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-LightItalic.woff2?v={{font_v}}") format("woff2");
+}
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-Regular.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-Italic.woff2?v={{font_v}}") format("woff2");
+}
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-Medium.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-MediumItalic.woff2?v={{font_v}}") format("woff2");
+}
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-SemiBold.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-SemiBoldItalic.woff2?v={{font_v}}") format("woff2");
+}
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-Bold.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-BoldItalic.woff2?v={{font_v}}") format("woff2");
+}
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-ExtraBold.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-ExtraBoldItalic.woff2?v={{font_v}}") format("woff2");
+}
+
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-Black.woff2?v={{font_v}}") format("woff2");
+}
+@font-face {
+  font-family: 'NeueCometDisplay';
+  font-style:  italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url("font-files/NeueCometDisplay-BlackItalic.woff2?v={{font_v}}") format("woff2");
+}

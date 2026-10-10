@@ -13,9 +13,9 @@ kerndiff.sh <font1> <font2>
 Example:
 
 ```
-kerndiff.sh Inter-Regular-v2.4.otf src/Inter-Regular.ufo
---- Inter-Regular-v2.4.otf  2018-08-30 19:16:47.000000000 -0700
-+++ Inter-Regular.ufo       2018-08-30 19:16:47.000000000 -0700
+kerndiff.sh NeueComet-Regular-v2.4.otf src/NeueComet-Regular.ufo
+--- NeueComet-Regular-v2.4.otf  2018-08-30 19:16:47.000000000 -0700
++++ NeueComet-Regular.ufo       2018-08-30 19:16:47.000000000 -0700
 @@ -35126,7 +35081,6 @@
  /s /Ydieresis -149
  /s /Ygrave -149

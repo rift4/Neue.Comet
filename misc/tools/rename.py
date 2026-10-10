@@ -40,7 +40,7 @@ def normalize_whitespace(s):
 
 def remove_substring(s, substr):
   # examples of remove_substring(s, "Display"):
-  #   "Inter Display"   => "Inter"
+  #   "Neue Comet Display"   => "Neue Comet"
   #   "Display Lol"     => "Lol"
   #   "Foo Display Lol" => "Foo Lol"
   #   " Foo   Bar Lol " => "Foo Bar Lol"
@@ -53,7 +53,6 @@ def set_full_name(font, fullName, fullNamePs):
   nameTable.setName(fullName, FULL_NAME, 3, 1, 0x409) # windows
   nameTable.setName(fullNamePs, POSTSCRIPT_NAME, 1, 0, 0)     # mac
   nameTable.setName(fullNamePs, POSTSCRIPT_NAME, 3, 1, 0x409) # windows
-
 
 def getFamilyName(font):
   nameTable = font["name"]
@@ -68,7 +67,6 @@ def getFamilyName(font):
   if not r:
     raise ValueError("family name not found")
   return r.toUnicode()
-
 
 def getFamilyNames(font):
   nameTable = font["name"]
@@ -98,38 +96,6 @@ def getStyleName(font):
         return r.toUnicode()
   raise ValueError("style name not found")
 
-
-def renameStylesGoogleFonts(font):
-  familyName = getFamilyName(font)
-
-  # collect subfamily (style) name IDs for variable font's named instances
-  vfInstanceSubfamilyNameIds = set()
-  if "fvar" in font:
-    for namedInstance in font["fvar"].instances:
-      vfInstanceSubfamilyNameIds.add(namedInstance.subfamilyNameID)
-
-  nameTable = font["name"]
-  for rec in nameTable.names:
-    rid = rec.nameID
-    if rid in (FULL_NAME, LEGACY_FAMILY):
-      # style part of family name
-      s = rec.toUnicode()
-      start = s.find(familyName)
-      if start != -1:
-        s = familyName + " " + remove_whitespace(s[start + len(familyName):])
-      else:
-        s = remove_whitespace(s)
-      if s != "Italic" and s.endswith("Italic"):
-        # fixup e.g. "ExtraBoldItalic" -> "ExtraBold Italic"
-        s = s[:len(s) - len("Italic")] + " Italic"
-      rec.string = s.strip()
-    if rid in (SUBFAMILY_NAME, TYPO_SUBFAMILY_NAME) or rid in vfInstanceSubfamilyNameIds:
-      s = remove_whitespace(rec.toUnicode())
-      if s != "Italic" and s.endswith("Italic"):
-        # fixup e.g. "ExtraBoldItalic" -> "ExtraBold Italic"
-        s = s[:len(s) - len("Italic")] + " Italic"
-      rec.string = s.strip()
-    # else: ignore standard names unrelated to style
 
 
 def setStyleName(font, newStyleName):
@@ -236,8 +202,6 @@ def main():
     help='Rename family to <name>')
   a('--style', metavar='<name>',
     help='Rename style to <name>')
-  a('--google-style', action='store_true',
-    help='Rename style names to Google Fonts standards')
   a('--scrub-display', action='store_true',
     help='Remove "Display" from various family & style records')
   a('input', metavar='<file>',
@@ -265,10 +229,6 @@ def main():
 
     if args.style:
       setStyleName(font, args.style)
-      editCount += 1
-
-    if args.google_style:
-      renameStylesGoogleFonts(font)
       editCount += 1
 
     if editCount == 0:

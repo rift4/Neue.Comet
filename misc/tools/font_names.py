@@ -134,9 +134,9 @@ def renameFontFamily(infile, outfile, newFamilyName):
 
 
 def main():
-  infile = "./build/fonts/var/Inter.var.ttf"
+  infile = "./build/fonts/var/NeueComet.var.ttf"
   outfile = "./build/tmp/var2.otf"
-  renameFontFamily(infile, outfile, "Inter V")
+  renameFontFamily(infile, outfile, "Neue Comet V")
   print("%s familyName: %r" % (infile, getFamilyName(loadFont(infile)) ))
   print("%s familyName: %r" % (outfile, getFamilyName(loadFont(outfile)) ))
 
@@ -144,5 +144,5 @@ if __name__ == "__main__":
   sys.exit(main())
 
 # Similar to:
-# ttx -i -e -o ./build/tmp/var.ttx ./build/fonts/var/Inter.var.ttf
+# ttx -i -e -o ./build/tmp/var.ttx ./build/fonts/var/NeueComet.var.ttf
 # ttx -b --no-recalc-timestamp -o ./build/tmp/var.ttf ./build/tmp/var.ttx

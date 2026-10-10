@@ -1,18 +1,18 @@
 {%-
 assign build_version   = site.time | date: "%Y%m%d%H%M%S" %}{%
-assign description     = "Inter is a typeface family" %}{%
+assign description     = "Neue Comet is a typeface family" %}{%
 assign release_version = site.data.fontinfo[0].version %}{%
 
-capture title %}{% if page.title %}{{ page.title }} — Inter{% else %}Inter font family{% endif %}{% endcapture %}{%
+capture title %}{% if page.title %}{{ page.title }} — Neue Comet{% else %}Neue Comet font family{% endif %}{% endcapture %}{%
 
 if site.baseurl %}{%
   assign url_root = site.baseurl | append: "/" %}{%
 else %}{%
-  assign url_root = "/inter/" %}{%
+  assign url_root = "/Neue.Comet/" %}{%
 endif %}{%
 
 for file in site.static_files %}{%
-  assign _path = file.path | remove_first: "/inter" %}{%
+  assign _path = file.path | remove_first: "/inter" | remove_first: "/Neue.Comet" %}{%
   if _path == "/res/base.css" %}{%
     assign base_css_v = file.modified_time | date: "%Y%m%d%H%M%S" %}{%
   elsif _path == "/res/favicon.png" %}{%
@@ -21,7 +21,7 @@ for file in site.static_files %}{%
 endfor %}{%
 
 capture download_url
-  %}https://github.com/rsms/inter/releases/download/v{{release_version}}/Inter-{{release_version}}.zip{%
+  %}https://github.com/rift4/Neue.Comet/releases/download/v{{release_version}}/NeueComet-{{release_version}}.zip{%
 endcapture
 
 -%}

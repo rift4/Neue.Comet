@@ -12,9 +12,9 @@
     [a workaround using macOS's native font UI](https://sketchtalk.io/discussion/comment/1478/#Comment_1478).
 
 - id: faq-cdn
-  q: "How reliable are the fonts served from rsms.me/inter?"
+  q: "How reliable are the fonts served from the CDN?"
   a: |
-    <q>https://rsms.me/inter/inter.css</q> and the Inter font
+    <q>neue-comet.css</q> and the Neue Comet font
     files are distributed globally over CloudFlare's CDN.
     This is very reliable and fast by automatically serving the fonts
     from a server near your users, minimizing the latency of your web pages.
@@ -32,39 +32,39 @@
     OpenType features "on by default."
 
 - id: faq-contribute
-  q: "Can I help with improving Inter?"
+  q: "Can I help with improving Neue Comet?"
   a: |
-    Yes you can! Inter is an open-source project, meaning the source
+    Yes you can! Neue Comet is an open-source project, meaning the source
     code—or "source design" if you will—that is used to build the font files
-    [are freely available](https://github.com/rsms/inter) to improve upon.
+    [are freely available](https://github.com/rift4/Neue.Comet) to improve upon.
     Font making requires a fair bit of technical work and
     depending on what you'd like to do, some things might be more fun
     depending on your technical skills.
-    The ["Contributing" document](https://github.com/rsms/inter/blob/master/CONTRIBUTING.md) is a great place to start.
+    The ["Contributing" document](https://github.com/rift4/Neue.Comet/blob/master/CONTRIBUTING.md) is a great place to start.
     This document outlines where you can have the biggest impact,
     how things are setup and how to get started.
 
 - id: faq-inuse
-  q: "I've made a cool thing that uses Inter"
+  q: "I've made a cool thing that uses Neue Comet"
   a: |
-    [Share what you've made in "Show and Tell"](https://github.com/rsms/inter/discussions/categories/show-and-tell)
+    [Share what you've made in "Show and Tell"](https://github.com/rift4/Neue.Comet/discussions/categories/show-and-tell)
 
 - id: faq-bug
-  q: "Where can I report technical problems with Inter?"
+  q: "Where can I report technical problems with Neue Comet?"
   a: |
-    Please [submit a bug report on GitHub](https://github.com/rsms/inter/issues/new?template=bug_report.md)
+    Please [submit a bug report on GitHub](https://github.com/rift4/Neue.Comet/issues/new?template=bug_report.md)
 
 - id: faq-contact
   q: "I have a question, where can I get help?"
   a: |
-    Start by searching [issues](https://github.com/rsms/inter/issues?q=%22YOUR+ISSUE%22) & [discussions](https://github.com/rsms/inter/discussions?discussions_q=%22YOUR+ISSUE%22) for an answer.
+    Start by searching [issues](https://github.com/rift4/Neue.Comet/issues?q=%22YOUR+ISSUE%22) & [discussions](https://github.com/rift4/Neue.Comet/discussions?discussions_q=%22YOUR+ISSUE%22) for an answer.
     If that didn't help, ask your question in
-    [the "Q&A" forum](https://github.com/rsms/inter/discussions/categories/q-a).
+    [the "Q&A" forum](https://github.com/rift4/Neue.Comet/discussions/categories/q-a).
 
 - id: faq-start-date
   q: "This website claims work started in 2016, but the git repository's log says it started later?"
   a: |
-    Inter was developed in a private, internal git repository
+    Neue Comet was developed in a private, internal git repository
     starting in November 2016, prior to being published on August 22, 2017.
     Between November 2016 and August 2017, there were
     <span class=num>2,990,150</span> line edits made across 247 versions.
@@ -73,11 +73,11 @@
   q: "I miss something from the old website"
   a: |
     Have a pleasant surf on
-    [a snapshot of the old version 3 website](https://d.rsms.me/inter-website/v3/)
+    [a snapshot of Inter's old version 3 website](https://d.rsms.me/inter-website/v3/)
 
 
 - id: faq-technical-details
-  q: "What are the technical details of Inter?"
+  q: "What are the technical details of Neue Comet?"
   a: |
     UPM: 2048<br>
     Variable axis <q>opsz</q> [14–32]<br>

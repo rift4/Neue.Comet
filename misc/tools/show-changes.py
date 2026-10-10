@@ -45,7 +45,7 @@ def main():
     print('Did you forget to `git fetch --tags` perhaps?', file=sys.stderr)
     sys.exit(1)
 
-  ufoPrefix = 'src/Inter-'
+  ufoPrefix = 'src/NeueComet-'
   changes = OrderedDict()
   deleted = []
 

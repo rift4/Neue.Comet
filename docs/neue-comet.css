@@ -1,0 +1,162 @@
+---
+layout: none
+---
+{%- assign font_v = site.data.fontinfo[0].version -%}
+/*
+Font families defined by this CSS:
+  - NeueCometVariable  variable font for modern web browsers
+  - Neue Comet          static fonts for older web browsers (small optical size)
+  - NeueCometDisplay   static fonts for older web browsers (large optical size)
+
+Usage example:
+  :root { font-family: 'Neue Comet', sans-serif; }
+  @supports (font-variation-settings: normal) {
+    :root { font-family: NeueCometVariable, sans-serif; }
+  }
+
+*/
+@font-face {
+  font-family: NeueCometVariable;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('font-files/NeueCometVariable.woff2?v={{font_v}}') format('woff2');
+}
+@font-face {
+  font-family: NeueCometVariable;
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('font-files/NeueCometVariable-Italic.woff2?v={{font_v}}') format('woff2');
+}
+/* legacy name "Neue Comet var" (Oct 2023) */
+@font-face { font-family:'Neue Comet var'; font-style:normal; font-weight:100 900; font-display:swap; src: url('font-files/NeueCometVariable.woff2?v={{font_v}}') format('woff2'); }
+@font-face { font-family:'Neue Comet var'; font-style:italic; font-weight:100 900; font-display:swap; src: url('font-files/NeueCometVariable-Italic.woff2?v={{font_v}}') format('woff2'); }
+/* static fonts */
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:100; font-display:swap; src:url("font-files/NeueComet-Thin.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:100; font-display:swap; src:url("font-files/NeueComet-ThinItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:200; font-display:swap; src:url("font-files/NeueComet-ExtraLight.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:200; font-display:swap; src:url("font-files/NeueComet-ExtraLightItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:300; font-display:swap; src:url("font-files/NeueComet-Light.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:300; font-display:swap; src:url("font-files/NeueComet-LightItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:400; font-display:swap; src:url("font-files/NeueComet-Regular.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:400; font-display:swap; src:url("font-files/NeueComet-Italic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:500; font-display:swap; src:url("font-files/NeueComet-Medium.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:500; font-display:swap; src:url("font-files/NeueComet-MediumItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:600; font-display:swap; src:url("font-files/NeueComet-SemiBold.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:600; font-display:swap; src:url("font-files/NeueComet-SemiBoldItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:700; font-display:swap; src:url("font-files/NeueComet-Bold.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:700; font-display:swap; src:url("font-files/NeueComet-BoldItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:800; font-display:swap; src:url("font-files/NeueComet-ExtraBold.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:800; font-display:swap; src:url("font-files/NeueComet-ExtraBoldItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:900; font-display:swap; src:url("font-files/NeueComet-Black.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:900; font-display:swap; src:url("font-files/NeueComet-BlackItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:100; font-display:swap; src:url("font-files/NeueCometDisplay-Thin.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:100; font-display:swap; src:url("font-files/NeueCometDisplay-ThinItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:200; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraLight.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:200; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraLightItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:300; font-display:swap; src:url("font-files/NeueCometDisplay-Light.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:300; font-display:swap; src:url("font-files/NeueCometDisplay-LightItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:400; font-display:swap; src:url("font-files/NeueCometDisplay-Regular.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:400; font-display:swap; src:url("font-files/NeueCometDisplay-Italic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:500; font-display:swap; src:url("font-files/NeueCometDisplay-Medium.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:500; font-display:swap; src:url("font-files/NeueCometDisplay-MediumItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:600; font-display:swap; src:url("font-files/NeueCometDisplay-SemiBold.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:600; font-display:swap; src:url("font-files/NeueCometDisplay-SemiBoldItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:700; font-display:swap; src:url("font-files/NeueCometDisplay-Bold.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:700; font-display:swap; src:url("font-files/NeueCometDisplay-BoldItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:800; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraBold.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:800; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraBoldItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:900; font-display:swap; src:url("font-files/NeueCometDisplay-Black.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:900; font-display:swap; src:url("font-files/NeueCometDisplay-BlackItalic.woff2?v={{font_v}}") format("woff2"); }
+
+@font-feature-values NeueCometVariable {
+    @character-variant {
+        cv01: 1; cv02: 2; cv03: 3; cv04: 4; cv05: 5; cv06: 6; cv07: 7; cv08: 8;
+        cv09: 9; cv10: 10; cv11: 11; cv12: 12; cv13: 13;
+        alt-1:            1; /* Alternate one */
+        alt-3:            9; /* Flat-top three */
+        open-4:           2; /* Open four */
+        open-6:           3; /* Open six */
+        open-9:           4; /* Open nine */
+        lc-l-with-tail:   5; /* Lower-case L with tail */
+        simplified-u:     6; /* Simplified u */
+        alt-double-s:     7; /* Alternate German double s */
+        uc-i-with-serif:  8; /* Upper-case i with serif */
+        uc-g-with-spur:  10; /* Capital G with spur */
+        single-story-a:  11; /* Single-story a */
+        compact-lc-f:    12; /* Compact f */
+        compact-lc-t:    13; /* Compact t */
+    }
+    @styleset {
+        ss01: 1; ss02: 2; ss03: 3; ss04: 4; ss05: 5; ss06: 6; ss07: 7; ss08: 8;
+        open-digits: 1;                /* Open digits */
+        disambiguation: 2;             /* Disambiguation (with zero) */
+        disambiguation-except-zero: 4; /* Disambiguation (no zero) */
+        round-quotes-and-commas: 3;    /* Round quotes &amp; commas */
+        square-punctuation: 7;         /* Square punctuation */
+        square-quotes: 8;              /* Square quotes */
+        circled-characters: 5;         /* Circled characters */
+        squared-characters: 6;         /* Squared characters */
+    }
+}
+@font-feature-values "Neue Comet" {
+    @character-variant {
+        cv01: 1; cv02: 2; cv03: 3; cv04: 4; cv05: 5; cv06: 6; cv07: 7; cv08: 8;
+        cv09: 9; cv10: 10; cv11: 11; cv12: 12; cv13: 13;
+        alt-1:            1; /* Alternate one */
+        alt-3:            9; /* Flat-top three */
+        open-4:           2; /* Open four */
+        open-6:           3; /* Open six */
+        open-9:           4; /* Open nine */
+        lc-l-with-tail:   5; /* Lower-case L with tail */
+        simplified-u:     6; /* Simplified u */
+        alt-double-s:     7; /* Alternate German double s */
+        uc-i-with-serif:  8; /* Upper-case i with serif */
+        uc-g-with-spur:  10; /* Capital G with spur */
+        single-story-a:  11; /* Single-story a */
+        compact-lc-f:    12; /* Compact f */
+        compact-lc-t:    13; /* Compact t */
+    }
+    @styleset {
+        ss01: 1; ss02: 2; ss03: 3; ss04: 4; ss05: 5; ss06: 6; ss07: 7; ss08: 8;
+        open-digits: 1;                /* Open digits */
+        disambiguation: 2;             /* Disambiguation (with zero) */
+        disambiguation-except-zero: 4; /* Disambiguation (no zero) */
+        round-quotes-and-commas: 3;    /* Round quotes &amp; commas */
+        square-punctuation: 7;         /* Square punctuation */
+        square-quotes: 8;              /* Square quotes */
+        circled-characters: 5;         /* Circled characters */
+        squared-characters: 6;         /* Squared characters */
+    }
+}
+@font-feature-values NeueCometDisplay {
+    @character-variant {
+        cv01: 1; cv02: 2; cv03: 3; cv04: 4; cv05: 5; cv06: 6; cv07: 7; cv08: 8;
+        cv09: 9; cv10: 10; cv11: 11; cv12: 12; cv13: 13;
+        alt-1:            1; /* Alternate one */
+        alt-3:            9; /* Flat-top three */
+        open-4:           2; /* Open four */
+        open-6:           3; /* Open six */
+        open-9:           4; /* Open nine */
+        lc-l-with-tail:   5; /* Lower-case L with tail */
+        simplified-u:     6; /* Simplified u */
+        alt-double-s:     7; /* Alternate German double s */
+        uc-i-with-serif:  8; /* Upper-case i with serif */
+        uc-g-with-spur:  10; /* Capital G with spur */
+        single-story-a:  11; /* Single-story a */
+        compact-lc-f:    12; /* Compact f */
+        compact-lc-t:    13; /* Compact t */
+    }
+    @styleset {
+        ss01: 1; ss02: 2; ss03: 3; ss04: 4; ss05: 5; ss06: 6; ss07: 7; ss08: 8;
+        open-digits: 1;                /* Open digits */
+        disambiguation: 2;             /* Disambiguation (with zero) */
+        disambiguation-except-zero: 4; /* Disambiguation (no zero) */
+        round-quotes-and-commas: 3;    /* Round quotes &amp; commas */
+        square-punctuation: 7;         /* Square punctuation */
+        square-quotes: 8;              /* Square quotes */
+        circled-characters: 5;         /* Circled characters */
+        squared-characters: 6;         /* Squared characters */
+    }
+}

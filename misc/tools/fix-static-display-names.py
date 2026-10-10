@@ -27,7 +27,7 @@ def normalize_whitespace(s):
 
 def remove_substring(s, substr):
   # examples of remove_substring(s, "Display"):
-  #   "Inter Display"   => "Inter"
+  #   "Neue Comet Display"   => "Neue Comet"
   #   "Display Lol"     => "Lol"
   #   "Foo Display Lol" => "Foo Lol"
   #   " Foo   Bar Lol " => "Foo Bar Lol"
@@ -66,7 +66,7 @@ def print_relevant_names(nameTable):
 
 def main():
   argparser = argparse.ArgumentParser(
-    description='Rename family and styles of static "Inter Display" fonts'
+    description='Rename family and styles of static "Neue Comet Display" fonts'
   )
   a = lambda *args, **kwargs: argparser.add_argument(*args, **kwargs)
   a('-o', '--output', metavar='<file>',
@@ -79,7 +79,7 @@ def main():
 
   font = TTFont(infile, recalcBBoxes=False, recalcTimestamp=False)
 
-  family = "Inter Display"
+  family = "Neue Comet Display"
   style = remove_substring(getStyleName(font), "Display")
   isItalic = style.find('Italic') != -1
   if style == '':
@@ -106,7 +106,7 @@ def main():
         # Format:
         #   version ";" "git-" git-tag ";" foundry-tag ";" ps_family "-" ps_style
         # E.g.
-        #   "4.001;git-4de559246;RSMS;Inter-DisplayThinItalic"
+        #   "4.001;git-4de559246;RSMS;NeueComet-DisplayThinItalic"
         id = rec.toUnicode().split(";")
         id[3] = fullNamePs
         rec.string = ";".join(id)

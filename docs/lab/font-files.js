@@ -13,9 +13,9 @@ var fontFamilyNameVar
       interBuildVersion.replace(/\./g, "_")
   );
 
-  fontFamilyName = 'Inter-v' + fontVersion
-  fontFamilyNameDisplay = 'InterDisplay-v' + fontVersion
-  fontFamilyNameVar = 'Inter-var-v' + fontVersion
+  fontFamilyName = 'NeueComet-v' + fontVersion
+  fontFamilyNameDisplay = 'NeueCometDisplay-v' + fontVersion
+  fontFamilyNameVar = 'NeueComet-var-v' + fontVersion
 
   let outbuf = []
   function w(s) { outbuf.push(s) }
@@ -46,9 +46,9 @@ var fontFamilyNameVar
     w(`  font-display: block;`)
     w(`  src:`)
     if (includeLabLocalFiles) {
-      let filename2 = filename.replace("InterDisplay-", "Inter-Display")
-      if (filename2 == "Inter-DisplayRegular")
-        filename2 = "Inter-Display"
+      let filename2 = filename.replace("NeueCometDisplay-", "NeueComet-Display")
+      if (filename2 == "NeueComet-DisplayRegular")
+        filename2 = "NeueComet-Display"
       w(`  url("fonts/${filepath}/${filename2}.woff2?${fontVersion}") format("woff2"),`)
       w(`  url("fonts/${filepath}/${filename2}.woff?${fontVersion}") format("woff"),`)
     }
@@ -57,8 +57,10 @@ var fontFamilyNameVar
     w(`}`)
   }
   for (let [family, filepath, cssname] of [
-    ["Inter",        "static", fontFamilyName],
-    ["InterDisplay", "static", fontFamilyNameDisplay],
+    // `family` is used as the on-disk filename stem, so it must stay
+    // space-free ("NeueComet"), unlike the CSS family name.
+    ["NeueComet",        "static", fontFamilyName],
+    ["NeueCometDisplay", "static", fontFamilyNameDisplay],
   ]) {
     for (let weight of [100,200,300,400,500,600,700,800,900]) {
       for (let isItalic of [true,false]) {
@@ -68,8 +70,8 @@ var fontFamilyNameVar
   }
 
   for (let [srcname,cssname] of [
-    ["InterVariable", fontFamilyNameVar],
-    ["InterVariable-Italic", fontFamilyNameVar],
+    ["NeueCometVariable", fontFamilyNameVar],
+    ["NeueCometVariable-Italic", fontFamilyNameVar],
   ]) {
     w(`@font-face {
       font-family: '${cssname}';

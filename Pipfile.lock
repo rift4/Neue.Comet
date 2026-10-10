@@ -687,14 +687,6 @@
             ],
             "version": "==2024.5.9"
         },
-        "gftools": {
-            "hashes": [
-                "sha256:962c883db807ff4f35794a31a82bdea80dad09077ada80905494bb9c002f8dea",
-                "sha256:a4943624a42ed34192d537781fd4e8102972acfd52544c7331f30889eeba099d"
-            ],
-            "index": "pypi",
-            "version": "==0.9.58"
-        },
         "gitdb": {
             "hashes": [
                 "sha256:81a3407ddd2ee8df444cbacea00e2d038e40150acfa3001696fe0dcf1d3adfa4",

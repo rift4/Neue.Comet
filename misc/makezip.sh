@@ -54,8 +54,8 @@ if $OPT_HELP; then
   echo "Usage: $0 [options] <outfile>"
   echo "Options:"
   echo "  -h, -help          Show help."
-  echo "  -text              Include Inter Text"
-  echo "  -display           Include Inter Display"
+  echo "  -text              Include Neue Comet Text"
+  echo "  -display           Include Neue Comet Display"
   echo "  -a, -all           Include all fonts"
   echo "  -reveal-in-finder  After creating the zip file, show it in Finder"
   exit 1
@@ -77,61 +77,61 @@ rm -f  build/tmp/a.zip
 
 # create directories
 mkdir -p \
-  "$ZIPDIR/Inter Desktop" \
-  "$ZIPDIR/Inter Hinted for Windows/Desktop" \
-  "$ZIPDIR/Inter Hinted for Windows/Web" \
-  "$ZIPDIR/Inter Variable" \
-  "$ZIPDIR/Inter Variable/Single axis" \
-  "$ZIPDIR/Inter Web"
+  "$ZIPDIR/Neue Comet Desktop" \
+  "$ZIPDIR/Neue Comet Hinted for Windows/Desktop" \
+  "$ZIPDIR/Neue Comet Hinted for Windows/Web" \
+  "$ZIPDIR/Neue Comet Variable" \
+  "$ZIPDIR/Neue Comet Variable/Single axis" \
+  "$ZIPDIR/Neue Comet Web"
 
 # copy font files
 # ----------------------------------------------------------------------------
 if $OPT_TEXT; then
-  # Inter Desktop
-  cp $FONTDIR/const/Inter-*.otf          "$ZIPDIR/Inter Desktop/" &
-  cp $FONTDIR/var/Inter-V.var.ttf        "$ZIPDIR/Inter Desktop/Inter-V.ttf" &
+  # Neue Comet Desktop
+  cp $FONTDIR/const/NeueComet-*.otf          "$ZIPDIR/Neue Comet Desktop/" &
+  cp $FONTDIR/var/NeueComet-V.var.ttf        "$ZIPDIR/Neue Comet Desktop/NeueComet-V.ttf" &
 
-  # Inter Hinted for Windows
-  cp "misc/dist/about hinted fonts.txt"  "$ZIPDIR/Inter Hinted for Windows/" &
-  cp $FONTDIR/const-hinted/Inter-*.ttf   "$ZIPDIR/Inter Hinted for Windows/Desktop/" &
-  cp $FONTDIR/const-hinted/Inter-*.woff* "$ZIPDIR/Inter Hinted for Windows/Web/" &
-  cp misc/dist/inter.css                 "$ZIPDIR/Inter Hinted for Windows/Web/" &
+  # Neue Comet Hinted for Windows
+  cp "misc/dist/about hinted fonts.txt"  "$ZIPDIR/Neue Comet Hinted for Windows/" &
+  cp $FONTDIR/const-hinted/NeueComet-*.ttf   "$ZIPDIR/Neue Comet Hinted for Windows/Desktop/" &
+  cp $FONTDIR/const-hinted/NeueComet-*.woff* "$ZIPDIR/Neue Comet Hinted for Windows/Web/" &
+  cp misc/dist/neue-comet.css                 "$ZIPDIR/Neue Comet Hinted for Windows/Web/" &
 
-  # Inter Variable
-  cp $FONTDIR/var/Inter.var.ttf          "$ZIPDIR/Inter Variable/Inter.ttf" &
-  cp $FONTDIR/var/Inter-roman.var.ttf    "$ZIPDIR/Inter Variable/Single axis/Inter-roman.ttf" &
-  cp $FONTDIR/var/Inter-italic.var.ttf   "$ZIPDIR/Inter Variable/Single axis/Inter-italic.ttf" &
+  # Neue Comet Variable
+  cp $FONTDIR/var/NeueComet.var.ttf          "$ZIPDIR/Neue Comet Variable/NeueComet.ttf" &
+  cp $FONTDIR/var/NeueComet-roman.var.ttf    "$ZIPDIR/Neue Comet Variable/Single axis/NeueComet-roman.ttf" &
+  cp $FONTDIR/var/NeueComet-italic.var.ttf   "$ZIPDIR/Neue Comet Variable/Single axis/NeueComet-italic.ttf" &
 
-  # Inter Web
-  cp $FONTDIR/const/Inter-*.woff*        "$ZIPDIR/Inter Web/" &
-  cp $FONTDIR/var/Inter.var.woff2        "$ZIPDIR/Inter Web/" &
-  cp $FONTDIR/var/Inter-roman.var.woff2  "$ZIPDIR/Inter Web/" &
-  cp $FONTDIR/var/Inter-italic.var.woff2 "$ZIPDIR/Inter Web/" &
-  cp misc/dist/inter.css                 "$ZIPDIR/Inter Web/" &
+  # Neue Comet Web
+  cp $FONTDIR/const/NeueComet-*.woff*        "$ZIPDIR/Neue Comet Web/" &
+  cp $FONTDIR/var/NeueComet.var.woff2        "$ZIPDIR/Neue Comet Web/" &
+  cp $FONTDIR/var/NeueComet-roman.var.woff2  "$ZIPDIR/Neue Comet Web/" &
+  cp $FONTDIR/var/NeueComet-italic.var.woff2 "$ZIPDIR/Neue Comet Web/" &
+  cp misc/dist/neue-comet.css                 "$ZIPDIR/Neue Comet Web/" &
 fi
 # ----------------------------------------------------------------------------
 if $OPT_DISPLAY; then
-  # Inter Desktop
-  cp $FONTDIR/const/InterDisplay-*.otf          "$ZIPDIR/Inter Desktop/" &
-  cp $FONTDIR/var/InterDisplay-V.var.ttf        "$ZIPDIR/Inter Desktop/InterDisplay-V.ttf" &
+  # Neue Comet Desktop
+  cp $FONTDIR/const/NeueCometDisplay-*.otf          "$ZIPDIR/Neue Comet Desktop/" &
+  cp $FONTDIR/var/NeueCometDisplay-V.var.ttf        "$ZIPDIR/Neue Comet Desktop/NeueCometDisplay-V.ttf" &
 
-  # Inter Hinted for Windows
-  cp "misc/dist/about hinted fonts.txt"         "$ZIPDIR/Inter Hinted for Windows/" &
-  cp $FONTDIR/const-hinted/InterDisplay-*.ttf   "$ZIPDIR/Inter Hinted for Windows/Desktop/" &
-  cp $FONTDIR/const-hinted/InterDisplay-*.woff* "$ZIPDIR/Inter Hinted for Windows/Web/" &
-  cp misc/dist/inter-display.css                "$ZIPDIR/Inter Hinted for Windows/Web/" &
+  # Neue Comet Hinted for Windows
+  cp "misc/dist/about hinted fonts.txt"         "$ZIPDIR/Neue Comet Hinted for Windows/" &
+  cp $FONTDIR/const-hinted/NeueCometDisplay-*.ttf   "$ZIPDIR/Neue Comet Hinted for Windows/Desktop/" &
+  cp $FONTDIR/const-hinted/NeueCometDisplay-*.woff* "$ZIPDIR/Neue Comet Hinted for Windows/Web/" &
+  cp misc/dist/neue-comet-display.css                "$ZIPDIR/Neue Comet Hinted for Windows/Web/" &
 
-  # Inter Variable
-  cp $FONTDIR/var/InterDisplay.var.ttf          "$ZIPDIR/Inter Variable/InterDisplay.ttf" &
-  cp $FONTDIR/var/InterDisplay-roman.var.ttf    "$ZIPDIR/Inter Variable/Single axis/InterDisplay-roman.ttf" &
-  cp $FONTDIR/var/InterDisplay-italic.var.ttf   "$ZIPDIR/Inter Variable/Single axis/InterDisplay-italic.ttf" &
+  # Neue Comet Variable
+  cp $FONTDIR/var/NeueCometDisplay.var.ttf          "$ZIPDIR/Neue Comet Variable/NeueCometDisplay.ttf" &
+  cp $FONTDIR/var/NeueCometDisplay-roman.var.ttf    "$ZIPDIR/Neue Comet Variable/Single axis/NeueCometDisplay-roman.ttf" &
+  cp $FONTDIR/var/NeueCometDisplay-italic.var.ttf   "$ZIPDIR/Neue Comet Variable/Single axis/NeueCometDisplay-italic.ttf" &
 
-  # Inter Web
-  cp $FONTDIR/const/InterDisplay-*.woff*        "$ZIPDIR/Inter Web/" &
-  cp $FONTDIR/var/InterDisplay.var.woff2        "$ZIPDIR/Inter Web/" &
-  cp $FONTDIR/var/InterDisplay-roman.var.woff2  "$ZIPDIR/Inter Web/" &
-  cp $FONTDIR/var/InterDisplay-italic.var.woff2 "$ZIPDIR/Inter Web/" &
-  cp misc/dist/inter-display.css                "$ZIPDIR/Inter Web/" &
+  # Neue Comet Web
+  cp $FONTDIR/const/NeueCometDisplay-*.woff*        "$ZIPDIR/Neue Comet Web/" &
+  cp $FONTDIR/var/NeueCometDisplay.var.woff2        "$ZIPDIR/Neue Comet Web/" &
+  cp $FONTDIR/var/NeueCometDisplay-roman.var.woff2  "$ZIPDIR/Neue Comet Web/" &
+  cp $FONTDIR/var/NeueCometDisplay-italic.var.woff2 "$ZIPDIR/Neue Comet Web/" &
+  cp misc/dist/neue-comet-display.css                "$ZIPDIR/Neue Comet Web/" &
 fi
 # ----------------------------------------------------------------------------
 

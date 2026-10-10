@@ -4,7 +4,7 @@ layout: none
 {% include defs.html %}{%
 for file in site.static_files %}{%
   assign _path = file.path | remove_first: "/inter" %}{%
-  if _path == "/font-files/InterVariable.ttf" %}{%
+  if _path == "/font-files/NeueCometVariable.otf" %}{%
     assign ttf_timestamp = file.modified_time | date: "%Y%m%d%H%M%S" %}{%
   endif %}{%
 endfor %}
@@ -596,7 +596,7 @@ class GlyphInspector {
     let x = w - LABEL_X_OFFS
     let y = ascender/2 + 4
 
-    g.font = '400 14px InterVariable, sans-serif'
+    g.font = '400 14px NeueCometVariable, sans-serif'
     g.fillStyle = 'black'
     g.textAlign = 'right'
     g.fillText(`wght ${wght.toFixed(1)}`, x, y)
@@ -612,7 +612,7 @@ class GlyphInspector {
     }
     if (helpOpacity > 0) {
       let label = `⟷ drag to adjust weight`
-      g.font = '500 18px InterVariable, sans-serif'
+      g.font = '500 18px NeueCometVariable, sans-serif'
       g.textAlign = 'center'
       let textMetrics = g.measureText(label)
       g.fillStyle = `rgba(255,255,255,${helpOpacity})`
@@ -807,7 +807,7 @@ class GlyphInspector {
     this.drawTime = monotime() // in case monotime() != time
     this.drawScheduled = false
     g.resetTransform()
-    g.font = '500 12px InterVariable'
+    g.font = '500 12px NeueCometVariable'
     g.textRendering = "geometricPrecision"
     g.scale(pixelRatio, pixelRatio)
     g.clearRect(0, 0, w, h)
@@ -973,5 +973,5 @@ class GlyphInspector {
 }
 
 let inspector = new GlyphInspector()
-await inspector.loadFont('font-files/InterVariable.ttf?v={{ttf_timestamp}}')
-// await inspector.loadFont('font-files/InterDisplay-Regular.otf')
+await inspector.loadFont('font-files/NeueCometVariable.otf?v={{ttf_timestamp}}')
+// await inspector.loadFont('font-files/NeueCometDisplay-Regular.otf')

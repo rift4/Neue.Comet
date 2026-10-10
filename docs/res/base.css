@@ -3,14 +3,14 @@ layout: none
 ---
 {%- assign font_v = site.data.fontinfo[0].version -%}
 @font-face {
-  font-family: InterVariable; font-style: normal; font-weight: 100 900;
+  font-family: NeueCometVariable; font-style: normal; font-weight: 100 900;
   font-display: block; /* <-- block, not swap */
-  src: url('../font-files/InterVariable.woff2?v={{font_v}}') format('woff2');
+  src: url('../font-files/NeueCometVariable.woff2?v={{font_v}}') format('woff2');
 }
 @font-face {
-  font-family: InterVariable; font-style: italic; font-weight: 100 900;
+  font-family: NeueCometVariable; font-style: italic; font-weight: 100 900;
   font-display: block; /* <-- block, not swap */
-  src: url('../font-files/InterVariable-Italic.woff2?v={{font_v}}') format('woff2');
+  src: url('../font-files/NeueCometVariable-Italic.woff2?v={{font_v}}') format('woff2');
 }
 @font-face {
   font-family: "jbmono";
@@ -26,7 +26,7 @@ layout: none
   font-display: swap;
   src: url("JetBrainsMono-Italic.woff2") format("woff2");
 }
-@font-feature-values InterVariable {
+@font-feature-values NeueCometVariable {
   @styleset {
     alt-digits: 1;
     disambiguation: 2;
@@ -83,7 +83,7 @@ layout: none
   --green:  rgb(38, 220, 78);
   --medium-green: rgb(119, 221, 134);
 
-  --font-family: InterVariable;
+  --font-family: NeueCometVariable;
 
   /* font-size needed at :root for rem to work as expected */
   font-family: var(--font-family), sans-serif;
@@ -92,7 +92,7 @@ layout: none
   font-feature-settings: 'liga' 1, 'calt' 1; /* workaround for bug in Chrome */
 }
 @supports not (font-variation-settings: normal) { :root {
-  --font-family: Inter;
+  --font-family: 'Neue Comet';
 }}
 @supports not (color: color(display-p3 1 1 1)) { :root { /* sRGB colors */
   --red: #F03009;

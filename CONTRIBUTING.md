@@ -1,22 +1,22 @@
-# Contributing to the Inter font project
+# Contributing to the Neue Comet font project
 
-First off, thank you for considering contributing to Inter.
+First off, thank you for considering contributing to Neue Comet.
 It's people like you that make the Internet such a great place.
 
 Following these guidelines helps to communicate that you respect the time of the people managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue or suggestion.
 
-By contributing work to the Inter font project you agree to have all work contributed becoming the intellectual property of the Inter font project as described by [SIL Open Font License, Version 1.1](http://scripts.sil.org/OFL)
+By contributing work to the Neue Comet font project you agree to have all work contributed becoming the intellectual property of the Neue Comet font project as described by [SIL Open Font License, Version 1.1](http://scripts.sil.org/OFL)
 
 
 ## Types of contributions this project is looking for
 
-- [Reporting issues](https://github.com/rsms/inter/issues/new?template=bug_report.md)
+- [Reporting issues](https://github.com/rift4/Neue.Comet/issues/new?template=bug_report.md)
   like bad kerning pairs or variable-font interpolation bugs.
 
 - Fixes to
-  [issues tagged "help wanted"](https://github.com/rsms/inter/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+  [issues tagged "help wanted"](https://github.com/rift4/Neue.Comet/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
   provided as either
-  [GitHub pull requests](https://github.com/rsms/inter/pulls)
+  [GitHub pull requests](https://github.com/rift4/Neue.Comet/pulls)
   or comments in the issue.
 
 - Improvements to the Display "opsz" designs...
@@ -24,9 +24,9 @@ By contributing work to the Inter font project you agree to have all work contri
 
 ### Improvements to the Display "opsz" designs
 
-The Display (`opsz=32`) designs was derived from the text family ("Inter") and scaled to a different UPM (2048). It also had all of its kerning reduced.
+The Display (`opsz=32`) designs was derived from the text family ("Neue Comet") and scaled to a different UPM (2048). It also had all of its kerning reduced.
 
-Inter Display has a lower x-height compared to the text (`opsz=16`) designs — this is the biggest difference in terms of work needed.
+Neue Comet Display has a lower x-height compared to the text (`opsz=16`) designs — this is the biggest difference in terms of work needed.
 
 ![](misc/readme/display-x-height-cmp.png)
 
@@ -50,7 +50,7 @@ If these rules are not followed, generated styles will fail to build.
 
 ## Compiling font files
 
-The Inter toolchain is a collection of programs setup to build everything
+The Neue Comet toolchain is a collection of programs setup to build everything
 in a high-quality and reliable way. It can be fully automated and requires no
 paid software.
 
@@ -96,13 +96,13 @@ There are two things in particular that will help you with this:
 You can invoke `make` with either names of styles, names of styles and file formats, or even specific filenames. Here are a few examples:
 
 ```sh
-make -j build/fonts/static/Inter-Regular.otf \
-        build/fonts/static/Inter-MediumItalic.woff2
+make -j build/fonts/static/NeueComet-Regular.otf \
+        build/fonts/static/NeueComet-MediumItalic.woff2
 make -j static_otf  # all non-variable OTF fonts
-make -j build/fonts/static-hinted/Inter-ExtraLight.woff2
+make -j build/fonts/static-hinted/NeueComet-ExtraLight.woff2
 ```
 
-All resulting font files are written to the `build` directory with `Inter-` as the filename prefix. The `Makefile` file contains information about more possibilities of `make`.
+All resulting font files are written to the `build` directory with `Neue Comet-` as the filename prefix. The `Makefile` file contains information about more possibilities of `make`.
 
 [**The interactive Lab**](#interactive-lab) is a great tool for quickly exploring your font files. It's a web-based tool which you start in a terminal by running:
 
@@ -118,17 +118,17 @@ See [Interactive Lab](#interactive-lab) for more details.
 ### Editing source files
 
 This font is stored and authored primarily in the [Glyphs](https://glyphsapp.com/)
-`Inter.glyphspackage` directory (a macOS "bundle.")
+`Neue Comet.glyphspackage` directory (a macOS "bundle.")
 
 
 #### Editing UFO sources
 
 In some cases you might want to edit or inspect the fonts as UFOs.
-Inter is compiled to UFO as an intermediary step.
+Neue Comet is compiled to UFO as an intermediary step.
 
-The quickest path to UFOs is to run `make -j$(nproc) build/ufo/Inter-DisplayMedium.ufo`. Substitute "Inter-DisplayMedium.ufo" for any style.
+The quickest path to UFOs is to run `make -j$(nproc) build/ufo/NeueComet-DisplayMedium.ufo`. Substitute "NeueComet-DisplayMedium.ufo" for any style.
 
-The quickest path to a designspace is to run `make -j$(nproc) build/ufo/Inter-Roman.designspace`
+The quickest path to a designspace is to run `make -j$(nproc) build/ufo/NeueComet-Roman.designspace`
 
 However, if you indend to edit the fonts you probably want to use the `editable-ufos` make target instead:
 
@@ -153,7 +153,7 @@ This project comes with a simple web-based application for debugging and preview
   alternate numerics, etc.
 - Controls for web-browser text features like `capitalize`, `uppercase`,
   `lowercase`, etc.
-- Ability to compare Inter side-by-side with other fonts.
+- Ability to compare Neue Comet side-by-side with other fonts.
 
 To start the lab, simply run this in a terminal (and keep the terminal running.)
 
@@ -163,7 +163,7 @@ To start the lab, simply run this in a terminal (and keep the terminal running.)
 
 You can now visit the URL printed on the screen to use the lab. Simply `make -j web` for all styles or `make var_web` for quickly building only the variable font. Then reload the web page to try the new build.
 
-An online version of the lab is available at <https://rsms.me/inter/lab/> with the most recent official release of the Inter font files.
+An online version of the lab is available at <https://rift4.github.io/Neue.Comet/lab/> with the most recent official release of the Neue Comet font files.
 
 
 ### Kerning
@@ -186,7 +186,7 @@ Kerning groups is a really simple but incredibly time-saving way of kerning a fo
 The script `misc/tools/kernsample.py` is helpful in generating samples for all existing right-hand side characters given a left-hand side glyphname.
 
 ```txt
-$ misc/kernsample.py src/Inter-Black.ufo P -suffix MOR
+$ misc/kernsample.py src/NeueComet-Black.ufo P -suffix MOR
 PAMOR P/AE MOR PJMOR PXMOR PYMOR PZMOR P/ae mor P/ampersand mor
 P/backslash mor P/dzcaron mor P/eightsub mor P/ellipsis mor Pfmor
 P/four mor P/guilsinglleft mor P/idieresisacute mor P/periodcentered
@@ -205,7 +205,7 @@ This only includes existing kerning and is thus only useful for adjustments. Add
 and writes a pstat file. Example:
 
 ```
-misc/fontbuild --profile=build/tmp/1.pstat compile -o build/tmp/f.otf build/ufo/Inter-Regular.ufo
+misc/fontbuild --profile=build/tmp/1.pstat compile -o build/tmp/f.otf build/ufo/NeueComet-Regular.ufo
 ```
 
 You can print pstat files with the `fmtprofile.py` tool:
@@ -232,7 +232,7 @@ Python programs.
 
 ### Miscellaneous tools
 
-There are several tools included with Inter to help "wrangle" metrics, generate glyphs, create PDFs and so on. You can find these tools in the `misc/tools` directory. They are all command-line tools and their usage can be queried by providing the help flag `-h`.
+There are several tools included with Neue Comet to help "wrangle" metrics, generate glyphs, create PDFs and so on. You can find these tools in the `misc/tools` directory. They are all command-line tools and their usage can be queried by providing the help flag `-h`.
 
 For example, the fontinfo tool can be used to generate a JSON description of all metadata and merics of a TTF or OTF file:
 

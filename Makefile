@@ -44,9 +44,9 @@ $(UFODIR)/%.designspace: $(UFODIR)/%.glyphs $(UFODIR)/features misc/tools/postpr
 	python misc/tools/postprocess-designspace.py $@
 
 # instance UFOs from designspace
-$(UFODIR)/Inter%Italic.ufo: $(UFODIR)/Inter-Italic.designspace misc/tools/gen-instance-ufo.sh | venv
+$(UFODIR)/NeueComet%Italic.ufo: $(UFODIR)/NeueComet-Italic.designspace misc/tools/gen-instance-ufo.sh | venv
 	bash misc/tools/gen-instance-ufo.sh $< $@
-$(UFODIR)/Inter%.ufo: $(UFODIR)/Inter-Roman.designspace misc/tools/gen-instance-ufo.sh | venv
+$(UFODIR)/NeueComet%.ufo: $(UFODIR)/NeueComet-Roman.designspace misc/tools/gen-instance-ufo.sh | venv
 	bash misc/tools/gen-instance-ufo.sh $< $@
 
 # designspace & master UFOs (for editing)
@@ -57,97 +57,97 @@ build/ufo-editable/%.designspace: $(UFODIR)/%.glyphs $(UFODIR)/features misc/too
 	python misc/tools/postprocess-designspace.py --editable $@
 
 # instance UFOs from designspace (for editing)
-build/ufo-editable/Inter%Italic.ufo: build/ufo-editable/Inter-Italic.designspace misc/tools/gen-instance-ufo.sh | venv
+build/ufo-editable/NeueComet%Italic.ufo: build/ufo-editable/NeueComet-Italic.designspace misc/tools/gen-instance-ufo.sh | venv
 	bash misc/tools/gen-instance-ufo.sh $< $@
-build/ufo-editable/Inter%.ufo: build/ufo-editable/Inter-Roman.designspace misc/tools/gen-instance-ufo.sh | venv
+build/ufo-editable/NeueComet%.ufo: build/ufo-editable/NeueComet-Roman.designspace misc/tools/gen-instance-ufo.sh | venv
 	bash misc/tools/gen-instance-ufo.sh $< $@
 
 editable-ufos: build/ufo-editable/.ok
 	@echo "Editable designspace & UFOs can be found here:"
 	@echo "  $(PWD)/build/ufo-editable"
 
-build/ufo-editable/.ok: build/ufo-editable/Inter-Roman.designspace build/ufo-editable/Inter-Italic.designspace
+build/ufo-editable/.ok: build/ufo-editable/NeueComet-Roman.designspace build/ufo-editable/NeueComet-Italic.designspace
 	@rm -f build/ufo-editable/features
 	@ln -s ../../src/features build/ufo-editable/features
 	$(MAKE) \
-		build/ufo-editable/Inter-Light.ufo \
-		build/ufo-editable/Inter-ExtraLight.ufo \
-		build/ufo-editable/Inter-Medium.ufo \
-		build/ufo-editable/Inter-SemiBold.ufo \
-		build/ufo-editable/Inter-Bold.ufo \
-		build/ufo-editable/Inter-ExtraBold.ufo \
+		build/ufo-editable/NeueComet-Light.ufo \
+		build/ufo-editable/NeueComet-ExtraLight.ufo \
+		build/ufo-editable/NeueComet-Medium.ufo \
+		build/ufo-editable/NeueComet-SemiBold.ufo \
+		build/ufo-editable/NeueComet-Bold.ufo \
+		build/ufo-editable/NeueComet-ExtraBold.ufo \
 		\
-		build/ufo-editable/Inter-LightItalic.ufo \
-		build/ufo-editable/Inter-ExtraLightItalic.ufo \
-		build/ufo-editable/Inter-MediumItalic.ufo \
-		build/ufo-editable/Inter-SemiBoldItalic.ufo \
-		build/ufo-editable/Inter-BoldItalic.ufo \
-		build/ufo-editable/Inter-ExtraBoldItalic.ufo \
+		build/ufo-editable/NeueComet-LightItalic.ufo \
+		build/ufo-editable/NeueComet-ExtraLightItalic.ufo \
+		build/ufo-editable/NeueComet-MediumItalic.ufo \
+		build/ufo-editable/NeueComet-SemiBoldItalic.ufo \
+		build/ufo-editable/NeueComet-BoldItalic.ufo \
+		build/ufo-editable/NeueComet-ExtraBoldItalic.ufo \
 		\
-		build/ufo-editable/InterDisplay-Light.ufo \
-		build/ufo-editable/InterDisplay-ExtraLight.ufo \
-		build/ufo-editable/InterDisplay-Medium.ufo \
-		build/ufo-editable/InterDisplay-SemiBold.ufo \
-		build/ufo-editable/InterDisplay-Bold.ufo \
-		build/ufo-editable/InterDisplay-ExtraBold.ufo \
+		build/ufo-editable/NeueCometDisplay-Light.ufo \
+		build/ufo-editable/NeueCometDisplay-ExtraLight.ufo \
+		build/ufo-editable/NeueCometDisplay-Medium.ufo \
+		build/ufo-editable/NeueCometDisplay-SemiBold.ufo \
+		build/ufo-editable/NeueCometDisplay-Bold.ufo \
+		build/ufo-editable/NeueCometDisplay-ExtraBold.ufo \
 		\
-		build/ufo-editable/InterDisplay-LightItalic.ufo \
-		build/ufo-editable/InterDisplay-ExtraLightItalic.ufo \
-		build/ufo-editable/InterDisplay-MediumItalic.ufo \
-		build/ufo-editable/InterDisplay-SemiBoldItalic.ufo \
-		build/ufo-editable/InterDisplay-BoldItalic.ufo \
-		build/ufo-editable/InterDisplay-ExtraBoldItalic.ufo
+		build/ufo-editable/NeueCometDisplay-LightItalic.ufo \
+		build/ufo-editable/NeueCometDisplay-ExtraLightItalic.ufo \
+		build/ufo-editable/NeueCometDisplay-MediumItalic.ufo \
+		build/ufo-editable/NeueCometDisplay-SemiBoldItalic.ufo \
+		build/ufo-editable/NeueCometDisplay-BoldItalic.ufo \
+		build/ufo-editable/NeueCometDisplay-ExtraBoldItalic.ufo
 	@touch $@
 	@echo ""
 
 # make sure intermediate files are not rm'd by make
 .PRECIOUS: \
-	$(UFODIR)/Inter-Black.ufo \
-	$(UFODIR)/Inter-Regular.ufo \
-	$(UFODIR)/Inter-Thin.ufo \
-	$(UFODIR)/Inter-Light.ufo \
-	$(UFODIR)/Inter-ExtraLight.ufo \
-	$(UFODIR)/Inter-Medium.ufo \
-	$(UFODIR)/Inter-SemiBold.ufo \
-	$(UFODIR)/Inter-Bold.ufo \
-	$(UFODIR)/Inter-ExtraBold.ufo \
+	$(UFODIR)/NeueComet-Black.ufo \
+	$(UFODIR)/NeueComet-Regular.ufo \
+	$(UFODIR)/NeueComet-Thin.ufo \
+	$(UFODIR)/NeueComet-Light.ufo \
+	$(UFODIR)/NeueComet-ExtraLight.ufo \
+	$(UFODIR)/NeueComet-Medium.ufo \
+	$(UFODIR)/NeueComet-SemiBold.ufo \
+	$(UFODIR)/NeueComet-Bold.ufo \
+	$(UFODIR)/NeueComet-ExtraBold.ufo \
 	\
-	$(UFODIR)/Inter-BlackItalic.ufo \
-	$(UFODIR)/Inter-Italic.ufo \
-	$(UFODIR)/Inter-ThinItalic.ufo \
-	$(UFODIR)/Inter-LightItalic.ufo \
-	$(UFODIR)/Inter-ExtraLightItalic.ufo \
-	$(UFODIR)/Inter-MediumItalic.ufo \
-	$(UFODIR)/Inter-SemiBoldItalic.ufo \
-	$(UFODIR)/Inter-BoldItalic.ufo \
-	$(UFODIR)/Inter-ExtraBoldItalic.ufo \
+	$(UFODIR)/NeueComet-BlackItalic.ufo \
+	$(UFODIR)/NeueComet-Italic.ufo \
+	$(UFODIR)/NeueComet-ThinItalic.ufo \
+	$(UFODIR)/NeueComet-LightItalic.ufo \
+	$(UFODIR)/NeueComet-ExtraLightItalic.ufo \
+	$(UFODIR)/NeueComet-MediumItalic.ufo \
+	$(UFODIR)/NeueComet-SemiBoldItalic.ufo \
+	$(UFODIR)/NeueComet-BoldItalic.ufo \
+	$(UFODIR)/NeueComet-ExtraBoldItalic.ufo \
 	\
-	$(UFODIR)/InterDisplay-Black.ufo \
-	$(UFODIR)/InterDisplay-Regular.ufo \
-	$(UFODIR)/InterDisplay-Thin.ufo \
-	$(UFODIR)/InterDisplay-Light.ufo \
-	$(UFODIR)/InterDisplay-ExtraLight.ufo \
-	$(UFODIR)/InterDisplay-Medium.ufo \
-	$(UFODIR)/InterDisplay-SemiBold.ufo \
-	$(UFODIR)/InterDisplay-Bold.ufo \
-	$(UFODIR)/InterDisplay-ExtraBold.ufo \
+	$(UFODIR)/NeueCometDisplay-Black.ufo \
+	$(UFODIR)/NeueCometDisplay-Regular.ufo \
+	$(UFODIR)/NeueCometDisplay-Thin.ufo \
+	$(UFODIR)/NeueCometDisplay-Light.ufo \
+	$(UFODIR)/NeueCometDisplay-ExtraLight.ufo \
+	$(UFODIR)/NeueCometDisplay-Medium.ufo \
+	$(UFODIR)/NeueCometDisplay-SemiBold.ufo \
+	$(UFODIR)/NeueCometDisplay-Bold.ufo \
+	$(UFODIR)/NeueCometDisplay-ExtraBold.ufo \
 	\
-	$(UFODIR)/InterDisplay-BlackItalic.ufo \
-	$(UFODIR)/InterDisplay-Italic.ufo \
-	$(UFODIR)/InterDisplay-ThinItalic.ufo \
-	$(UFODIR)/InterDisplay-LightItalic.ufo \
-	$(UFODIR)/InterDisplay-ExtraLightItalic.ufo \
-	$(UFODIR)/InterDisplay-MediumItalic.ufo \
-	$(UFODIR)/InterDisplay-SemiBoldItalic.ufo \
-	$(UFODIR)/InterDisplay-BoldItalic.ufo \
-	$(UFODIR)/InterDisplay-ExtraBoldItalic.ufo \
+	$(UFODIR)/NeueCometDisplay-BlackItalic.ufo \
+	$(UFODIR)/NeueCometDisplay-Italic.ufo \
+	$(UFODIR)/NeueCometDisplay-ThinItalic.ufo \
+	$(UFODIR)/NeueCometDisplay-LightItalic.ufo \
+	$(UFODIR)/NeueCometDisplay-ExtraLightItalic.ufo \
+	$(UFODIR)/NeueCometDisplay-MediumItalic.ufo \
+	$(UFODIR)/NeueCometDisplay-SemiBoldItalic.ufo \
+	$(UFODIR)/NeueCometDisplay-BoldItalic.ufo \
+	$(UFODIR)/NeueCometDisplay-ExtraBoldItalic.ufo \
 	\
-	$(UFODIR)/Inter-Roman.glyphs \
-	$(UFODIR)/Inter-Italic.glyphs \
-	$(UFODIR)/Inter-Roman.designspace \
-	$(UFODIR)/Inter-Italic.designspace \
-	$(UFODIR)/Inter-Roman.var.designspace \
-	$(UFODIR)/Inter-Italic.var.designspace
+	$(UFODIR)/NeueComet-Roman.glyphs \
+	$(UFODIR)/NeueComet-Italic.glyphs \
+	$(UFODIR)/NeueComet-Roman.designspace \
+	$(UFODIR)/NeueComet-Italic.designspace \
+	$(UFODIR)/NeueComet-Roman.var.designspace \
+	$(UFODIR)/NeueComet-Italic.var.designspace
 
 # ---------------------------------------------------------------------------------
 # products
@@ -164,10 +164,11 @@ else
 endif
 
 
-$(FONTDIR)/static/%.otf: $(UFODIR)/%.ufo build/features_data | $(FONTDIR)/static venv
+$(FONTDIR)/static/%.otf: $(UFODIR)/%.ufo build/features_data misc/tools/normalize-static-names.py | $(FONTDIR)/static venv
 	fontmake -u $< -o otf --output-path $@.tmp.otf $(FM_ARGS_2)
 	psautohint -o $@ $@.tmp.otf
 	@rm $@.tmp.otf
+	python misc/tools/normalize-static-names.py $@
 
 $(FONTDIR)/static/%.ttf: $(UFODIR)/%.ufo build/features_data | $(FONTDIR)/static venv
 	fontmake -u $< -o ttf --output-path $@ $(FM_ARGS_2)
@@ -175,33 +176,33 @@ $(FONTDIR)/static/%.ttf: $(UFODIR)/%.ufo build/features_data | $(FONTDIR)/static
 
 AUTOHINT_ARGS := --stem-width-mode=qqq --no-info
 
-$(FONTDIR)/static-hinted/Inter-Regular.ttf: $(FONTDIR)/static/Inter-Regular.ttf | $(FONTDIR)/static-hinted venv
+$(FONTDIR)/static-hinted/NeueComet-Regular.ttf: $(FONTDIR)/static/NeueComet-Regular.ttf | $(FONTDIR)/static-hinted venv
 	python -m ttfautohint $(AUTOHINT_ARGS) "$<" "$@"
 
-$(FONTDIR)/static-hinted/InterDisplay-Regular.ttf: $(FONTDIR)/static/InterDisplay-Regular.ttf | $(FONTDIR)/static-hinted venv
+$(FONTDIR)/static-hinted/NeueCometDisplay-Regular.ttf: $(FONTDIR)/static/NeueCometDisplay-Regular.ttf | $(FONTDIR)/static-hinted venv
 	python -m ttfautohint $(AUTOHINT_ARGS) "$<" "$@"
 
-$(FONTDIR)/static-hinted/Inter-Italic.ttf: $(FONTDIR)/static/Inter-Italic.ttf | $(FONTDIR)/static-hinted venv
+$(FONTDIR)/static-hinted/NeueComet-Italic.ttf: $(FONTDIR)/static/NeueComet-Italic.ttf | $(FONTDIR)/static-hinted venv
 	python -m ttfautohint $(AUTOHINT_ARGS) "$<" "$@"
 
-$(FONTDIR)/static-hinted/InterDisplay-Italic.ttf: $(FONTDIR)/static/InterDisplay-Italic.ttf | $(FONTDIR)/static-hinted venv
+$(FONTDIR)/static-hinted/NeueCometDisplay-Italic.ttf: $(FONTDIR)/static/NeueCometDisplay-Italic.ttf | $(FONTDIR)/static-hinted venv
 	python -m ttfautohint $(AUTOHINT_ARGS) "$<" "$@"
 
-$(FONTDIR)/static-hinted/InterDisplay-%Italic.ttf: $(FONTDIR)/static/InterDisplay-%Italic.ttf | $(FONTDIR)/static-hinted/InterDisplay-Italic.ttf $(FONTDIR)/static-hinted venv
+$(FONTDIR)/static-hinted/NeueCometDisplay-%Italic.ttf: $(FONTDIR)/static/NeueCometDisplay-%Italic.ttf | $(FONTDIR)/static-hinted/NeueCometDisplay-Italic.ttf $(FONTDIR)/static-hinted venv
 	python -m ttfautohint $(AUTOHINT_ARGS) \
-	  --reference $(FONTDIR)/static-hinted/InterDisplay-Italic.ttf "$<" "$@"
+	  --reference $(FONTDIR)/static-hinted/NeueCometDisplay-Italic.ttf "$<" "$@"
 
-$(FONTDIR)/static-hinted/InterDisplay-%.ttf: $(FONTDIR)/static/InterDisplay-%.ttf | $(FONTDIR)/static-hinted/InterDisplay-Regular.ttf $(FONTDIR)/static-hinted venv
+$(FONTDIR)/static-hinted/NeueCometDisplay-%.ttf: $(FONTDIR)/static/NeueCometDisplay-%.ttf | $(FONTDIR)/static-hinted/NeueCometDisplay-Regular.ttf $(FONTDIR)/static-hinted venv
 	python -m ttfautohint $(AUTOHINT_ARGS) \
-	  --reference $(FONTDIR)/static-hinted/InterDisplay-Regular.ttf "$<" "$@"
+	  --reference $(FONTDIR)/static-hinted/NeueCometDisplay-Regular.ttf "$<" "$@"
 
-$(FONTDIR)/static-hinted/Inter-%Italic.ttf: $(FONTDIR)/static/Inter-%Italic.ttf | $(FONTDIR)/static-hinted/Inter-Italic.ttf $(FONTDIR)/static-hinted venv
+$(FONTDIR)/static-hinted/NeueComet-%Italic.ttf: $(FONTDIR)/static/NeueComet-%Italic.ttf | $(FONTDIR)/static-hinted/NeueComet-Italic.ttf $(FONTDIR)/static-hinted venv
 	python -m ttfautohint $(AUTOHINT_ARGS) \
-	  --reference $(FONTDIR)/static-hinted/Inter-Italic.ttf "$<" "$@"
+	  --reference $(FONTDIR)/static-hinted/NeueComet-Italic.ttf "$<" "$@"
 
-$(FONTDIR)/static-hinted/Inter-%.ttf: $(FONTDIR)/static/Inter-%.ttf | $(FONTDIR)/static-hinted/Inter-Regular.ttf $(FONTDIR)/static-hinted venv
+$(FONTDIR)/static-hinted/NeueComet-%.ttf: $(FONTDIR)/static/NeueComet-%.ttf | $(FONTDIR)/static-hinted/NeueComet-Regular.ttf $(FONTDIR)/static-hinted venv
 	python -m ttfautohint $(AUTOHINT_ARGS) \
-	  --reference $(FONTDIR)/static-hinted/Inter-Regular.ttf "$<" "$@"
+	  --reference $(FONTDIR)/static-hinted/NeueComet-Regular.ttf "$<" "$@"
 
 
 $(FONTDIR)/var/.%.var.ttf: $(UFODIR)/%.var.designspace build/features_data | $(FONTDIR)/var venv
@@ -211,15 +212,63 @@ $(FONTDIR)/var/.%.var.otf: $(UFODIR)/%.var.designspace build/features_data | $(F
 	fontmake -o variable-cff2 -m $< --output-path $@ $(FM_ARGS_2)
 
 
+# NOTE: the var/ woff2 files are named after the ttf (they are served to the
+# web), so they are given an explicit rule to pin the glyf source rather than
+# matching the generic %.woff2: %.otf pattern rule.
+$(FONTDIR)/var/NeueCometVariable.woff2: $(FONTDIR)/var/NeueCometVariable.ttf | venv
+	misc/tools/woff2 compress -o "$@" "$<"
+
+$(FONTDIR)/var/NeueCometVariable-Italic.woff2: $(FONTDIR)/var/NeueCometVariable-Italic.ttf | venv
+	misc/tools/woff2 compress -o "$@" "$<"
+
+$(FONTDIR)/var/NeueCometVariable-cff2.woff2: $(FONTDIR)/var/NeueCometVariable.otf | venv
+	misc/tools/woff2 compress -o "$@" "$<"
+
+$(FONTDIR)/var/NeueCometVariable-Italic-cff2.woff2: $(FONTDIR)/var/NeueCometVariable-Italic.otf | venv
+	misc/tools/woff2 compress -o "$@" "$<"
+
 %.woff2: %.ttf | venv
 	misc/tools/woff2 compress -o "$@" "$<"
 
+# Unhinted static webfonts are built from the CFF2 .otf sources (see
+# $(FONTDIR)/static/%.otf above), so they need their own rule. Note this must
+# NOT be a second "%.woff2: %.otf" pattern rule: make picks the first matching
+# pattern rule for a target and will not fall back to the other, which breaks
+# the .ttf-derived woff2 files.
+$(FONTDIR)/static/%.woff2: $(FONTDIR)/static/%.otf | venv
+	misc/tools/woff2 compress -o "$@" "$<"
 
-$(FONTDIR)/var/InterVariable.ttf: $(FONTDIR)/var/.Inter-Roman.var.ttf misc/tools/bake-vf.py
+
+$(FONTDIR)/var/NeueCometVariable.otf: $(FONTDIR)/var/.NeueComet-Roman.var.otf misc/tools/bake-vf.py
 	python misc/tools/bake-vf.py $< -o $@
 
-$(FONTDIR)/var/InterVariable-Italic.ttf: $(FONTDIR)/var/.Inter-Italic.var.ttf misc/tools/bake-vf.py
+$(FONTDIR)/var/NeueCometVariable-Italic.otf: $(FONTDIR)/var/.NeueComet-Italic.var.otf misc/tools/bake-vf.py
 	python misc/tools/bake-vf.py $< -o $@
+
+$(FONTDIR)/var/NeueCometVariable.ttf: $(FONTDIR)/var/.NeueComet-Roman.var.ttf misc/tools/bake-vf.py
+	python misc/tools/bake-vf.py $< -o $@
+
+$(FONTDIR)/var/NeueCometVariable-Italic.ttf: $(FONTDIR)/var/.NeueComet-Italic.var.ttf misc/tools/bake-vf.py
+	python misc/tools/bake-vf.py $< -o $@
+
+
+# The variable font ships in two flavours:
+#   glyf (.ttf) -- the default, for the web (docs/, CDN, @font-face)
+#   CFF2 (.otf) -- smaller with nicer curves, for desktop installs
+# CFF2 VFs have patchy support on older Windows/DirectWrite and some Linux
+# stacks, so glyf stays the default for web distribution.
+VAR_GLYF := \
+	$(FONTDIR)/var/NeueCometVariable.ttf \
+	$(FONTDIR)/var/NeueCometVariable-Italic.ttf
+
+VAR_CFF2 := \
+	$(FONTDIR)/var/NeueCometVariable.otf \
+	$(FONTDIR)/var/NeueCometVariable-Italic.otf
+
+VAR_GLYF_WEB  := $(VAR_GLYF:%.ttf=%.woff2)
+VAR_CFF2_WEB := \
+	$(FONTDIR)/var/NeueCometVariable-cff2.woff2 \
+	$(FONTDIR)/var/NeueCometVariable-Italic-cff2.woff2
 
 
 $(FONTDIR)/static:
@@ -232,66 +281,57 @@ $(UFODIR):
 	mkdir -p $@
 
 
-var: \
-	$(FONTDIR)/var/InterVariable.ttf \
-	$(FONTDIR)/var/InterVariable-Italic.ttf
+var: $(VAR_GLYF)
 
-googlefonts: var
-	gftools fix-family $(FONTDIR)/var/*.ttf \
-	--rename-family "Inter" \
-	--include-source-fixes \
-	-o $(FONTDIR)/googlefonts;
-	gftools fontsetter $(FONTDIR)/googlefonts/Inter[opsz,wght].ttf src/googlefonts-fixes.yaml -o $(FONTDIR)/googlefonts/Inter[opsz,wght].ttf;
-	gftools fontsetter $(FONTDIR)/googlefonts/Inter-Italic[opsz,wght].ttf src/googlefonts-fixes.yaml -o $(FONTDIR)/googlefonts/Inter-Italic[opsz,wght].ttf;
+var_otf: $(VAR_CFF2)
 
-var_web: \
-	$(FONTDIR)/var/InterVariable.woff2 \
-	$(FONTDIR)/var/InterVariable-Italic.woff2
+var_web: $(VAR_GLYF_WEB)
+var_otf_web: $(VAR_CFF2_WEB)
 
 web: var_web static_web static_web_hinted
 
 static: \
-	$(FONTDIR)/static-hinted/Inter.ttc
+	$(FONTDIR)/static-hinted/NeueComet.ttc
 
 STATIC_TEXT_FONTS := \
-	Inter-Regular \
-	Inter-Black \
-	Inter-BlackItalic \
-	Inter-Italic \
-	Inter-Thin \
-	Inter-ThinItalic \
-	Inter-Light \
-	Inter-LightItalic \
-	Inter-ExtraLight \
-	Inter-ExtraLightItalic \
-	Inter-Medium \
-	Inter-MediumItalic \
-	Inter-SemiBold \
-	Inter-SemiBoldItalic \
-	Inter-Bold \
-	Inter-BoldItalic \
-	Inter-ExtraBold \
-	Inter-ExtraBoldItalic
+	NeueComet-Regular \
+	NeueComet-Black \
+	NeueComet-BlackItalic \
+	NeueComet-Italic \
+	NeueComet-Thin \
+	NeueComet-ThinItalic \
+	NeueComet-Light \
+	NeueComet-LightItalic \
+	NeueComet-ExtraLight \
+	NeueComet-ExtraLightItalic \
+	NeueComet-Medium \
+	NeueComet-MediumItalic \
+	NeueComet-SemiBold \
+	NeueComet-SemiBoldItalic \
+	NeueComet-Bold \
+	NeueComet-BoldItalic \
+	NeueComet-ExtraBold \
+	NeueComet-ExtraBoldItalic
 
 STATIC_DISPLAY_FONTS := \
-	InterDisplay-Black \
-	InterDisplay-BlackItalic \
-	InterDisplay-Regular \
-	InterDisplay-Italic \
-	InterDisplay-Thin \
-	InterDisplay-ThinItalic \
-	InterDisplay-Light \
-	InterDisplay-LightItalic \
-	InterDisplay-ExtraLight \
-	InterDisplay-ExtraLightItalic \
-	InterDisplay-Medium \
-	InterDisplay-MediumItalic \
-	InterDisplay-SemiBold \
-	InterDisplay-SemiBoldItalic \
-	InterDisplay-Bold \
-	InterDisplay-BoldItalic \
-	InterDisplay-ExtraBold \
-	InterDisplay-ExtraBoldItalic
+	NeueCometDisplay-Black \
+	NeueCometDisplay-BlackItalic \
+	NeueCometDisplay-Regular \
+	NeueCometDisplay-Italic \
+	NeueCometDisplay-Thin \
+	NeueCometDisplay-ThinItalic \
+	NeueCometDisplay-Light \
+	NeueCometDisplay-LightItalic \
+	NeueCometDisplay-ExtraLight \
+	NeueCometDisplay-ExtraLightItalic \
+	NeueCometDisplay-Medium \
+	NeueCometDisplay-MediumItalic \
+	NeueCometDisplay-SemiBold \
+	NeueCometDisplay-SemiBoldItalic \
+	NeueCometDisplay-Bold \
+	NeueCometDisplay-BoldItalic \
+	NeueCometDisplay-ExtraBold \
+	NeueCometDisplay-ExtraBoldItalic
 
 STATIC_FONTS := $(STATIC_TEXT_FONTS) $(STATIC_DISPLAY_FONTS)
 STATIC_FONTS_OTF := $(patsubst %,$(FONTDIR)/static/%.otf,$(STATIC_FONTS))
@@ -299,10 +339,10 @@ STATIC_FONTS_TTF := $(patsubst %,$(FONTDIR)/static-hinted/%.ttf,$(STATIC_FONTS))
 STATIC_FONTS_WEB := $(patsubst %,$(FONTDIR)/static/%.woff2,$(STATIC_FONTS))
 STATIC_FONTS_WEB_HINTED := $(patsubst %,$(FONTDIR)/static-hinted/%.woff2,$(STATIC_FONTS))
 
-$(FONTDIR)/static/Inter.otc: $(STATIC_FONTS_OTF)
+$(FONTDIR)/static/NeueComet.otc: $(STATIC_FONTS_OTF)
 	python -m fontTools.ttLib.__main__ -o $@ $^
 
-$(FONTDIR)/static-hinted/Inter.ttc: $(STATIC_FONTS_TTF)
+$(FONTDIR)/static-hinted/NeueComet.ttc: $(STATIC_FONTS_TTF)
 	python -m fontTools.ttLib.__main__ -o $@ $^
 
 static_otf: $(STATIC_FONTS_OTF)
@@ -310,10 +350,10 @@ static_ttf: $(STATIC_FONTS_TTF)
 static_web: $(STATIC_FONTS_WEB)
 static_web_hinted: $(STATIC_FONTS_WEB_HINTED)
 
-all: var googlefonts static web static_otf
+all: var var_otf static web static_otf
 
 .PHONY: \
-	all var var_web web \
+	all var var_otf var_web var_otf_web web \
 	static static_otf static_ttf static_web static_web_hinted
 
 # ---------------------------------------------------------------------------------
@@ -343,7 +383,7 @@ FBAKE_DISABLED += com.google.fonts/check/family/win_ascent_and_descent
 
 FBAKE_DISABLED_STATIC += com.google.fonts/check/family/underline_thickness
 # "Fonts have consistent underline thickness"
-# Inter explicitly have varying underline thickness, matching wght
+# Neue Comet explicitly have varying underline thickness, matching wght
 
 FBAKE_DISABLED_STATIC += com.google.fonts/check/contour_count
 # This test is pedantic; generates warnings when the number of contours are different
@@ -382,25 +422,25 @@ FBAKE_ARGS_STATIC = $(FBAKE_ARGS) $(patsubst %,-x %,$(FBAKE_DISABLED_STATIC))
 STATIC_TEXT_FONTS_TTF = $(patsubst %,$(FONTDIR)/static-hinted/%.ttf,$(STATIC_TEXT_FONTS))
 STATIC_DISPLAY_FONTS_TTF = $(patsubst %,$(FONTDIR)/static-hinted/%.ttf,$(STATIC_DISPLAY_FONTS))
 
-build/fontbakery-report-var.txt: $(FONTDIR)/var/InterVariable.ttf $(FONTDIR)/var/InterVariable-Italic.ttf | venv
-	@echo "fontbakery InterVariable -> $(@) ..."
+build/fontbakery-report-var.txt: $(VAR_GLYF) | venv
+	@echo "fontbakery NeueCometVariable -> $(@) ..."
 	@fontbakery $(FBAKE_ARGS) $^ > $@ \
 		|| (cat $@; echo "report at $@"; touch -m -t 199001010000 $@; exit 1)
-	@echo "fontbakery InterVariable: PASS"
+	@echo "fontbakery NeueCometVariable: PASS"
 	@grep -E -A7 '^Total:' $@ | tail -6 | sed -E 's/^ +/  /g'
 
 build/fontbakery-report-text.txt: $(STATIC_TEXT_FONTS_TTF) | venv
-	@echo "fontbakery Inter -> $@ ..."
+	@echo "fontbakery Neue Comet -> $@ ..."
 	@fontbakery $(FBAKE_ARGS_STATIC) $^ > $@ \
 		|| (cat $@; echo "report at $@"; touch -m -t 199001010000 $@; exit 1)
-	@echo "fontbakery Inter: PASS"
+	@echo "fontbakery Neue Comet: PASS"
 	@grep -E -A7 '^Total:' $@ | tail -6 | sed -E 's/^ +/  /g'
 
 build/fontbakery-report-display.txt: $(STATIC_DISPLAY_FONTS_TTF) | venv
-	@echo "fontbakery InterDisplay -> $@ ..."
+	@echo "fontbakery NeueCometDisplay -> $@ ..."
 	@fontbakery $(FBAKE_ARGS_STATIC) $^ > $@ \
 		|| (cat $@; echo "report at $@"; touch -m -t 199001010000 $@; exit 1)
-	@echo "fontbakery InterDisplay: PASS"
+	@echo "fontbakery NeueCometDisplay: PASS"
 	@grep -E -A7 '^Total:' $@ | tail -6 | sed -E 's/^ +/  /g'
 
 .PHONY: test test_var
@@ -410,15 +450,11 @@ build/fontbakery-report-display.txt: $(STATIC_DISPLAY_FONTS_TTF) | venv
 
 zip: all
 	bash misc/makezip2.sh -reveal-in-finder \
-		"build/release/Inter-$(VERSION)-$(shell git rev-parse --short=10 HEAD).zip"
+		"build/release/NeueComet-$(VERSION)-$(shell git rev-parse --short=10 HEAD).zip"
 
-zip_beta: \
-		$(FONTDIR)/var/InterVariable.ttf \
-		$(FONTDIR)/var/InterVariable.woff2 \
-		$(FONTDIR)/var/InterVariable-Italic.ttf \
-		$(FONTDIR)/var/InterVariable-Italic.woff2
+zip_beta: $(VAR_GLYF) $(VAR_GLYF_WEB)
 	mkdir -p build/release
-	zip -j -q -X "build/release/Inter_beta-$(VERSION)-$(shell date '+%Y%m%d_%H%M')-$(shell git rev-parse --short=10 HEAD).zip" $^
+	zip -j -q -X "build/release/NeueComet_beta-$(VERSION)-$(shell date '+%Y%m%d_%H%M')-$(shell git rev-parse --short=10 HEAD).zip" $^
 
 .PHONY: zip zip_beta
 
@@ -428,8 +464,7 @@ zip_beta: \
 # - step1 rebuilds from scratch, since font version & ID is based on git hash.
 # - step2 runs tests, then makes a zip archive and updates the website (docs/ dir.)
 
-DIST_ZIP = build/release/Inter-${VERSION}.zip
-DIST_ZIP_GF = $(SRCDIR)/build/release/Inter-$(VERSION)-GoogleFonts.zip
+DIST_ZIP = build/release/NeueComet-${VERSION}.zip
 
 dist:
 	@echo "——————————————————————————————————————————————————————————————————"
@@ -447,19 +482,13 @@ dist:
 		printf "Press ENTER to continue or ^C to cancel " ; read X) || true
 	@#
 	$(MAKE) -f $(MAKEFILE) -j$(nproc) clean
-	$(MAKE) -f $(MAKEFILE) -j$(nproc) all googlefonts
+	$(MAKE) -f $(MAKEFILE) -j$(nproc) all
 	$(MAKE) -f $(MAKEFILE) -j$(nproc) test
-	$(MAKE) -f $(MAKEFILE) -j$(nproc) dist_zip dist_zip_gf dist_docs
+	$(MAKE) -f $(MAKEFILE) -j$(nproc) dist_zip dist_docs
 	$(MAKE) -f $(MAKEFILE) dist_postflight
 
 dist_zip: | venv
 	bash misc/makezip2.sh -reveal-in-finder "$(DIST_ZIP)"
-
-dist_zip_gf: | venv
-	cd "$(FONTDIR)/googlefonts" && zip -q -X -r "$(DIST_ZIP_GF)" *.ttf
-
-dist_gf: googlefonts
-	$(MAKE) -f $(MAKEFILE) dist_zip_gf
 
 dist_docs:
 	$(MAKE) -C docs -j$(nproc) dist
@@ -480,57 +509,71 @@ dist_postflight:
 	@echo "——————————————————————————————————————————————————————————————————"
 
 .PHONY: dist dist_preflight dist_step1 dist_step2 dist_zip dist_docs dist_postflight
-.PHONY: dist_zip_gf dist_gf
 
 
 # ---------------------------------------------------------------------------------
 # install
 
-INSTALLDIR := $(HOME)/Library/Fonts/Inter
+INSTALLDIR := $(HOME)/Library/Fonts/NeueComet
 
 install: install_var install_ttf
 
 install_var: \
-	$(INSTALLDIR)/InterVariable.ttf \
-	$(INSTALLDIR)/InterVariable-Italic.ttf
+	$(INSTALLDIR)/NeueCometVariable.ttf \
+	$(INSTALLDIR)/NeueCometVariable-Italic.ttf
 
-install_ttf: $(INSTALLDIR)/Inter.ttc
-install_otf: $(INSTALLDIR)/Inter.otc
+install_ttf: $(INSTALLDIR)/NeueComet.ttc
+install_otf: $(INSTALLDIR)/NeueComet.otc
 
 $(INSTALLDIR)/%.ttc: $(FONTDIR)/static-hinted/%.ttc | $(INSTALLDIR)
 	@# remove conflicting OTF fonts
-	rm -f $(INSTALLDIR)/Inter*.otf $(INSTALLDIR)/Inter*.otc
+	rm -f $(INSTALLDIR)/NeueComet*.otf $(INSTALLDIR)/NeueComet*.otc
 	cp -a $^ $@
 
 $(INSTALLDIR)/%.otc: $(FONTDIR)/static/%.otc | $(INSTALLDIR)
 	@# remove conflicting TTF fonts
-	@rm -fv $(INSTALLDIR)/Inter*.ttc
+	@rm -fv $(INSTALLDIR)/NeueComet*.ttc
 	cp -a $^ $@
 
-$(INSTALLDIR)/InterVariable.ttf: $(FONTDIR)/var/InterVariable.ttf | $(INSTALLDIR)
-	@# remove font with legacy name
-	@rm -fv $(INSTALLDIR)/InterVariable.ttf
+$(INSTALLDIR)/NeueCometVariable.ttf: $(FONTDIR)/var/NeueCometVariable.ttf | $(INSTALLDIR)
+	@# force a fresh copy
+	@rm -fv $(INSTALLDIR)/NeueCometVariable.ttf
 	cp -a $^ $@
 
-$(INSTALLDIR)/InterVariable-Italic.ttf: $(FONTDIR)/var/InterVariable-Italic.ttf | $(INSTALLDIR)
-	@# remove font with legacy name
-	@rm -fv $(INSTALLDIR)/InterVariable-Italic.ttf
+$(INSTALLDIR)/NeueCometVariable-Italic.ttf: $(FONTDIR)/var/NeueCometVariable-Italic.ttf | $(INSTALLDIR)
+	@# force a fresh copy
+	@rm -fv $(INSTALLDIR)/NeueCometVariable-Italic.ttf
+	cp -a $^ $@
+
+# Desktop installs get the CFF2 variable font: smaller, nicer curves.
+install_var_otf: \
+	$(INSTALLDIR)/NeueCometVariable.otf \
+	$(INSTALLDIR)/NeueCometVariable-Italic.otf
+
+$(INSTALLDIR)/NeueCometVariable.otf: $(FONTDIR)/var/NeueCometVariable.otf | $(INSTALLDIR)
+	@# force a fresh copy
+	@rm -fv $(INSTALLDIR)/NeueCometVariable.otf
+	cp -a $^ $@
+
+$(INSTALLDIR)/NeueCometVariable-Italic.otf: $(FONTDIR)/var/NeueCometVariable-Italic.otf | $(INSTALLDIR)
+	@# force a fresh copy
+	@rm -fv $(INSTALLDIR)/NeueCometVariable-Italic.otf
 	cp -a $^ $@
 
 $(INSTALLDIR)/%.otf: $(FONTDIR)/static/%.otf | $(INSTALLDIR)
 	@# remove conflicting TTF fonts
-	rm -f $(INSTALLDIR)/{Inter,InterDisplay}-*.ttf
+	rm -f $(INSTALLDIR)/{NeueComet,NeueCometDisplay}-*.ttf
 	cp -a $^ $@
 
 $(INSTALLDIR):
 	mkdir -p $@
 
-.PHONY: install install_var install_ttf install_otf
+.PHONY: install install_var install_var_otf install_ttf install_otf
 
 # ---------------------------------------------------------------------------------
 # debug
 
-build/ttx/Inter-Var%: $(FONTDIR)/var/Inter-Var%.ttf
+build/ttx/NeueComet-Var%: $(FONTDIR)/var/NeueComet-Var%.ttf
 	rm -rf "build/ttx/$(basename $(notdir $^))"
 	mkdir -p "build/ttx/$(basename $(notdir $^))"
 	cp $^ "build/ttx/$(basename $(notdir $^))/$(notdir $^)"
@@ -545,8 +588,8 @@ build/ttx/%: $(FONTDIR)/static/%.ttf
 	ttx -x glyf -x GPOS -x GSUB -i -f -s "build/ttx/$(basename $(notdir $^))/$(notdir $^)"
 	@echo "Dumped $(notdir $^) to build/ttx/$(basename $(notdir $^))/"
 
-ttx_var_roman: build/ttx/InterVariable
-ttx_var_italic: build/ttx/InterVariable-Italic
+ttx_var_roman: build/ttx/NeueCometVariable
+ttx_var_italic: build/ttx/NeueCometVariable-Italic
 ttx_var: ttx_var_roman ttx_var_italic
 ttx_static: $(patsubst %,build/ttx/%,$(STATIC_FONTS))
 
@@ -556,7 +599,7 @@ ttx_static: $(patsubst %,build/ttx/%,$(STATIC_FONTS))
 # misc
 
 clean:
-	@for f in build/tmp build/fonts build/ufo build/googlefonts build/ttx; do \
+	@for f in build/tmp build/fonts build/ufo build/ttx; do \
 		[ ! -e $$f ] || echo "rm -rf $$f"; (rm -rf $$f; rm -rf $$f) & \
 	done; wait
 

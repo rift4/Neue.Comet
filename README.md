@@ -1,164 +1,211 @@
-# Inter
+# Neue Comet
 
-Inter is a typeface carefully crafted & designed for computer screens.
-Inter features a tall x-height to aid in readability of mixed-case and lower-case text.
-Inter is a [variable font](https://rsms.me/inter/#variable) with
-several [OpenType features](https://rsms.me/inter/#features), like contextual alternates that adjusts punctuation depending on the shape of surrounding glyphs, slashed zero for when you need to disambiguate "0" from "o", tabular numbers, etc.
+Neue Comet is a variable typeface for screens: a tall x-height, a large character
+set, and a wide weight range on two optical-size axes.
 
-[**Download Inter font files…**](https://github.com/rsms/inter/releases/latest)
+Version 4.2 · SIL Open Font License
 
-<br>
+[**Download the font files**](https://github.com/rift4/Neue.Comet/releases/latest)
 
-[![Sample](misc/readme/intro.png)](https://rsms.me/inter/)
+## Quick questions
 
+- **Where can I get it?** [Releases](https://github.com/rift4/Neue.Comet/releases/latest)
+- **Can I use it commercially?** Yes — bundle it with whatever you like, but you
+  may not sell the font itself. [Read the licence](LICENSE.txt).
+- **Something looks wrong.** [Open an issue](https://github.com/rift4/Neue.Comet/issues/new?template=bug_report.md)
+- **I have a question.** [Discussions Q&A](https://github.com/rift4/Neue.Comet/discussions/categories/q-a)
 
-### Quick questions
+## Installing on the web
 
-- **Where can I get Inter?** [Here](https://github.com/rsms/inter/releases/latest)
-- **I think I found a bug. How can I let you know?** [Open an issue here](https://github.com/rsms/inter/issues/new?template=bug_report.md)
-- **I have a question. Where can I get help?** [Post in Discussions Q&A](https://github.com/rsms/inter/discussions/categories/q-a)
-- **Should I use Inter from Google Fonts?** No, unless you have no other choice.
-  (outdated, no italics)
-- **Can I legally use Inter for my purpose?** Most likely _yes!_ Inter is free and open source.
-  ([Read the license](LICENSE.txt) for details.)
-
-
-## Using & installing Inter
-
-[**Download the latest font files…**](https://github.com/rsms/inter/releases/latest)
-
-Using Inter on a web page:
+Self-host the stylesheet:
 
 ```html
 <link rel="preconnect" href="https://your-font-file-host/">
-<link rel="stylesheet" href="https://your-font-file-host/inter.css">
+<link rel="stylesheet" href="https://your-font-file-host/neue-comet.css">
 ```
 
 ```css
-:root { font-family: 'Inter', sans-serif; }
+:root { font-family: 'Neue Comet', sans-serif; }
 @supports (font-variation-settings: normal) {
-  :root { font-family: 'Inter var', sans-serif; }
+  :root { font-family: 'Neue Comet var', sans-serif; }
 }
 ```
 
-For web pages, there's an official [CDN distribution](https://rsms.me/inter/inter.css) that you can use directly without having to host the font files yourself:
+Or pull it straight from this repo over
+[jsDelivr](https://www.jsdelivr.com/), with no hosting at all:
 
 ```html
-<link rel="preconnect" href="https://rsms.me/">
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@main/docs/neue-comet.css">
 ```
 
+Pin a release tag instead of `@main` in production, so the files can't change
+underneath you:
 
-### Alternate distributions
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@v4.2/docs/neue-comet.css">
+```
 
-- [NPM `inter-ui`](https://www.npmjs.com/package/inter-ui)
-- [Homebrew `font-inter`](https://github.com/Homebrew/homebrew-cask-fonts)
-- [Ubuntu `fonts-inter`](https://packages.ubuntu.com/search?keywords=fonts-inter)
-- [List of Inter available on various Linux distributions…](https://repology.org/project/fonts:inter/versions)
-- [Google Fonts](https://fonts.google.com/specimen/Inter)
+If you'd rather use a domain you control, put a CDN in front of it — Cloudflare
+or similar — and serve the same paths.
 
-**Disclaimer:** Alternate distributions may not always be up-to-date.
+## Installing on the desktop
 
+| Format | File | Use for |
+| --- | --- | --- |
+| glyf | `NeueCometVariable.ttf` | the web, `@font-face`, anywhere variable-font support is uncertain |
+| CFF2 | `NeueCometVariable.otf` | desktop installs — smaller file, nicer curves |
 
-## Notable uses of Inter
+The CFF2 build is not yet verified across browsers and platforms. Variable CFF2
+in particular has patchy support on older Windows/DirectWrite and some Linux
+stacks, so **glyf stays the default for the web**. Test it before you rely on it.
 
-- [ElementaryOS](https://elementary.io/)
-- [Figma](https://figma.com/)
-- [GitLab](https://gitlab.com/)
-- [Guggenheim museums](https://www.pentagram.com/work/guggenheim-3) ([case study](https://www.pentagram.com/work/guggenheim-3/))
-- [ISO (International Organization for Standardization)](https://www.iso.org/) ([case study](https://www.motherbird.com.au/projects/iso/))
-- [Minimalissimo magazine](https://minimalissimo.com/)
-- [Mozilla](https://mozilla.design/firefox/typography/)
-- [NASA](https://www.nasa.gov/specials/artemis-ii/)
-- [Pixar Presto](https://en.wikipedia.org/wiki/Presto_(animation_software))
-- [Switzerland, Canton of Zurich](https://www.zh.ch/)
-- [Unity](https://unity.com/)
-- [Zurich Airport](https://flughafen-zuerich.ch/)
+`make install_var` installs the glyf version, `make install_var_otf` the CFF2 one.
 
+## What you get
 
-> **Have you made something nice with Inter?**<br>
-> [Please share in Show & Tell! →](https://github.com/rsms/inter/discussions/categories/show-and-tell)
+**36 static fonts + 2 variable fonts**, in nine weights (Thin 100 → Black 900),
+roman and italic, plus a Display cut tuned for large sizes.
 
+| Roman | Italic | Weight |
+| --- | --- | --- |
+| Thin | Thin Italic | 100 |
+| ExtraLight | ExtraLight Italic | 200 |
+| Light | Light Italic | 300 |
+| Regular | Italic | 400 |
+| Medium | Medium Italic | 500 |
+| SemiBold | SemiBold Italic | 600 |
+| Bold | Bold Italic | 700 |
+| ExtraBold | ExtraBold Italic | 800 |
+| Black | Black Italic | 900 |
 
-### Notable forks
+The variable font carries two axes:
 
-- [Open Runde](https://github.com/lauridskern/open-runde) is a rounded variant of Inter
-- [Interalia](https://github.com/Shavian-info/interalia) extends Inter with Shavian characters
-- [Raveo](https://github.com/jakubfoglar/raveo) is a "warmer version" of Inter
+| Axis | Range | Default |
+| --- | --- | --- |
+| `wght` | 100 – 900 | 400 |
+| `opsz` | 14 – 32 | 14 |
 
+`opsz` is the optical-size axis: it interpolates the outlines themselves, so
+the cuts tuned to stay legible at small text sizes open up as the size grows.
+Applications with automatic optical sizing (`font-optical-sizing: auto`) will
+drive it for you; otherwise set it in `font-variation-settings`.
 
-## Supporters & contributors
+## Script coverage
 
-A wholehearted **Thank You** to everyone who supports the Inter project!
+2,852 encoded codepoints, 2,987 glyphs, 2048 units/em.
 
-Special thanks to
-[@thundernixon](https://github.com/thundernixon) and
-[@KatjaSchimmel](https://github.com/KatjaSchimmel)
-who have put in significant effort into making Inter what it is through
-their contributions ♡
+| Covered | |
+| --- | --- |
+| Latin | core, Extended-A, Extended Additional |
+| Greek | and Greek Extended |
+| Cyrillic | and Cyrillic Extended-A |
+| Symbols | punctuation, super/subscripts, currency, arrows, math operators, geometric shapes, dingbats |
 
-See [graphs/contributors](https://github.com/rsms/inter/graphs/contributors)
-for a complete list of all contributors.
+**Not covered:** Bengali/Bangla, Devanagari, Gurmukhi, Gujarati, Tamil, Thai,
+Arabic, Hebrew, CJK, Hangul, or any other non-Latin/Greek/Cyrillic script.
 
+If you need one of those, set a fallback stack — don't let the font silently
+substitute. For example, for Bangla:
 
-## Contributing to this project
+```css
+body {
+  font-family: 'Neue Comet', 'Noto Sans Bengali', system-ui, sans-serif;
+}
+```
 
-For instructions on how to work with the source files and how to
-[compile & build font files](CONTRIBUTING.md#compiling-font-files),
-refer to [**CONTRIBUTING.md**](CONTRIBUTING.md).
+This is a limitation inherited from the upstream design, not something that can
+be patched by adding a few glyphs — see the note at the foot of this file.
 
-Inter is licensed under the [SIL Open Font License](LICENSE.txt)
+## OpenType features
 
+41 GSUB features and 4 GPOS features. The ones you'll actually reach for:
 
-## Creating derivative fonts
+| Feature | What it does |
+| --- | --- |
+| `calt` | contextual alternates — punctuation adapts to its surroundings |
+| `zero` | slashed zero, to tell `0` from `O` |
+| `tnum` / `pnum` | tabular and proportional figures |
+| `frac` / `dnom` / `numr` | fractions, denominators, numerators |
+| `sups` / `subs` | super- and subscripts |
+| `ss01` – `ss08` | stylistic sets |
+| `cv01` – `cv16` | single character variants |
+| `case` | case-sensitive forms |
+| `locl` | localised forms |
 
-Inter is open source which means you can make your own versions with your own changes.
-However when doing so, please [**read LICENSE.txt carefully.**](LICENSE.txt) It is a standard **SIL Open Font License 1.1**:
+Kerning (`kern`), mark positioning (`mark`/`mkmk`) and capital spacing
+(`cpsp`) are in GPOS.
 
-> The goals of the Open Font License (OFL) are to stimulate worldwide
-> development of collaborative font projects, to support the font creation
-> efforts of academic and linguistic communities, and to provide a free and
-> open framework in which fonts may be shared and improved in partnership
-> with others.
->
-> The OFL allows the licensed fonts to be used, studied, modified and
-> redistributed freely as long as they are not sold by themselves. The
-> fonts, including any derivative works, can be bundled, embedded,
-> redistributed and/or sold with any software provided that any reserved
-> names are not used by derivative works. The fonts and derivatives,
-> however, cannot be released under any other type of license. The
-> requirement for fonts to remain under this license does not apply
-> to any document created using the fonts or their derivatives.
+## Working on the source
 
-While you are allowed to use Inter commercially, i.e. bundled with product or service which makes you money, you are NOT allowed to sell Inter itself or derivatives of Inter. If you would like to do so, please [reach out](https://github.com/rsms) and we can talk about it.
+The Glyphs sources live in `src/`. See [CONTRIBUTING.md](CONTRIBUTING.md) for
+how to build.
 
-Inter a trademark of Rasmus Andersson (DBA: RSMS)
+```sh
+make var          # the glyf variable font
+make var_otf      # the CFF2 variable font
+make all          # everything
+make test         # fontbakery
+```
 
-"Inter" is a Reserved Font Name by Rasmus Andersson
-([font vendor code RSMS.](https://learn.microsoft.com/en-us/typography/vendors/#r))
+There's also an interactive glyph lab in `docs/`:
 
+```sh
+make -j web && make -C docs serve
+```
 
-## Design
+Two tools worth knowing about, both in `misc/tools/`:
 
-_This section discusses some of the design choices made for Inter._
+- `audit-fonts.py` — checks every shipped binary for stale branding, PostScript
+  name/filename agreement, vendor ID and style/weight consistency:
 
-Inter can be classified as a geometric neo-grotesque, similar in style to Roboto, Apple San Francisco, Akkurat, Asap, Lucida Grande and more. Some trade-offs were made in order to make this typeface work really well at small sizes:
+  ```sh
+  python misc/tools/audit-fonts.py docs/font-files
+  ```
 
-- Early versions of Inter was not suitable for very large sizes because of some small-scale glyph optimizations (like "pits" and "traps") that help rasterization at small sizes but stand out and interfere at large sizes. However today Inter works well at large sizes and a [Display subfamily](https://github.com/rsms/inter/releases/tag/display-beta-1) is in the works for really large "display" sizes.
+- `normalize-static-names.py` — enforces the `NeueComet[-Display]-<Style>`
+  PostScript naming convention on the static builds. It runs automatically as
+  part of `make static`.
 
-- Rasterized at sizes below 12px, some stems—like the horizontal center of "E", "F", or vertical center of "m"—are drawn with two semi-opaque pixels instead of one solid. This is because we "prioritize" (optimize for) higher-density rasterizations. If we move these stems to an off-center position—so that they can be drawn sharply at e.g. 11px—text will be less legible at higher resolutions.
+## Derivative fonts
 
-Inter is a [variable font](https://rsms.me/inter/#variable) and is in addition also distributed as a set of traditional distinct font files in the following styles:
+Neue Comet is licensed under the **SIL Open Font License 1.1**. You may modify
+it, bundle it and sell it as part of something else — you may not sell the font
+files themselves, and derivatives must stay under the same licence. [Full terms.](LICENSE.txt)
 
-| Roman (upright) name | Italic name          | Weight
-| -------------------- | -------------------- | ------------
-| Thin                 | Thin Italic          | 100
-| Extra Light          | Extra Light Italic   | 200
-| Light                | Light Italic         | 300
-| Regular              | Italic               | 400
-| Medium               | Medium Italic        | 500
-| Semi Bold            | Semi Bold Italic     | 600
-| Bold                 | Bold Italic          | 700
-| Extra Bold           | Extra Bold Italic    | 800
-| Black                | Black Italic         | 900
+Please don't ship derivative works under the name "Neue Comet". Use your own.
 
+## Licence and credits
+
+Neue Comet is licensed under the [SIL Open Font License 1.1](LICENSE.txt).
+
+The OS/2 `achVendID` is currently `NONE`, meaning "unregistered". To set your
+own, register a four-character vendor ID with Microsoft first, then update
+`vendorID` in `src/NeueComet-Roman.glyphspackage/fontinfo.plist` and
+`src/NeueComet-Italic.glyphspackage/fontinfo.plist`:
+
+> Email <mstwsite@microsoft.com> with the vendor ID you want, the foundry name,
+> an email address and a link to the foundry website. See
+> [Register a font vendor ID](https://learn.microsoft.com/en-us/typography/vendors/register).
+
+`fontbakery`'s `vendor_id` check warns while the value is unregistered or
+doesn't match the manufacturer in name ID 8.
+
+---
+
+### Based on Inter
+
+Neue Comet is derived from [Inter](https://github.com/rsms/inter) by
+[Rasmus Andersson](https://rsms.me/), which is licensed under the
+[SIL Open Font License 1.1](LICENSE.txt). The original copyright notice,
+licence and design credit are retained in `LICENSE.txt` and in the font
+metadata, as the licence requires.
+
+"Inter" is a trademark of Rasmus Andersson (RSMS). Script coverage, the
+two-axis variable model, the OpenType feature set and the underlying glyph
+design all originate with Inter; the changes made here are the family rename,
+the identity and licensing metadata, the CFF2 build, and the build tooling
+updates that came with it.
+
+This README describes Neue Comet only. For the upstream design rationale and
+project history, see the [Inter README](https://github.com/rsms/inter#readme).

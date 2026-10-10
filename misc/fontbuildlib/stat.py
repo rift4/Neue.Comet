@@ -15,7 +15,7 @@ def rebuildStatTable(font, designspace):
   axes = [dict(tag=a.axisTag, name=a.axisNameID) for a in font['fvar'].axes]
 
   # isMultiAxis is true when compiling the multi-axis VF,
-  # false when compiling e.g. Inter-roman.var.ttf
+  # false when compiling e.g. NeueComet-roman.var.ttf
   isMultiAxis = False
   if len(axes) > 1:
     isMultiAxis = True

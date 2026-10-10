@@ -29,14 +29,14 @@ def fixup_instance(designspace, instance):
   if isItalic:
     psStyle = psStyle.replace('Italic','')
     if psStyle == '':
-      instance.postScriptFontName = 'InterVariableItalic'
+      instance.postScriptFontName = 'NeueCometVariableItalic'
     else:
-      instance.postScriptFontName = 'InterVariableItalic-' + psStyle
+      instance.postScriptFontName = 'NeueCometVariableItalic-' + psStyle
   else:
     if psStyle == 'Regular':
-      instance.postScriptFontName = 'InterVariable'
+      instance.postScriptFontName = 'NeueCometVariable'
     else:
-      instance.postScriptFontName = 'InterVariable-' + psStyle
+      instance.postScriptFontName = 'NeueCometVariable-' + psStyle
 
   instance.styleMapFamilyName = instance.styleMapFamilyName.replace(' Display', '')
 
@@ -60,12 +60,12 @@ def fixup_instances(designspace):
     i -= 1
     instance = designspace.instances[i]
     if USE_DISPLAY_AS_DEFAULT:
-      if instance.name.find('Inter Display') != -1:
+      if instance.name.find('Neue Comet Display') != -1:
         fixup_instance(designspace, instance)
       else:
         del designspace.instances[i]
     else:
-      if instance.name.find('Inter Display') == -1:
+      if instance.name.find('Neue Comet Display') == -1:
         fixup_instance(designspace, instance)
       else:
         del designspace.instances[i]
@@ -83,7 +83,7 @@ def fixup_sources(designspace):
   while i > 0:
     i -= 1
     source = designspace.sources[i]
-    if source.name.find('Inter Display') != -1:
+    if source.name.find('Neue Comet Display') != -1:
       fixup_names(source)
     else:
       source.name = source.name + ' Text'

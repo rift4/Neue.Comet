@@ -11,7 +11,6 @@ brotli = "==1.0.*"
 psautohint = "==2.4.*"
 fontmake = "==3.9.*"
 fontbakery = "==0.10.*"
-gftools = ">=0.9.57"
 
 [dev-packages]
 

@@ -4,39 +4,39 @@ PROG=${0##*/}
 DESIGNSPACE=$1
 UFO=$2
 
-INSTANCE_Light="Inter Light"
-INSTANCE_ExtraLight="Inter ExtraLight"
-INSTANCE_Medium="Inter Medium"
-INSTANCE_SemiBold="Inter SemiBold"
-INSTANCE_Bold="Inter Bold"
-INSTANCE_ExtraBold="Inter ExtraBold"
+INSTANCE_Light="Neue Comet Light"
+INSTANCE_ExtraLight="Neue Comet ExtraLight"
+INSTANCE_Medium="Neue Comet Medium"
+INSTANCE_SemiBold="Neue Comet SemiBold"
+INSTANCE_Bold="Neue Comet Bold"
+INSTANCE_ExtraBold="Neue Comet ExtraBold"
 
-INSTANCE_LightItalic="Inter Light Italic"
-INSTANCE_ExtraLightItalic="Inter ExtraLight Italic"
-INSTANCE_MediumItalic="Inter Medium Italic"
-INSTANCE_SemiBoldItalic="Inter SemiBold Italic"
-INSTANCE_BoldItalic="Inter Bold Italic"
-INSTANCE_ExtraBoldItalic="Inter ExtraBold Italic"
+INSTANCE_LightItalic="Neue Comet Light Italic"
+INSTANCE_ExtraLightItalic="Neue Comet ExtraLight Italic"
+INSTANCE_MediumItalic="Neue Comet Medium Italic"
+INSTANCE_SemiBoldItalic="Neue Comet SemiBold Italic"
+INSTANCE_BoldItalic="Neue Comet Bold Italic"
+INSTANCE_ExtraBoldItalic="Neue Comet ExtraBold Italic"
 
-INSTANCE_DisplayThin="Inter Display Thin"
-INSTANCE_DisplayLight="Inter Display Light"
-INSTANCE_DisplayExtraLight="Inter Display ExtraLight"
-INSTANCE_DisplayRegular="Inter Display Regular"
-INSTANCE_DisplayMedium="Inter Display Medium"
-INSTANCE_DisplaySemiBold="Inter Display SemiBold"
-INSTANCE_DisplayBold="Inter Display Bold"
-INSTANCE_DisplayExtraBold="Inter Display ExtraBold"
-INSTANCE_DisplayBlack="Inter Display Black"
+INSTANCE_DisplayThin="Neue Comet Display Thin"
+INSTANCE_DisplayLight="Neue Comet Display Light"
+INSTANCE_DisplayExtraLight="Neue Comet Display ExtraLight"
+INSTANCE_DisplayRegular="Neue Comet Display Regular"
+INSTANCE_DisplayMedium="Neue Comet Display Medium"
+INSTANCE_DisplaySemiBold="Neue Comet Display SemiBold"
+INSTANCE_DisplayBold="Neue Comet Display Bold"
+INSTANCE_DisplayExtraBold="Neue Comet Display ExtraBold"
+INSTANCE_DisplayBlack="Neue Comet Display Black"
 
-INSTANCE_DisplayThinItalic="Inter Display Thin Italic"
-INSTANCE_DisplayLightItalic="Inter Display Light Italic"
-INSTANCE_DisplayExtraLightItalic="Inter Display ExtraLight Italic"
-INSTANCE_DisplayItalic="Inter Display Italic"
-INSTANCE_DisplayMediumItalic="Inter Display Medium Italic"
-INSTANCE_DisplaySemiBoldItalic="Inter Display SemiBold Italic"
-INSTANCE_DisplayBoldItalic="Inter Display Bold Italic"
-INSTANCE_DisplayExtraBoldItalic="Inter Display ExtraBold Italic"
-INSTANCE_DisplayBlackItalic="Inter Display Black Italic"
+INSTANCE_DisplayThinItalic="Neue Comet Display Thin Italic"
+INSTANCE_DisplayLightItalic="Neue Comet Display Light Italic"
+INSTANCE_DisplayExtraLightItalic="Neue Comet Display ExtraLight Italic"
+INSTANCE_DisplayItalic="Neue Comet Display Italic"
+INSTANCE_DisplayMediumItalic="Neue Comet Display Medium Italic"
+INSTANCE_DisplaySemiBoldItalic="Neue Comet Display SemiBold Italic"
+INSTANCE_DisplayBoldItalic="Neue Comet Display Bold Italic"
+INSTANCE_DisplayExtraBoldItalic="Neue Comet Display ExtraBold Italic"
+INSTANCE_DisplayBlackItalic="Neue Comet Display Black Italic"
 
 MASTER_Thin=1
 MASTER_Regular=1
@@ -53,18 +53,18 @@ MASTER_DisplayBlackItalic=1
 
 _err() { echo "$PROG: $@" >&2; exit 1; }
 
-# build/ufo/Inter-DisplayExtraBold.ufo -> DisplayExtraBold
+# build/ufo/NeueCometDisplay-ExtraBold.ufo -> DisplayExtraBold
 UFO_NAME=$(basename "$UFO" .ufo)
 case "$UFO_NAME" in
-  Inter-*)        UFO_NAME=${UFO_NAME:6} ;;
-  InterDisplay-*) UFO_NAME=Display${UFO_NAME:13} ;;
+  NeueComet-*)        UFO_NAME=${UFO_NAME:10} ;;
+  NeueCometDisplay-*) UFO_NAME=Display${UFO_NAME:17} ;;
 esac
 
-# DisplayExtraBold -> "Inter Display ExtraBold"
+# DisplayExtraBold -> "Neue Comet Display ExtraBold"
 INSTANCE=INSTANCE_${UFO_NAME} ; INSTANCE=${!INSTANCE}
 
 # If UFO is not an instance, assume that it's a master (or else error)
-# master UFOs are byproducts of building Inter.designspace, so we just update mtime.
+# master UFOs are byproducts of building NeueComet-Roman.designspace, so we just update mtime.
 if [ -z "$INSTANCE" ]; then
   MASTER=MASTER_${UFO_NAME}
   [ -n "${!MASTER}" ] || _err "Failed to map UFO name \"$UFO_NAME\" to instance"

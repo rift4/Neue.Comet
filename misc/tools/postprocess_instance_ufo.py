@@ -28,7 +28,7 @@ def main(argv):
   fix_fractional_advance_width(ufo)
 
   # fix legacy names to make style linking work in MS Windows
-  familyName = ufo.info.familyName  # e.g. "Inter Display"
+  familyName = ufo.info.familyName  # e.g. "Neue Comet Display"
   styleName = ufo.info.styleName    # e.g. "ExtraBold"
   ufo.info.openTypeNamePreferredFamilyName = familyName
   ufo.info.openTypeNamePreferredSubfamilyName = styleName
@@ -36,7 +36,7 @@ def main(argv):
   ufo.info.familyName = (familyName + ' ' + styleName).replace(' Italic', '').strip()
   ufo.info.styleName = 'Regular' if styleName.find('Italic') == -1 else 'Italic'
 
-  # must also set these explicitly to avoid PostScript names like "Inter-ThinRegular":
+  # must also set these explicitly to avoid PostScript names like "NeueComet-ThinRegular":
   # "postscriptFontName" maps to name ID 6 "postscriptName"
   ufo.info.postscriptFontName = rmspace(familyName) + '-' + rmspace(styleName)
 

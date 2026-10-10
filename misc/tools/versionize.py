@@ -2,7 +2,7 @@
 # encoding: utf8
 #
 # Updates the "?v=x" in files:
-# - docs/inter.css
+# - docs/neue-comet.css
 # - docs/inter-ui.css
 # - docs/_includes/preload-font-files.html
 #
@@ -32,10 +32,10 @@ def updateHTMLFile(filename):
     f.write(s)
 
 
-updateCSSFile(pjoin(BASEDIR, 'misc', 'dist', 'inter.css'))
+updateCSSFile(pjoin(BASEDIR, 'misc', 'dist', 'neue-comet.css'))
 # updateHTMLFile(pjoin(BASEDIR, 'docs', '_includes', 'preload-font-files.html'))
 updateHTMLFile(pjoin(BASEDIR, 'docs', 'lab', 'index.html'))
 
 # Note: The website CSS file uses Jekyll variables to add ?v= so don't need this anymore.
-# updateCSSFile(pjoin(BASEDIR, 'docs', 'inter.css'))
+# updateCSSFile(pjoin(BASEDIR, 'docs', 'neue-comet.css'))
 # updateCSSFile(pjoin(BASEDIR, 'docs', 'inter-ui.css'))

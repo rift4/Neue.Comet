@@ -55,38 +55,6 @@ def getFamilyName(font):
   return r.toUnicode()
 
 
-def renameStylesGoogleFonts(font):
-  familyName = getFamilyName(font)
-
-  # collect subfamily (style) name IDs for variable font's named instances
-  vfInstanceSubfamilyNameIds = set()
-  if "fvar" in font:
-    for namedInstance in font["fvar"].instances:
-      vfInstanceSubfamilyNameIds.add(namedInstance.subfamilyNameID)
-
-  nameTable = font["name"]
-  for rec in nameTable.names:
-    rid = rec.nameID
-    if rid in (FULL_NAME, LEGACY_FAMILY):
-      # style part of family name
-      s = rec.toUnicode()
-      start = s.find(familyName)
-      if start != -1:
-        s = familyName + " " + removeWhitespace(s[start + len(familyName):])
-      else:
-        s = removeWhitespace(s)
-      if s != "Italic" and s.endswith("Italic"):
-        # fixup e.g. "ExtraBoldItalic" -> "ExtraBold Italic"
-        s = s[:len(s) - len("Italic")] + " Italic"
-      rec.string = s.strip()
-    if rid in (SUBFAMILY_NAME,) or rid in vfInstanceSubfamilyNameIds:
-      s = removeWhitespace(rec.toUnicode())
-      if s != "Italic" and s.endswith("Italic"):
-        # fixup e.g. "ExtraBoldItalic" -> "ExtraBold Italic"
-        s = s[:len(s) - len("Italic")] + " Italic"
-      rec.string = s.strip()
-    # else: ignore standard names unrelated to style
-
 
 def setFamilyName(font, nextFamilyName):
   prevFamilyName = getFamilyName(font)
@@ -138,9 +106,9 @@ def setFamilyName(font, nextFamilyName):
 
 
 # def main():
-#   infile = "./build/fonts/var/Inter.var.ttf"
+#   infile = "./build/fonts/var/NeueComet.var.ttf"
 #   outfile = "./build/tmp/var2.otf"
-#   renameFontFamily(infile, outfile, "Inter V")
+#   renameFontFamily(infile, outfile, "Neue Comet V")
 #   print("%s familyName: %r" % (infile, getFamilyName(loadTTFont(infile)) ))
 #   print("%s familyName: %r" % (outfile, getFamilyName(loadTTFont(outfile)) ))
 
@@ -148,5 +116,5 @@ def setFamilyName(font, nextFamilyName):
 #   sys.exit(main())
 
 # Similar to:
-# ttx -i -e -o ./build/tmp/var.ttx ./build/fonts/var/Inter.var.ttf
+# ttx -i -e -o ./build/tmp/var.ttx ./build/fonts/var/NeueComet.var.ttf
 # ttx -b --no-recalc-timestamp -o ./build/tmp/var.otf ./build/tmp/var.ttx

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Download Inter
+title: Download Neue Comet
 ---
 {% include defs.html -%}
 
@@ -8,7 +8,7 @@ title: Download Inter
 
 
 <r-cell span=row>
-  <h1>Downloading Inter version {{ release_version }}…</h1>
+  <h1>Downloading Neue Comet version {{ release_version }}…</h1>
   <p>
     <a href="{{download_url}}" class=dim>{{download_url}}</a>
   </p>
@@ -17,19 +17,19 @@ title: Download Inter
 
 <r-cell span=row>
   <p class=large>
-    Inter is <a href="https://github.com/rsms/inter">open source</a>.<br>
+    Neue Comet is <a href="https://github.com/rift4/Neue.Comet">open source</a>.<br>
     Please consider giving us a small donation to keep this project alive.
   </p>
   <div class=sponsor-buttons>
     <a class=button
-       title="Help Inter by becoming a sponsor and donating a coffee or two"
+       title="Help Neue Comet by becoming a sponsor and donating a coffee or two"
        href="https://github.com/sponsors/rsms">
-       Support Inter on GitHub...
+       Support Neue Comet on GitHub...
     </a>
     <form action="https://www.paypal.com/donate" method="post" target="_top">
       <input type="hidden" name="business" value="rsms@notion.se">
       <input type="hidden" name="no_recurring" value="0">
-      <input type="hidden" name="item_name" value="Inter typeface">
+      <input type="hidden" name="item_name" value="Neue Comet typeface">
       <!-- <input type="hidden" name="item_number" value="Fall Cleanup Campaign"> -->
       <input type="hidden" name="currency_code" value="USD">
       <input class=button type="submit" name="submit" value="or, make a donation via PayPal...">
@@ -60,7 +60,7 @@ title: Download Inter
     <ol>
       <li>Open the "Font Book" application.</li>
       <li>In the main menu, select "File" → "Add Fonts..."</li>
-      <li>Select "Inter.ttc", "InterVariable.ttf" and "InterVariable-Italic.ttf"</li>
+      <li>Select "NeueComet.ttc", "NeueCometVariable.otf" and "NeueCometVariable-Italic.otf"</li>
       <li>Press the "Open" button</li>
     </ol>
     <p>
@@ -72,11 +72,11 @@ title: Download Inter
   <div id="install-windows" class="install-instructions">
     <ol>
       <li>Open the zip file you downloaded</li>
-      <li>Select "Inter.ttc", "InterVariable.ttf" and "InterVariable-Italic.ttf"</li>
+      <li>Select "NeueComet.ttc", "NeueCometVariable.otf" and "NeueCometVariable-Italic.otf"</li>
       <li>Right-click the selected files, choose "Install for all users"</li>
     </ol>
     <p>
-      If you have a previous installation of Inter, you should make sure
+      If you have a previous installation of Neue Comet, you should make sure
       to remove those fonts files before installing new ones. You need to
       install the font for all users, as some software requires fonts to
       be global.
@@ -86,9 +86,9 @@ title: Download Inter
   <div id="install-ubuntu" class="install-instructions">
     <ol>
       <li>Create a ".fonts" directory in your home. (<code>mkdir -p ~/.fonts</code>)</li>
-      <li>Copy "Inter.ttc", "InterVariable.ttf" and
-        "InterVariable-Italic.ttf" into your .fonts directory
-        (<code>cp Inter.ttc *.ttf ~/.fonts/</code>)
+      <li>Copy "NeueComet.ttc", "NeueCometVariable.otf" and
+        "NeueCometVariable-Italic.otf" into your .fonts directory
+        (<code>cp NeueComet.ttc *.ttf ~/.fonts/</code>)
       </li>
     </ol>
     <p>
@@ -102,8 +102,8 @@ title: Download Inter
       Then restart your program(s).
     </p>
     <p>
-      Q: Is there a way to tell if Inter was actually installed?<br>
-      A: Try running: <tt>fc-list | grep "Inter"</tt>
+      Q: Is there a way to tell if Neue Comet was actually installed?<br>
+      A: Try running: <tt>fc-list | grep "Neue Comet"</tt>
     </p>
     <p>
       Q: <tt>~/.fonts</tt> is an old thing.
@@ -117,18 +117,18 @@ title: Download Inter
   <h4>Variable &amp; Static font files</h4>
 
   <p>
-    Inter fonts comes in two flavors: Variable and Static
-    (<code>InterVariable*.ttf</code> and <code>Inter.ttc</code>, respectively.)
+    Neue Comet fonts comes in two flavors: Variable and Static
+    (<code>NeueCometVariable*.otf</code> and <code>NeueComet.ttc</code>, respectively.)
   </p><p>
     Variable fonts is a new format which allows you to choose any
     weight and optical size. Variable fonts is a relatively new
     technology and may not yet be supported by all your software.
-    Inter's variable font is called "Inter Variable" to avoid
+    Neue Comet's variable font is called "Neue Comet Variable" to avoid
     confusion and to allow use alongside the traditional static fonts.
   </p><p>
     Static fonts works with older software and uses a fixed set of
     predefined mixtures of weight and optical size. For example
-    "Inter Display Medium" is Inter with maximum optical size and a
+    "Neue Comet Display Medium" is Neue Comet with maximum optical size and a
     weight of 500.
   </p>
 
@@ -143,15 +143,15 @@ title: Download Inter
   </p>
     <pre>&lt;!-- HTML in your document's head --&gt;
 &lt;link rel=&quot;preconnect&quot; href=&quot;https://rsms.me/&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://rsms.me/inter/inter.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@main/docs/neue-comet.css&quot;&gt;
 
 /* CSS */
 :root {
-  font-family: Inter, sans-serif;
+  font-family: 'Neue Comet', sans-serif;
   font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
 }
 @supports (font-variation-settings: normal) {
-  :root { font-family: InterVariable, sans-serif; }
+  :root { font-family: NeueCometVariable, sans-serif; }
 }</pre>
   <p>Global <abbr title="Content Delivery Network">CDN</abbr>
     sponsored by <a href="https://cloudflare.com/">Cloudflare</a></p>

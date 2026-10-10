@@ -660,7 +660,7 @@ input[type="range"]:focus::-moz-range-track {
 <div class="row"><div>
   <r-grid columns=8>
     <r-cell span=row>
-      <h1 class=title>The Inter typeface family</h1>
+      <h1 class=title>The Neue Comet typeface family</h1>
     </r-cell>
     <r-cell span=1-2 span-s=row>
       The 21st century standard<br>
@@ -670,14 +670,14 @@ input[type="range"]:focus::-moz-range-track {
     </r-cell>
     <r-cell span=3-5 span-s=row>
       <p>
-        Inter is a workhorse of a typeface carefully crafted &amp; designed for
+        Neue Comet is a workhorse of a typeface carefully crafted &amp; designed for
         a wide range of applications, from detailed user interfaces to marketing &amp; signage.
-        The Inter typeface family features over <a href="#glyphs">2000&nbsp;glyphs</a>
+        The Neue Comet typeface family features over <a href="#glyphs">2000&nbsp;glyphs</a>
         covering <a href="#languages">{{lang_count}}&nbsp;languages</a>.
         Weights range from a delicate thin 100 all the way up to a heavy 900. Each glyph has three dedicated designs for weights 100, 400 and 900 to ensure excellent quality at any weight. Optical size ranges from "text" to "display" and there is a true italic variant.
       </p>
       <p>
-        Inter is one of the world's most used typefaces with applications ranging from computer interfaces, advertising &amp; airports, to NASA instrumentation &amp; medical equipment.
+        Neue Comet is one of the world's most used typefaces with applications ranging from computer interfaces, advertising &amp; airports, to NASA instrumentation &amp; medical equipment.
       </p>
     </r-cell>
     <r-cell span=6.. span-s=row>
@@ -721,22 +721,22 @@ input[type="range"]:focus::-moz-range-track {
     </r-cell>
     <r-cell span=3.. span-s=row>
       <p>
-        Using Inter is as easy as
+        Using Neue Comet is as easy as
         <a class="download-link" href="download/">downloading &amp; installing</a>
         the font files.<br>
         If you're making a web thing, you can use the following HTML and CSS:
       </p>
       <pre>&lt;!-- HTML in your document's head --&gt;
 &lt;link rel=&quot;preconnect&quot; href=&quot;https://rsms.me/&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://rsms.me/inter/inter.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@main/docs/neue-comet.css&quot;&gt;
 
 /* CSS */
 :root {
-  font-family: Inter, sans-serif;
+  font-family: 'Neue Comet', sans-serif;
   font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
 }
 @supports (font-variation-settings: normal) {
-  :root { font-family: InterVariable, sans-serif; }
+  :root { font-family: NeueCometVariable, sans-serif; }
 }</pre>
       <p>Global <abbr title="Content Delivery Network">CDN</abbr>
         sponsored by <a href="https://cloudflare.com/">Cloudflare</a></p>
@@ -752,13 +752,14 @@ input[type="range"]:focus::-moz-range-track {
     </r-cell>
     <r-cell span=3.. span-s=row>
       <p>
-        Inter is a <a href="https://github.com/rsms/inter">free and open source</a> font family.<br>
+        Neue Comet is a <a href="https://github.com/rift4/Neue.Comet">free and open source</a> font family,<br>
+        derived from <a href="https://github.com/rsms/inter">Inter</a> by Rasmus Andersson.<br>
         You are free to use this font in almost any way imaginable.<br>
         Refer to the <a href="https://raw.githubusercontent.com/rsms/inter/v{{release_version}}/LICENSE.txt">SIL Open Font License 1.1</a> for exact details on what the conditions and restrictions are.
       </p>
       <p>
         <a id="sponsor-button"
-           title="Help Inter by becoming a sponsor and donating a coffee or two"
+           title="Help Neue Comet by becoming a sponsor and donating a coffee or two"
            href="https://github.com/sponsors/rsms">
            <span>Sponsor</span>
         </a>
@@ -977,7 +978,7 @@ At a later date we find the word applied to very different objects, though alway
     <r-cell span=4 span-s=row>
       <h2><a href="#features">Features</a></h2>
       <p>
-        Inter comes with many OpenType features which can be used to tailor functionality and aesthetics to your specific needs. Some of these features can be combined to form a great number of alternative variations.
+        Neue Comet comes with many OpenType features which can be used to tailor functionality and aesthetics to your specific needs. Some of these features can be combined to form a great number of alternative variations.
       </p>
     </r-cell>
     <r-cell span=6-8 span-s=row class="only-large-screen">
@@ -1306,7 +1307,7 @@ At a later date we find the word applied to very different objects, though alway
 
 <div class="row examples" id="languages"><div>
   <h2><a href="#languages">Language support</a></h2>
-  <p>Inter currently covers {{lang_count}} scripts</p>
+  <p>Neue Comet currently covers {{lang_count}} scripts</p>
   <div class="columns" style="column-width:12em;column-gap:1em">
   {% for c in site.data.languages %}
     <h4>{{c.category}}</h4>
@@ -1376,7 +1377,7 @@ $$('[contenteditable]').forEach(el => {
   }, {capture:true,passive:false})
 })
 
-// show/hide "Inter" in header
+// show/hide "Neue Comet" in header
 let callback = (entries, observer) => {
   entries.forEach((entry) => {
     $('header .scroll-reveal').classList.toggle('visible', !entry.isIntersecting)

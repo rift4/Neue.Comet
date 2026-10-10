@@ -325,7 +325,7 @@ def main():
 
     # FeaParser(featuresFilename + '2', allNames).parse()
 
-    # font = TTFont('build/const/Inter-Regular.otf')
+    # font = TTFont('build/const/NeueComet-Regular.otf')
     # FeaBuilder(font, featuresFilename + '2').build()
 
 

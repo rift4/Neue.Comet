@@ -1,8 +1,8 @@
 """
-This script "bakes" the final Inter variable fonts.
+This script "bakes" the final Neue Comet variable fonts.
 
 This script performs the following:
-  1. Renames the family to "Inter Variable"
+  1. Renames the family to "Neue Comet Variable"
   2. Updates style names to scrub away "Display"
   3. Builds a STAT table
 
@@ -15,10 +15,10 @@ How to debug/develop this script:
 2. after making changes, run script and inspect with ttx:
 
   (. build/venv/bin/activate && mkdir -p build/bake &&
-    for f in build/fonts/var/.Inter-*.var.ttf; do
-      python misc/tools/bake-vf.py "$f" -o build/bake/"$(basename "${f/.Inter/Inter}")"
+    for f in build/fonts/var/.NeueComet-*.var.ttf; do
+      python misc/tools/bake-vf.py "$f" -o build/bake/"$(basename "${f/.NeueComet/NeueComet}")"
     done)
-  (. build/venv/bin/activate && ttx -t STAT -i -f -s build/bake/Inter-*.var.ttf)
+  (. build/venv/bin/activate && ttx -t STAT -i -f -s build/bake/NeueComet-*.var.ttf)
 
 """
 import sys, os, os.path, re, argparse
@@ -152,7 +152,7 @@ def normalize_whitespace(s):
 
 def remove_substring(s, substr):
   # examples of remove_substring(s, "Display"):
-  #   "Inter Display"   => "Inter"
+  #   "Neue Comet Display"   => "Neue Comet"
   #   "Display Lol"     => "Lol"
   #   "Foo Display Lol" => "Foo Lol"
   #   " Foo   Bar Lol " => "Foo Bar Lol"
@@ -365,7 +365,7 @@ def main():
     description='Generate STAT table for variable font family')
   a = lambda *args, **kwargs: argparser.add_argument(*args, **kwargs)
   a('--family', metavar='<name>',
-    help='Rename family to <name> instead of "Inter Variable"')
+    help='Rename family to <name> instead of "Neue Comet Variable"')
   a('-o', '--output', metavar='<file>',
     help='Output font file. Defaults to input file (overwrite)')
   a('input', metavar='<file>', help='Input font file')
@@ -388,7 +388,7 @@ def main():
 
   # set family name
   if not args.family:
-    args.family = "Inter Variable"
+    args.family = "Neue Comet Variable"
   setFamilyName(ttfont, args.family)
 
   # set style name

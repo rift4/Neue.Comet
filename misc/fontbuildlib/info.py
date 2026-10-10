@@ -45,7 +45,7 @@ def setFontInfo(font, weight=None):
   if weight is None:
     weight = font.info.openTypeOS2WeightClass
 
-  family = font.info.familyName  # i.e. "Inter"
+  family = font.info.familyName  # i.e. "Neue Comet"
   style = font.info.styleName    # e.g. "Medium Italic"
 
   # Update italicAngle

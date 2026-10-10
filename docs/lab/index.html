@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>lab</title>
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link href="../inter.css" rel="stylesheet">
+    <link href="../neue-comet.css" rel="stylesheet">
     <script type="text/javascript">
 
 // dark color scheme by default?
@@ -85,8 +85,8 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       <label class="label-and-value">
         <span>Family:</span>
         <select name="family">
-          <option value="text" selected>Inter</option>
-          <option value="display">Inter Display</option>
+          <option value="text" selected>Neue Comet</option>
+          <option value="display">Neue Comet Display</option>
         </select>
       </label>
 
@@ -154,7 +154,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       <span>Compare:</span>
       <select name="compare">
         <option value="-" selected>Nothing</option>
-        <!-- <option value="inter-other">Other Inter family</option> -->
+        <!-- <option value="inter-other">Other Neue Comet family</option> -->
         <option value="system">System font</option>
       </select>
       </label>
@@ -246,7 +246,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
   </body>
   <script type="text/javascript">(function(){
 
-function InterDynamicTracking(fontSize, family /* :"text"|"display" */) {
+function NeueCometDynamicTracking(fontSize, family /* :"text"|"display" */) {
   var a = -0.0223, b = 0.185, c = -0.1745;
   if (family == "display") {
     a = -0.015; b = 0.17; c = -0.12
@@ -999,7 +999,7 @@ function main() {
 
 
   function calcImplicitLetterSpacing(size, el) {
-    let t = InterDynamicTracking(size, usingFontFamily)
+    let t = NeueCometDynamicTracking(size, usingFontFamily)
     let v = parseFloat((t * 100).toFixed(1))
     ;(el || letterSpacingVar.e).placeholder = v
     return v
