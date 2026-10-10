@@ -31,23 +31,19 @@ Self-host the stylesheet:
 }
 ```
 
-Or pull it straight from this repo over
-[jsDelivr](https://www.jsdelivr.com/), with no hosting at all:
+Self-hosting is the recommended approach. Copy `neue-comet.css` and the
+`font-files/` directory out of this repo into your own site:
 
 ```html
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@main/docs/neue-comet.css">
+<link rel="stylesheet" href="/fonts/neue-comet.css">
 ```
 
-Pin a release tag instead of `@main` in production, so the files can't change
-underneath you:
+Serving the CSS and the WOFF2 files from one origin means no extra DNS lookup,
+no third-party connection to block, and it works offline and behind a firewall.
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@v4.2/docs/neue-comet.css">
-```
-
-If you'd rather use a domain you control, put a CDN in front of it — Cloudflare
-or similar — and serve the same paths.
+If you want a CDN in front, put one in front of *your own* copy — Cloudflare or
+similar — rather than proxying a third-party host, so the CSS and fonts still
+share an origin.
 
 ### Testing a browser engine
 

@@ -104,12 +104,10 @@ File index:
   There are many other ways of using Neue Comet on the Web platform.
   The instructions above is simply one way.
 
-  If you prefer to not host the fonts yourself, you can use the
-  official Neue Comet CDN, which as a bonus means you are always serving
-  the latest version of Neue Comet to your users:
-
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@main/docs/neue-comet.css">
+  Self-hosting is the recommended approach: it works offline, behind a
+  firewall, and in environments that block third-party requests. If you
+  would rather serve the files from a CDN, put one in front of your own
+  copy so the CSS and the font files still share an origin.
 
 ---------------------------------------------------------------------
 

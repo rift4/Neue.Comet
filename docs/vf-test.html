@@ -45,9 +45,9 @@
 <div class="samples" id="samples"></div>
 
 <script>
-// Pinned to the tag under test. Change to @main to test the latest commit.
-const REF = '@main';
-const BASE = 'https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@' + REF + '/docs/font-files/';
+// Same-origin: the font files sit next to this page in font-files/.
+// Works wherever the site is hosted, with no external CDN involved.
+const BASE = 'font-files/';
 
 const FACES = [
   { key: 'glyf',     label: 'glyf',      file: 'NeueCometVariable.woff2',

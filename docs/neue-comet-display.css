@@ -4,7 +4,7 @@ layout: none
 {%- assign font_v = site.data.fontinfo[0].version -%}
 /*
 
-  DEPRECATED -- instead, please use https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@main/docs/neue-comet.css
+  DEPRECATED -- instead, please use neue-comet.css
 
 */
 @font-face {

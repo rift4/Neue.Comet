@@ -115,9 +115,7 @@ dl.facts dd { margin: 0; opacity: 0.7; }
   <h2 id="usage">Usage</h2>
   <r-grid columns="2" columns-s="1">
     <r-cell span="1">
-      <pre>&lt;link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin&gt;
-&lt;link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@main/docs/neue-comet.css"&gt;
+      <pre>&lt;link rel="stylesheet" href="/fonts/neue-comet.css"&gt;
 
 /* CSS */
 :root { font-family: 'Neue Comet', sans-serif; }
@@ -127,10 +125,9 @@ dl.facts dd { margin: 0; opacity: 0.7; }
     </r-cell>
     <r-cell span="1">
       <p>
-        Served straight from the
-        <a href="https://github.com/rift4/Neue.Comet">source repository</a>
-        via <a href="https://www.jsdelivr.com/">jsDelivr</a>. Pin a release tag
-        rather than <code>@main</code> in production.
+        Self-host the files. Copy <code>neue-comet.css</code> and the
+        <code>font-files/</code> directory into your site, and serve them
+        from your own origin so the CSS and the WOFF2 files share a domain.
       </p>
       <p>
         Optical size runs from 14 (“text”, for small sizes) to 32
