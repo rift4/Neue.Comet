@@ -157,6 +157,27 @@ FM_ARGS_2 := $(FM_ARGS) \
 	--overlaps-backend pathops \
 	--flatten-components \
 	--no-autohint
+
+# Decompose components that carry a transform.
+#
+# --flatten-components only collapses *nested* components; it leaves
+# transformed ones alone. Roman sources draw 'd' as a mirrored 'b'
+# (scale = (-1,1)), so 38 glyphs ended up shipping components with a
+# single-axis flip, which inverts contour direction and trips fontbakery's
+# transformed_components check. Decomposing them is what upstream Inter
+# effectively ships too: Inter 4.1's own InterVariable.ttf has zero flipped
+# components.
+#
+# The "..." is required. It keeps the filters declared in each UFO's lib
+# (eraseOpenCorners) -- a bare --filter silently discards them and changes the
+# outlines. Order matters: eraseOpenCorners runs first, then this.
+#
+# Two variants, because the static and variable code paths want different ones:
+# compiling a single UFO runs the plain Filter, compiling a Designspace runs
+# the interpolatable IFilter. Passing both makes the static build fail outright.
+DECOMPOSE_FILTER = ufo2ft.filters.decomposeTransformedComponents
+FM_ARGS_2 += --filter "..."
+FM_ARGS_2 += --filter "$(DECOMPOSE_FILTER)::DecomposeTransformedComponentsFilter"
 ifndef DEBUG
 	FM_ARGS_2 += --production-names
 else
@@ -206,11 +227,28 @@ $(FONTDIR)/static-hinted/NeueComet-%.ttf: $(FONTDIR)/static/NeueComet-%.ttf | $(
 	  --reference $(FONTDIR)/static-hinted/NeueComet-Regular.ttf "$<" "$@"
 
 
+# Variable builds run the interpolatable variant of the decompose filter
+# instead of the plain one; see DECOMPOSE_FILTER above. Written out rather than
+# derived with $(filter-out ...): the ellipsis is a bare "..." argument, and
+# filter-out cannot reliably match it through make's quoting rules -- when it
+# dropped the "..." fontmake saw it as a stray positional input.
+FM_ARGS_VAR := $(FM_ARGS) \
+	--overlaps-backend pathops \
+	--flatten-components \
+	--no-autohint
+ifndef DEBUG
+	FM_ARGS_VAR += --production-names
+else
+	FM_ARGS_VAR += --no-production-names
+endif
+FM_ARGS_VAR += --filter "..."
+FM_ARGS_VAR += --filter "$(DECOMPOSE_FILTER)::DecomposeTransformedComponentsIFilter"
+
 $(FONTDIR)/var/.%.var.ttf: $(UFODIR)/%.var.designspace build/features_data | $(FONTDIR)/var venv
-	fontmake -o variable -m $< --output-path $@ $(FM_ARGS_2)
+	fontmake -o variable -m $< --output-path $@ $(FM_ARGS_VAR)
 
 $(FONTDIR)/var/.%.var.otf: $(UFODIR)/%.var.designspace build/features_data | $(FONTDIR)/var venv
-	fontmake -o variable-cff2 -m $< --output-path $@ $(FM_ARGS_2)
+	fontmake -o variable-cff2 -m $< --output-path $@ $(FM_ARGS_VAR)
 
 
 # NOTE: the var/ woff2 files are named after the ttf (they are served to the
