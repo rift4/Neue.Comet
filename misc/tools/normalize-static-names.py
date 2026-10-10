@@ -70,6 +70,31 @@ def normalize(path):
     if italic:
         full += " Italic"
 
+    # Weight-class members of a style-linked group keep their weight in the
+    # legacy subfamily name (name ID 2), e.g. "Bold", "Bold Italic". The
+    # default Regular of a family is just "Regular"/"Italic". This is what
+    # lets Windows group the fonts into one family.
+    LINKED = ("Regular", "Bold", "Italic", "Bold Italic")
+    if is_display:
+        # Display statics are always grouped under the Display family, so
+        # name ID 2 is only ever Regular or Italic.
+        subfamily = "Italic" if italic else "Regular"
+    elif italic:
+        subfamily = (base + " Italic") if base else "Italic"
+    elif base in ("", "Regular"):
+        subfamily = "Regular"
+    else:
+        subfamily = base
+
+    # name ID 1 (legacy family): the text family's linked styles drop the
+    # weight, so that they group together; everything else keeps it.
+    if is_display:
+        legacy_family = family + (" " + base if base else "")
+    elif subfamily in LINKED:
+        legacy_family = family
+    else:
+        legacy_family = family + " " + subfamily
+
     version = name.getDebugName(5) or ""
     ver = version.replace("Version ", "") if version else "0.000"
 
@@ -82,6 +107,8 @@ def normalize(path):
             name.setName(value, nid, *WIN)
             name.setName(value, nid, *MAC)
 
+    setn(1, legacy_family, "familyName")
+    setn(2, subfamily, "subfamilyName")
     setn(4, full, "fullName")
     setn(6, ps, "postScriptName")
     setn(3, "%s;%s;%s" % (ver, font["OS/2"].achVendID, ps), "uniqueID")

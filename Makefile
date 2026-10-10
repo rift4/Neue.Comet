@@ -170,8 +170,9 @@ $(FONTDIR)/static/%.otf: $(UFODIR)/%.ufo build/features_data misc/tools/normaliz
 	@rm $@.tmp.otf
 	python misc/tools/normalize-static-names.py $@
 
-$(FONTDIR)/static/%.ttf: $(UFODIR)/%.ufo build/features_data | $(FONTDIR)/static venv
+$(FONTDIR)/static/%.ttf: $(UFODIR)/%.ufo build/features_data misc/tools/normalize-static-names.py | $(FONTDIR)/static venv
 	fontmake -u $< -o ttf --output-path $@ $(FM_ARGS_2)
+	python misc/tools/normalize-static-names.py $@
 
 
 AUTOHINT_ARGS := --stem-width-mode=qqq --no-info

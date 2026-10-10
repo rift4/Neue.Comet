@@ -11,6 +11,12 @@ brotli = "==1.0.*"
 psautohint = "==2.4.*"
 fontmake = "==3.9.*"
 fontbakery = "==0.10.*"
+# Used directly by the static-hinted build rules (`python -m ttfautohint`).
+# It used to arrive transitively via gftools; declare it now that gftools is gone.
+ttfautohint-py = "==0.5.1"
+# Used by misc/tools/postprocess-designspace.py and postprocess_instance_ufo.py,
+# which run in the main build path. Also previously only transitive.
+defcon = "==0.10.*"
 
 [dev-packages]
 

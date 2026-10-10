@@ -19,6 +19,8 @@ nohup.out
 
 build
 /_*
+.venv/
+.idea/
 /githash.txt
 
 /src/FontInspector.html

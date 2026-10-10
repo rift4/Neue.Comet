@@ -51,14 +51,14 @@ cp LICENSE.txt "$ZIPDIR/LICENSE.txt"
 
 mkdir -p "$ZIPDIR/web"
 
-cp misc/dist/help.txt                         "$ZIPDIR/help.txt"
-cp build/fonts/static-hinted/NeueComet.ttc         "$ZIPDIR/NeueComet.ttc"
-cp build/fonts/var/NeueCometVariable.otf          "$ZIPDIR/NeueCometVariable.otf"
-cp build/fonts/var/NeueCometVariable-Italic.otf   "$ZIPDIR/NeueCometVariable-Italic.otf"
-cp build/fonts/static/NeueComet*.woff2             "$ZIPDIR/web/" &
-cp build/fonts/var/NeueCometVariable.woff2        "$ZIPDIR/web/NeueCometVariable.woff2"
+cp misc/dist/help.txt                          "$ZIPDIR/help.txt"
+cp build/fonts/static-hinted/NeueComet.ttc        "$ZIPDIR/NeueComet.ttc"
+cp build/fonts/var/NeueCometVariable.otf         "$ZIPDIR/NeueCometVariable.otf"
+cp build/fonts/var/NeueCometVariable-Italic.otf  "$ZIPDIR/NeueCometVariable-Italic.otf"
+cp build/fonts/static/NeueComet*.woff2            "$ZIPDIR/web/" &
+cp build/fonts/var/NeueCometVariable.woff2       "$ZIPDIR/web/NeueCometVariable.woff2"
 cp build/fonts/var/NeueCometVariable-Italic.woff2 "$ZIPDIR/web/NeueCometVariable-Italic.woff2"
-cp misc/dist/neue-comet.css                        "$ZIPDIR/web/"
+cp misc/dist/neue-comet.css                       "$ZIPDIR/web/"
 
 . build/venv/bin/activate
 python misc/tools/patch-version.py "$ZIPDIR/web/neue-comet.css"
@@ -67,9 +67,9 @@ mkdir -p "$ZIPDIR/extras/otf" \
          "$ZIPDIR/extras/ttf" \
          "$ZIPDIR/extras/woff-hinted"
 
-cp build/fonts/static/NeueComet*.otf           "$ZIPDIR/extras/otf/" &
-cp build/fonts/static-hinted/NeueComet*.ttf    "$ZIPDIR/extras/ttf/" &
-cp build/fonts/static-hinted/NeueComet*.woff2  "$ZIPDIR/extras/woff-hinted/" &
+cp build/fonts/static/NeueComet*.otf            "$ZIPDIR/extras/otf/" &
+cp build/fonts/static-hinted/NeueComet*.ttf     "$ZIPDIR/extras/ttf/" &
+cp build/fonts/static-hinted/NeueComet*.woff2   "$ZIPDIR/extras/woff-hinted/" &
 
 
 
