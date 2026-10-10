@@ -1,117 +1,167 @@
 #!/usr/bin/env python3
-"""Make the spurred G the default shape and the spurless G the cv10 alternate.
+"""Make the spurred capital G the default and the spurless G the cv10 alternate.
 
-Inter draws the plain capital G once and derives the spurred G from it: the
-spurred glyph keeps a plain `G` in its background and adds the spur as
-foreground contours. That makes "spurred" a delta on top of "spurless", so the
-spurred shape cannot become the default without breaking that relationship.
+Inter stores two capital G shapes:
 
-This script rewires the relationship so the spurred shape is the base glyph
-and the plain shape is the alternate:
+  G    spurless  -- one contour
+  G.1  spurred   -- two contours (a redrawn bowl plus the spur)
 
-  * every affected base glyph (`G`, `Gbar`, ...) is given the contours that
-    currently live in its `.1` counterpart, and its background reference is
-    repointed at the new plain alternate;
-  * every `.1` glyph is reduced to just that background reference, so it draws
-    the plain shape with no spur.
+and cv10 switches between them with `sub G by G.1;`.
 
-The geometry is moved wholesale rather than edited contour by contour: the
-spurred bowl is redrawn with different node coordinates and different anchor
-positions, so it is not the plain bowl plus an appendable spur.
+This script makes the spurred shape the default by exchanging the geometry of
+those two glyphs, so afterwards:
 
-Run with --check to report what would change without writing anything.
+  G    spurred   -- what you get with no features applied
+  G.1  spurless  -- what cv10 now substitutes in, i.e. cv10 turns the spur OFF
 
-Usage: python misc/tools/swap-g-spur.py [--check] [glyphspackage ...]
+Only these two glyphs need editing. Every other G glyph (Gbar, Gacute, Gcaron,
+...) is a pure composite that references either G or G.1 plus a mark, so it
+follows automatically. That includes the ss05/ss06 alternates: G.circled and
+G.squared reference G and become spurred, G.1.squared references G.1 and
+becomes spurless.
+
+The cv10 feature file is deliberately NOT edited: `sub G by G.1;` already means
+"swap to the other G", and after the swap the other G is the spurless one.
+
+Only the layers that both glyphs share are exchanged. Those are the design
+masters that actually compile; each glyph also carries a few extra layers that
+belong to no shipped font, and those are left untouched rather than guessed at.
+
+Usage: python misc/tools/swap-g-spur.py [--check] [src/*.glyphspackage ...]
 """
 import os
 import re
 import sys
 
-# base glyph name -> True if its plain shape is stored as a ref in the
-# background of the spurred glyph (the normal Glyphs arrangement).
-PAIRS = [
-    ("G", "G.1"),
-    ("Gbar", "Gbar.1"),
-    ("Ghook", "Ghook.1"),
-    ("Gcircumflex", "Gcircumflex.1"),
-    ("Gbreve", "Gbreve.1"),
-    ("Gdotaccent", "Gdotaccent.1"),
-    # Note the suffix order: the glyph is Gdotaccent.1.ss07, not
-    # Gdotaccent.ss07.1, even though the plain pair reads Gdotaccent.ss07.
-    ("Gdotaccent.ss07", "Gdotaccent.1.ss07"),
-    ("Gcommaaccent", "Gcommaaccent.1"),
-    ("Gcaron", "Gcaron.1"),
-    ("Gacute", "Gacute.1"),
-    ("Gmacron", "Gmacron.1"),
-]
+BASE = "G"
+ALT = "G.1"
+FILES = {"G": "G_.glyph", "G.1": "G_.1.glyph"}
 
 
-def find_files(glyphs_dir, wanted):
-    """Map glyphname -> path for the given names, by reading glyphname."""
-    found = {}
-    for entry in os.listdir(glyphs_dir):
-        if not entry.endswith(".glyph"):
-            continue
-        path = os.path.join(glyphs_dir, entry)
-        with open(path, encoding="utf-8", errors="replace") as fp:
-            head = fp.read(4096)
-        m = re.search(r"glyphname = ([^;]+);", head)
-        if m and m.group(1) in wanted:
-            found[m.group(1)] = path
-    return found
+def find_layer_blocks(text):
+    """Return (start, end) offsets of each top-level layer block in `layers = (...)`."""
+    m = re.search(r"layers = \(", text)
+    if not m:
+        raise ValueError("no layers = ( ... ) found")
+    i = m.end()
+    blocks = []
+    depth = 0
+    start = None
+    while i < len(text):
+        c = text[i]
+        if c == "{":
+            if depth == 0:
+                start = i
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0 and start is not None:
+                blocks.append((start, i + 1))
+                start = None
+        elif c == ")" and depth == 0:
+            break
+        i += 1
+    return blocks
 
 
-def split_layers(text):
-    """Split a .glyph file into (prefix, [(layerId, body), ...], suffix).
+def layer_id(block):
+    m = re.search(r"layerId = ([^;]+);", block)
+    return m.group(1).strip() if m else None
 
-    Bodies keep their trailing layer terminator so the file can be rebuilt
-    byte-for-byte apart from the edits.
-    """
-    parts = re.split(r"(\{\n?anchors|)", text)  # placeholder, replaced below
-    raise NotImplementedError
+
+def split_body(block):
+    """Return (everything_before_layerId, layerId_stmt, everything_after)."""
+    m = re.search(r"layerId = ([^;]+);", block)
+    if not m:
+        return block, "", ""
+    return block[: m.start()], m.group(0), block[m.end():]
+
+
+def read_glyph(path):
+    with open(path, encoding="utf-8") as fp:
+        text = fp.read()
+    blocks = find_layer_blocks(text)
+    layers = {}
+    for s, e in blocks:
+        lid = layer_id(text[s:e])
+        if lid:
+            layers[lid] = text[s:e]
+    return text, layers
+
+
+def swap_file(base_path, alt_path, dry_run):
+    base_text, base_layers = read_glyph(base_path)
+    alt_text, alt_layers = read_glyph(alt_path)
+
+    shared = [l for l in base_layers if l in alt_layers]
+    only_base = [l for l in base_layers if l not in alt_layers]
+    only_alt = [l for l in alt_layers if l not in base_layers]
+
+    print("  %s / %s: %d shared layers, %d base-only, %d alt-only"
+          % (os.path.basename(base_path), os.path.basename(alt_path),
+             len(shared), len(only_base), len(only_alt)))
+    for l in only_base:
+        print("      base-only layer (left alone): %s" % l[:40])
+    for l in only_alt:
+        print("      alt-only  layer (left alone): %s" % l[:40])
+    if not shared:
+        print("      !! no shared layers, refusing to touch")
+        return 1
+
+    def rebuild(text, layers, replacements):
+        """Re-emit `text` with each layer block replaced by its new body."""
+        blocks = find_layer_blocks(text)
+        out = []
+        pos = 0
+        for s, e in blocks:
+            lid = layer_id(text[s:e])
+            out.append(text[pos:s])
+            out.append(replacements[lid] if lid in replacements else text[s:e])
+            pos = e
+        out.append(text[pos:])
+        return "".join(out)
+
+    new_base = {}
+    new_alt = {}
+    for lid in shared:
+        b_pre, b_id, b_post = split_body(base_layers[lid])
+        a_pre, a_id, a_post = split_body(alt_layers[lid])
+        # Each file keeps its own layerId statement; only the shape/anchor/width
+        # payload is exchanged.
+        new_base[lid] = a_pre + b_id + a_post
+        new_alt[lid] = b_pre + a_id + b_post
+
+    if dry_run:
+        print("      would exchange %d layer payloads" % len(shared))
+        return 0
+
+    with open(base_path, "w", encoding="utf-8") as fp:
+        fp.write(rebuild(base_text, base_layers, new_base))
+    with open(alt_path, "w", encoding="utf-8") as fp:
+        fp.write(rebuild(alt_text, alt_layers, new_alt))
+    print("      exchanged %d layer payloads" % len(shared))
+    return 0
 
 
 def main(argv):
-    check = "--check" in argv
+    dry = "--check" in argv
     pkgs = [a for a in argv[1:] if not a.startswith("--")] or sorted(
         os.path.join("src", d) for d in os.listdir("src")
-        if d.endswith(".glyphspackage")
-    )
-
+        if d.endswith(".glyphspackage"))
     rc = 0
     for pkg in pkgs:
-        glyphs_dir = os.path.join(pkg, "glyphs")
-        if not os.path.isdir(glyphs_dir):
-            print("%s: no glyphs dir, skipped" % pkg)
-            rc = 1
+        print("=" * 70)
+        print(pkg + ("   (--check, nothing written)" if dry else ""))
+        gdir = os.path.join(pkg, "glyphs")
+        base_path = os.path.join(gdir, FILES[BASE])
+        alt_path = os.path.join(gdir, FILES[ALT])
+        for p in (base_path, alt_path):
+            if not os.path.exists(p):
+                print("  MISSING %s" % p)
+                rc = 1
+        if rc:
             continue
-
-        # The variants that can exist for a base glyph: the plain one, the
-        # spurred .1, and -- only for Gdotaccent -- the ss07 forms. Do not
-        # synthesise combinations like "G.1.ss07"; those do not exist and
-        # would report as spurious missing glyphs.
-        wanted = set()
-        for base, alt in PAIRS:
-            wanted.add(base)
-            wanted.add(alt)
-        found = find_files(glyphs_dir, wanted)
-
-        print("=" * 68)
-        print(pkg)
-        missing = [w for w in sorted(wanted) if w not in found]
-        for m in missing:
-            print("  MISSING: %s" % m)
-        if missing:
-            print("  -> aborting, required glyphs missing")
-            rc = 1
-            continue
-
-        for base_name, alt_name in PAIRS:
-            base = found[base_name]
-            alt = found[alt_name]
-            print("  %-18s base=%-24s alt=%s" % (
-                base_name, os.path.basename(base), os.path.basename(alt)))
-
+        rc |= swap_file(base_path, alt_path, dry)
     return rc
 
 
