@@ -87,8 +87,9 @@ async function run() {
   probe.textContent = SAMPLE;
   document.body.appendChild(probe);
 
-  function width(family, wght, opsz, style) {
-    probe.style.fontFamily = "'" + family + "'";
+  // `stack` is a full font-family list, e.g. '"NCTestGlyf", monospace'.
+  function width(stack, wght, opsz, style) {
+    probe.style.fontFamily = stack;
     probe.style.fontVariationSettings = "'wght' " + wght + ", 'opsz' " + opsz;
     probe.style.fontStyle = style;
     const r = document.createRange();
@@ -96,45 +97,73 @@ async function run() {
     return r.getBoundingClientRect().width;
   }
 
-  // 1. Do the files load? Measure against a family that cannot exist; if the
-  //    width matches the fallback, the font did not apply.
-  const fallback = width('__NoSuchFont__', 900, 14, 'normal');
+  // Did the file fetch and parse? Ask the font loader directly rather than
+  // inferring it from metrics. document.fonts.load() on a family that was
+  // never declared resolves with an empty array instead of rejecting, so
+  // the return value is the only reliable signal.
+  async function loadFace(f) {
+    const face = new FontFace('NCProbe' + f.key, 'url("' + BASE + f.file + '")',
+                              { weight: '100 900', style: f.style });
+    try {
+      // Note: FontFace.variationSettings echoes the descriptor passed in, not
+      // the font's actual axes, and there is no API that reports them. The
+      // axis checks below measure interpolation behaviour instead of claiming
+      // to enumerate the fvar table.
+      await face.load();
+      return { ok: true };
+    } catch (e) {
+      return { ok: false, error: (e && e.message) || String(e) };
+    }
+  }
 
   const results = {};
   for (const f of FACES) {
-    let loaded = true;
-    try {
-      await document.fonts.load('400 64px "' + f.cssFamily + '"');
-      await document.fonts.load('italic 400 64px "' + f.cssFamily + '"');
-      await document.fonts.ready;
-    } catch (e) {
-      loaded = false;
+    const stack = '"' + f.cssFamily + '", monospace';
+
+    const loaded = await loadFace(f);
+    // Warm the CSS-injected faces too. These reject on a network error, which
+    // must not abort the run: loadFace() is the authoritative load check and
+    // the measurements below are still meaningful.
+    for (const spec of ['400 64px "' + f.cssFamily + '"',
+                        'italic 400 64px "' + f.cssFamily + '"']) {
+      try { await document.fonts.load(spec); } catch (e) { /* reported by loads */ }
     }
-    const w = width(f.cssFamily, 400, 14, f.style);
-    const applies = Math.abs(w - fallback) > 0.5;
-    row(f.label, 'loads', loaded ? 'fetched' : 'FETCH FAILED',
-        loaded ? 'ok' : 'bad');
-    row(f.label, 'applies (not fallback)', applies ? w.toFixed(1) + 'px' : 'same as fallback',
+
+    row(f.label, 'loads', loaded.ok ? 'fetched' : 'FETCH FAILED',
+        loaded.ok ? 'ok' : 'bad');
+
+    // Control: the same fallback chain with the font under test removed. An
+    // explicit generic is used instead of the browser default so the result
+    // does not depend on which fonts happen to be installed. A proportional
+    // face and a monospace face cannot share advance widths, so if the family
+    // fails to apply both measurements take the identical monospace path and
+    // match exactly.
+    const control = width('monospace', 400, 14, f.style);
+    const w = width(stack, 400, 14, f.style);
+    const applies = Math.abs(w - control) > 0.5;
+    row(f.label, 'applies (not fallback)',
+        applies ? w.toFixed(1) + 'px vs ' + control.toFixed(1) + 'px mono'
+                : 'indistinguishable from ' + control.toFixed(1) + 'px mono',
         applies ? 'ok' : 'bad');
-    if (!loaded || !applies) {
+    if (!loaded.ok || !applies) {
       row(f.label, 'wght interpolates', 'n/a', 'skip');
       row(f.label, 'opsz interpolates', 'n/a', 'skip');
       continue;
     }
 
-    const w100 = width(f.cssFamily, 100, 14, f.style);
-    const w900 = width(f.cssFamily, 900, 14, f.style);
+    const w100 = width(stack, 100, 14, f.style);
+    const w900 = width(stack, 900, 14, f.style);
     row(f.label, 'wght interpolates',
         w100.toFixed(1) + ' → ' + w900.toFixed(1) + 'px',
         w900 > w100 + 1 ? 'ok' : 'bad');
 
-    const o14 = width(f.cssFamily, 400, 14, f.style);
-    const o32 = width(f.cssFamily, 400, 32, f.style);
+    const o14 = width(stack, 400, 14, f.style);
+    const o32 = width(stack, 400, 32, f.style);
     row(f.label, 'opsz interpolates',
         o14.toFixed(1) + ' → ' + o32.toFixed(1) + 'px',
         Math.abs(o32 - o14) > 1 ? 'ok' : 'bad');
 
-    results[f.key] = { w100, w400: width(f.cssFamily, 400, 14, f.style), w900, o14, o32 };
+    results[f.key] = { w100, w400: width(stack, 400, 14, f.style), w900, o14, o32 };
   }
 
   // 2. Do the two formats agree?
@@ -203,7 +232,14 @@ async function run() {
   }
 }
 
-run();
+// Never leave the page stuck on "Running…". A crash here must report itself,
+// otherwise a broken harness looks identical to a passing one.
+run().catch(e => {
+  document.getElementById('out').innerHTML =
+    '<div class="summary fail">Test errored: ' +
+    ((e && e.message) || e).toString().replace(/[<>&]/g, '') + '</div>' +
+    '<p class="cap">browser: ' + navigator.userAgent + '</p>';
+});
 </script>
 </body>
 </html>
