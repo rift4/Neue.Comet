@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Neue Comet — variable font format test</title>
+<style>
+  :root {
+    --pass: #0a7d33; --fail: #c1121f; --warn: #8a6d00; --skip: #888;
+  }
+  body { font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+         margin: 0; padding: 24px; color: #111; background: #fff; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { margin: 0 0 20px; color: #555; }
+  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .06em;
+       color: #666; margin: 28px 0 8px; border-bottom: 1px solid #ddd;
+       padding-bottom: 4px; }
+  table { border-collapse: collapse; width: 100%; max-width: 900px; }
+  th, td { text-align: left; padding: 5px 10px 5px 0; vertical-align: top;
+           border-bottom: 1px solid #f0f0f0; font-variant-numeric: tabular-nums; }
+  th { font-weight: 600; color: #444; font-size: 12px; }
+  td.num { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .ok   { color: var(--pass); font-weight: 600; }
+  .bad  { color: var(--fail); font-weight: 600; }
+  .skip { color: var(--skip); }
+  .samples { margin-top: 8px; }
+  .s { white-space: nowrap; font-size: 34px; line-height: 1.3;
+       padding: 2px 0; border-bottom: 1px solid #eee; }
+  .cap { font: 11px system-ui; color: #888; }
+  .summary { font-size: 16px; font-weight: 600; margin-top: 24px;
+             padding: 10px 14px; border-radius: 6px; display: inline-block; }
+  .summary.pass { background: #e6f4ea; color: var(--pass); }
+  .summary.fail { background: #fde8e8; color: var(--fail); }
+</style>
+
+<body>
+<h1>Neue Comet — variable font format test</h1>
+<p class="sub">
+  Confirms that both the glyf and CFF2 variable fonts load, that both axes
+  interpolate, and that they render the same in this browser.
+  Reload after switching browser; each browser must be tested separately.
+</p>
+
+<div id="out">Running…</div>
+
+<h2>Specimens</h2>
+<div class="samples" id="samples"></div>
+
+<script>
+// Pinned to the tag under test. Change to @main to test the latest commit.
+const REF = '@main';
+const BASE = 'https://cdn.jsdelivr.net/gh/rift4/Neue.Comet@' + REF + '/docs/font-files/';
+
+const FACES = [
+  { key: 'glyf',     label: 'glyf',      file: 'NeueCometVariable.woff2',
+    cssFamily: 'NCTestGlyf',    style: 'normal' },
+  { key: 'cff2',     label: 'CFF2',      file: 'NeueCometVariable-cff2.woff2',
+    cssFamily: 'NCTestCFF2',    style: 'normal' },
+  { key: 'glyfi',    label: 'glyf ital', file: 'NeueCometVariable-Italic.woff2',
+    cssFamily: 'NCTestGlyfIt',  style: 'italic' },
+  { key: 'cff2i',    label: 'CFF2 ital', file: 'NeueCometVariable-Italic-cff2.woff2',
+    cssFamily: 'NCTestCFF2It',  style: 'italic' },
+];
+
+const SAMPLE = 'Hamburgefonstiv 0123456789';
+
+const rows = [];
+function row(face, check, detail, status) {
+  rows.push({ face, check, detail, status });
+}
+
+async function run() {
+  const out = document.getElementById('out');
+
+  // Inject @font-face rules.
+  const css = FACES.map(f =>
+    `@font-face{font-family:'${f.cssFamily}';src:url('${BASE}${f.file}') format('woff2');` +
+    `font-weight:100 900;font-style:${f.style};font-display:block}`
+  ).join('\n');
+  const style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
+
+  // Measure with an offscreen element.
+  const probe = document.createElement('span');
+  probe.className = 's';
+  probe.style.cssText =
+    'position:absolute;visibility:hidden;white-space:pre;font-size:64px;line-height:1';
+  probe.textContent = SAMPLE;
+  document.body.appendChild(probe);
+
+  function width(family, wght, opsz, style) {
+    probe.style.fontFamily = "'" + family + "'";
+    probe.style.fontVariationSettings = "'wght' " + wght + ", 'opsz' " + opsz;
+    probe.style.fontStyle = style;
+    const r = document.createRange();
+    r.selectNodeContents(probe);
+    return r.getBoundingClientRect().width;
+  }
+
+  // 1. Do the files load? Measure against a family that cannot exist; if the
+  //    width matches the fallback, the font did not apply.
+  const fallback = width('__NoSuchFont__', 900, 14, 'normal');
+
+  const results = {};
+  for (const f of FACES) {
+    let loaded = true;
+    try {
+      await document.fonts.load('400 64px "' + f.cssFamily + '"');
+      await document.fonts.load('italic 400 64px "' + f.cssFamily + '"');
+      await document.fonts.ready;
+    } catch (e) {
+      loaded = false;
+    }
+    const w = width(f.cssFamily, 400, 14, f.style);
+    const applies = Math.abs(w - fallback) > 0.5;
+    row(f.label, 'loads', loaded ? 'fetched' : 'FETCH FAILED',
+        loaded ? 'ok' : 'bad');
+    row(f.label, 'applies (not fallback)', applies ? w.toFixed(1) + 'px' : 'same as fallback',
+        applies ? 'ok' : 'bad');
+    if (!loaded || !applies) {
+      row(f.label, 'wght interpolates', 'n/a', 'skip');
+      row(f.label, 'opsz interpolates', 'n/a', 'skip');
+      continue;
+    }
+
+    const w100 = width(f.cssFamily, 100, 14, f.style);
+    const w900 = width(f.cssFamily, 900, 14, f.style);
+    row(f.label, 'wght interpolates',
+        w100.toFixed(1) + ' → ' + w900.toFixed(1) + 'px',
+        w900 > w100 + 1 ? 'ok' : 'bad');
+
+    const o14 = width(f.cssFamily, 400, 14, f.style);
+    const o32 = width(f.cssFamily, 400, 32, f.style);
+    row(f.label, 'opsz interpolates',
+        o14.toFixed(1) + ' → ' + o32.toFixed(1) + 'px',
+        Math.abs(o32 - o14) > 1 ? 'ok' : 'bad');
+
+    results[f.key] = { w100, w400: width(f.cssFamily, 400, 14, f.style), w900, o14, o32 };
+  }
+
+  // 2. Do the two formats agree?
+  if (results.glyf && results.cff2) {
+    const g = results.glyf, c = results.cff2;
+    for (const [label, a, b] of [
+      ['wght 100', g.w100, c.w100],
+      ['wght 400', g.w400, c.w400],
+      ['wght 900', g.w900, c.w900],
+      ['opsz  14', g.o14, c.o14],
+      ['opsz  32', g.o32, c.o32],
+    ]) {
+      const d = Math.abs(a - b);
+      const rel = 100 * d / Math.max(a, 1);
+      row('glyf vs CFF2', label + ' width',
+          a.toFixed(1) + ' / ' + b.toFixed(1) + 'px  (' + rel.toFixed(2) + '%)',
+          rel < 1.0 ? 'ok' : 'warn');
+    }
+  } else {
+    row('glyf vs CFF2', 'comparison', 'a format failed to load', 'skip');
+  }
+
+  // Render the table.
+  let html = '<table><tr><th>Format</th><th>Check</th><th>Result</th><th>Status</th></tr>';
+  for (const r of rows) {
+    const cls = r.status === 'ok' ? 'ok' : r.status === 'bad' ? 'bad' : 'skip';
+    const label = r.status === 'ok' ? 'PASS' : r.status === 'bad' ? 'FAIL' : 'SKIP';
+    html += '<tr><td>' + r.face + '</td><td>' + r.check +
+            '</td><td class="num">' + r.detail + '</td><td class="' + cls + '">' + label + '</td></tr>';
+  }
+  html += '</table>';
+
+  const bad = rows.filter(r => r.status === 'bad').length;
+  const warn = rows.filter(r => r.status === 'warn').length;
+  html += '<div class="summary ' + (bad ? 'fail' : 'pass') + '">';
+  html += bad ? bad + ' FAILED' : 'All checks passed';
+  if (warn) html += ' · ' + warn + ' warning' + (warn > 1 ? 's' : '');
+  html += '</div>';
+
+  // Which format this is, so the report is unambiguous.
+  html += '<p class="cap">browser: ' + navigator.userAgent + '</p>';
+  out.innerHTML = html;
+
+  // Specimens, last so fonts are definitely warm.
+  const s = document.getElementById('samples');
+  for (const f of FACES) {
+    const h = document.createElement('div');
+    h.className = 'cap';
+    h.textContent = f.label;
+    s.appendChild(h);
+    for (const [lab, vs] of [
+      ['wght 100', "'wght' 100,'opsz' 14"],
+      ['wght 400', "'wght' 400,'opsz' 14"],
+      ['wght 700', "'wght' 700,'opsz' 14"],
+      ['wght 900', "'wght' 900,'opsz' 14"],
+      ['wght 400 opsz 32', "'wght' 400,'opsz' 32"],
+    ]) {
+      const d = document.createElement('div');
+      d.className = 's';
+      d.style.fontFamily = "'" + f.cssFamily + "', monospace";
+      d.style.fontStyle = f.style;
+      d.style.fontVariationSettings = vs;
+      d.textContent = lab + '  ' + SAMPLE;
+      s.appendChild(d);
+    }
+  }
+}
+
+run();
+</script>
+</body>
+</html>

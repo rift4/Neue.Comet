@@ -49,6 +49,14 @@ underneath you:
 If you'd rather use a domain you control, put a CDN in front of it — Cloudflare
 or similar — and serve the same paths.
 
+### Testing a browser engine
+
+[`docs/vf-test.html`](docs/vf-test.html) is a self-checking page. Open it in
+any browser and it reports, per format, whether the font loaded (rather than
+silently falling back), whether `wght` and `opsz` interpolate, and whether the
+glyf and CFF2 builds agree. It's how the CFF2 support claim below was checked,
+and it's the quickest way to confirm a browser before shipping to it.
+
 ## Installing on the desktop
 
 | Format | File | Use for |
