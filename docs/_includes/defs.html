@@ -1,3 +1,13 @@
+{%- comment -%}
+Resolve the site root from the page's own depth below, so the same build works
+whether it is served from a domain root, a GitHub Pages project path such as
+/Neue.Comet/, or anything else. A hardcoded absolute root 404s every stylesheet
+and font everywhere except the single path it was written for.
+
+The depth is the number of path segments in page.url. Ruby's split drops
+trailing empty strings, so "/lab/" yields ["", "lab"] (size 2) and the root "/"
+yields [] (size 0); depth is therefore size - 1.
+{%- endcomment -%}
 {%-
 assign build_version   = site.time | date: "%Y%m%d%H%M%S" %}{%
 assign description     = "Neue Comet is a typeface family" %}{%
@@ -5,10 +15,14 @@ assign release_version = site.data.fontinfo[0].version %}{%
 
 capture title %}{% if page.title %}{{ page.title }} — Neue Comet{% else %}Neue Comet font family{% endif %}{% endcapture %}{%
 
+assign _depth = page.url | split: "/" | size | minus: 1
+assign url_root = "" %}{%
+if _depth > 0 %}{%
+for _i in (1.._depth) %}{%
+  assign url_root = url_root | append: "../" %}{%
+endfor %}{% endif %}{%
 if site.baseurl %}{%
-  assign url_root = site.baseurl | append: "/" %}{%
-else %}{%
-  assign url_root = "/Neue.Comet/" %}{%
+  assign url_root = site.baseurl | prepend: url_root %}{%
 endif %}{%
 
 for file in site.static_files %}{%

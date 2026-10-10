@@ -61,8 +61,9 @@ and it's the quickest way to confirm a browser before shipping to it.
 | CFF2 | `NeueCometVariable.otf` | desktop installs — smaller file, nicer curves |
 
 The CFF2 build is verified in **Chromium** — both axes interpolate, and the
-rendered output is indistinguishable from the glyf build at every weight and
-optical size tested, roman and italic. It is **not yet verified in Firefox,
+rendered output matches the glyf build at every weight and optical size tested,
+roman and italic. Confirmed on Chrome 154 (Linux) and on headless Chromium via
+`docs/vf-test.html`, 22/22 checks passing. It is **not yet verified in Firefox,
 Safari, or on Windows**, where variable CFF2 has historically been weaker. So
 **glyf stays the default for the web** until that testing is done.
 
