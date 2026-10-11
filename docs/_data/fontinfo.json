@@ -5,7 +5,7 @@
     "GSUB": "[present but not decoded]",
     "GlyphOrder": "[present but not decoded]",
     "OS/2": {
-      "achVendID": "RSMS",
+      "achVendID": "NONE",
       "fsSelection": [
         "6: REGULAR",
         "7: USE_TYPO_METRICS"
@@ -55,7 +55,7 @@
       "usWinAscent": 1984,
       "usWinDescent": 494,
       "version": 4,
-      "xAvgCharWidth": 1311,
+      "xAvgCharWidth": 1309,
       "yStrikeoutPosition": 671,
       "yStrikeoutSize": 140,
       "ySubscriptXOffset": 0,
@@ -68,25 +68,29 @@
       "ySuperscriptYSize": 1229
     },
     "cmap": "[present but not decoded]",
+    "cvt ": "[present but not decoded]",
+    "fpgm": "[present but not decoded]",
+    "gasp": "[present but not decoded]",
     "glyf": "[present but not decoded]",
     "head": {
-      "checkSumAdjustment": 2478383721,
-      "created": 3814560818,
+      "checkSumAdjustment": 2613961875,
+      "created": 3874581328,
       "flags": [
         "0: Baseline at y=0",
         "1: Left sidebearing point at x=0",
+        "2: Instructions may depend on point size",
         "11: Losslessly optimized"
       ],
-      "flags_raw": 2051,
+      "flags_raw": 2055,
       "fontDirectionHint": 2,
-      "fontRevision": 4.001007080078125,
+      "fontRevision": 0.0,
       "glyphDataFormat": 0,
       "indexToLocFormat": 1,
       "lowestRecPPEM": 3,
       "macStyle": [],
       "macStyle_raw": 0,
       "magicNumber": 1594834165,
-      "modified": 3814560840,
+      "modified": 3874581929,
       "tableVersion": 1.0,
       "unitsPerEm": 2048,
       "xMax": 5290,
@@ -105,17 +109,17 @@
       "metricDataFormat": 0,
       "minLeftSideBearing": -1513,
       "minRightSideBearing": -2200,
-      "numberOfHMetrics": 2937,
+      "numberOfHMetrics": 2987,
       "tableVersion": 65536,
       "xMaxExtent": 5290
     },
     "hmtx": "[present but not decoded]",
-    "id": "font-files/NeueComet-Regular.woff2",
+    "id": "docs/font-files/NeueComet-Regular.woff2",
     "loca": "[present but not decoded]",
     "maxp": "[present but not decoded]",
     "name": "[present but not decoded]",
     "names": {
-      "#0 copyright": "Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter). Modified by Zap, 2026 (Neue Comet).",
+      "#0 copyright": "Copyright Zap 2026",
       "#1 familyName": "Neue Comet",
       "#11 vendorURL": "https://github.com/rift4/Neue.Comet",
       "#12 designerURL": "https://github.com/rift4/Neue.Comet",
@@ -144,9 +148,11 @@
       "#275": "Compact f",
       "#276": "Compact t",
       "#277": "Alternate capital sharp S",
-      "#3 fontId": "4.001;git-9221beed3;RSMS;NeueComet-Regular",
+      "#278": "Simplified tabular one",
+      "#279": "Lower-case a with tail",
+      "#3 fontId": "git-5464605;NONE;NeueComet-Regular",
       "#4 fullName": "Neue Comet Regular",
-      "#5 version": "Version 4.001;git-9221beed3",
+      "#5 version": "Version 0.000",
       "#6 postscriptName": "NeueComet-Regular",
       "#7 trademark": "Neue Comet is a derivative of Inter by Rasmus Andersson, modified by Zap and released under the SIL Open Font License. Inter is a trademark of Rasmus Andersson (RSMS).",
       "#8 manufacturerName": "Zap",
@@ -163,6 +169,7 @@
       "underlinePosition": -348,
       "underlineThickness": 140
     },
-    "version": "4.1"
+    "prep": "[present but not decoded]",
+    "version": "0.0"
   }
 ]
