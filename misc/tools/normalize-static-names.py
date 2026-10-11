@@ -70,30 +70,38 @@ def normalize(path):
     if italic:
         full += " Italic"
 
-    # Weight-class members of a style-linked group keep their weight in the
-    # legacy subfamily name (name ID 2), e.g. "Bold", "Bold Italic". The
-    # default Regular of a family is just "Regular"/"Italic". This is what
-    # lets Windows group the fonts into one family.
-    LINKED = ("Regular", "Bold", "Italic", "Bold Italic")
-    if is_display:
-        # Display statics are always grouped under the Display family, so
-        # name ID 2 is only ever Regular or Italic.
-        subfamily = "Italic" if italic else "Regular"
-    elif italic:
-        subfamily = (base + " Italic") if base else "Italic"
-    elif base in ("", "Regular"):
-        subfamily = "Regular"
-    else:
-        subfamily = base
+    # The four RIBBI styles are the only ones that can be expressed in the
+    # legacy name IDs without the weight leaking into name ID 2. Everything
+    # else is a non-RIBBI weight, which upstream Inter handles by putting the
+    # weight in the *family* name and using the typographic names (16/17) for
+    # the real grouping:
+    #
+    #   Inter-Regular.ttf       1='Inter'          2='Regular'   16/17 absent
+    #   Inter-Bold.ttf          1='Inter'          2='Bold'      16/17 absent
+    #   Inter-Black.ttf         1='Inter Black'    2='Regular'   16='Inter' 17='Black'
+    #   Inter-BlackItalic.ttf   1='Inter Black'    2='Italic'    16='Inter' 17='Black Italic'
+    #
+    # Note name ID 1 never contains the word "Italic" and name ID 2 is always
+    # one of R/I/B/BI; that is what fontbakery's italic_names check requires.
+    ribbi = None
+    if base in ("", "Regular"):
+        ribbi = "Italic" if italic else "Regular"
+    elif base == "Bold" and italic:
+        ribbi = "Bold Italic"
+    elif base == "Bold":
+        ribbi = "Bold"
 
-    # name ID 1 (legacy family): the text family's linked styles drop the
-    # weight, so that they group together; everything else keeps it.
-    if is_display:
-        legacy_family = family + (" " + base if base else "")
-    elif subfamily in LINKED:
+    if ribbi:
+        # RIBBI-linked: the whole weight axis collapses into the family name.
+        subfamily = ribbi
         legacy_family = family
+        has_wws = False
     else:
-        legacy_family = family + " " + subfamily
+        # Non-RIBBI: weight goes in the family name, name ID 2 stays Regular
+        # or Italic, and the typographic names carry the true grouping.
+        subfamily = "Italic" if italic else "Regular"
+        legacy_family = family + (" " + base if base else "")
+        has_wws = True
 
     version = name.getDebugName(5) or ""
     ver = version.replace("Version ", "") if version else "0.000"
@@ -113,9 +121,10 @@ def normalize(path):
     setn(6, ps, "postScriptName")
     setn(3, "%s;%s;%s" % (ver, font["OS/2"].achVendID, ps), "uniqueID")
 
-    # Only non-Default weights carry typographic (WWS) names upstream: the
-    # Regular/Italic pair is expressed via the legacy names instead.
-    if is_display and base not in ("", "Regular"):
+    # Typographic (WWS) names exist exactly when the style is not RIBBI-linked.
+    # The RIBBI four are grouped via the legacy names instead, and upstream
+    # leaves 16/17 absent for them rather than duplicating the information.
+    if has_wws:
         sub = base + (" Italic" if italic else "")
         setn(16, family, "typographicFamily")
         setn(17, sub, "typographicSubfamily")

@@ -389,9 +389,54 @@ static_ttf: $(STATIC_FONTS_TTF)
 static_web: $(STATIC_FONTS_WEB)
 static_web_hinted: $(STATIC_FONTS_WEB_HINTED)
 
-all: var var_otf static web static_otf
+# ---------------------------------------------------------------------------------
+# copy the web fonts into the site
+#
+# docs/font-files is what docs/neue-comet.css and the lab load, so it has to
+# track the build. It was being refreshed by hand, which is how it drifted:
+# the CFF2 pair was missing entirely and the statics were stale. The site
+# serves the *hinted* statics, so those are the ones copied.
+DOCSDIR   := docs
+WEBFONTS  := $(DOCSDIR)/font-files
+DOCS_FONTS := $(STATIC_FONTS_WEB_HINTED) $(VAR_GLYF_WEB) $(VAR_CFF2_WEB)
+DOCS_NAMES := $(notdir $(DOCS_FONTS))
+DOCS_COPIES := $(addprefix $(WEBFONTS)/,$(DOCS_NAMES))
+
+$(WEBFONTS):
+	mkdir -p $@
+
+# One rule per file, so a single rebuilt font refreshes just that file and
+# make still tracks the dependency. The generic rule covers the statics; the
+# variable fonts come from build/fonts/var, not static-hinted.
+$(WEBFONTS)/NeueCometVariable.woff2: $(FONTDIR)/var/NeueCometVariable.woff2 | $(WEBFONTS)
+	cp $< $@
+$(WEBFONTS)/NeueCometVariable-Italic.woff2: $(FONTDIR)/var/NeueCometVariable-Italic.woff2 | $(WEBFONTS)
+	cp $< $@
+$(WEBFONTS)/NeueCometVariable-cff2.woff2: $(FONTDIR)/var/NeueCometVariable-cff2.woff2 | $(WEBFONTS)
+	cp $< $@
+$(WEBFONTS)/NeueCometVariable-Italic-cff2.woff2: $(FONTDIR)/var/NeueCometVariable-Italic-cff2.woff2 | $(WEBFONTS)
+	cp $< $@
+$(WEBFONTS)/%.woff2: $(FONTDIR)/static-hinted/%.woff2 | $(WEBFONTS)
+	cp $< $@
+
+# Depend on the *copies*, not the build products: depending on the build
+# products alone makes this target succeed without copying anything.
+docs_fonts: $(DOCS_COPIES)
+
+# Prune anything the current font set no longer produces, so a renamed or
+# dropped weight does not linger and get served forever.
+docs_fonts_clean: docs_fonts
+	@for f in $$(ls $(WEBFONTS)/*.woff2 2>/dev/null); do \
+		b=$$(basename $$f); \
+		case " $(DOCS_NAMES) " in *" $$b "*) ;; \
+			*) echo "rm $$f"; rm -f $$f ;; \
+		esac; \
+	done
+
+all: var var_otf static web static_otf docs_fonts_clean
 
 .PHONY: \
+	docs_fonts docs_fonts_clean zip_release
 	all var var_otf var_web var_otf_web web \
 	static static_otf static_ttf static_web static_web_hinted
 
@@ -490,6 +535,18 @@ build/fontbakery-report-display.txt: $(STATIC_DISPLAY_FONTS_TTF) | venv
 zip: all
 	bash misc/makezip2.sh -reveal-in-finder \
 		"build/release/NeueComet-$(VERSION)-$(shell git rev-parse --short=10 HEAD).zip"
+
+# The archive that a release publishes. The name has to be exactly what
+# docs/_includes/defs.html points visitors at, or the download link 404s
+# against an otherwise-successful release:
+#
+#   https://github.com/rift4/Neue.Comet/releases/download/v4.2/NeueComet-4.2.zip
+#
+# So no git hash here -- a tag is already immutable. `zip` above keeps the
+# hash because a local dev build has no tag to pin it.
+zip_release: all
+	bash misc/makezip2.sh \
+		"build/release/NeueComet-$(VERSION).zip"
 
 zip_beta: $(VAR_GLYF) $(VAR_GLYF_WEB)
 	mkdir -p build/release
