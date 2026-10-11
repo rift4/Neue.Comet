@@ -13,24 +13,39 @@ OPT_EDITABLE = False  # --editable
 
 
 def update_version(ufo):
-  # No version numbers. The font ships without one, so nothing here writes a
-  # version into the UFOs; otherwise name ID 5 ends up carrying a version and
-  # a git hash, and the site then has to guess a matching download path.
+  # No version numbers. The font ships without one.
   #
-  # Name ID 5 is left unset (no Version string) and name ID 3 drops its
-  # leading version segment, so both read as plain identifiers:
-  #   5: "Neue Comet Regular"
-  #   3: "git-<hash>;RSMS;NeueComet-Regular"
+  # Three places carry it and all three have to agree:
+  #   versionMajor/versionMinor  ufo2ft turns these into name ID 5, so they
+  #                               must be 0 or name ID 5 comes out as
+  #                               "Version 3.000" no matter what
+  #                               openTypeNameVersion says.
+  #   openTypeNameVersion        name ID 5. 0.000, and head.fontRevision is set
+  #                               to match, so the two agree. The slot is
+  #                               required to exist by convention, but 0.000
+  #                               says "no release", which is the truth: the
+  #                               versionless design decision is that no
+  #                               number here would have to be edited in step
+  #                               with every release.
+  #   openTypeNameUniqueID       name ID 3; the build identity. It used to
+  #                               lead with the version number; now it is
+  #                               "git-<hash>;Family-Style".
   #
-  # The year is still worth recording -- it dates the design, it is not a
-  # release number.
+  # fontbakery's font_version check is disabled in the Makefile: it accepts
+  # only a parseable "Version X.Y" agreeing with head.fontRevision, so no
+  # unversioned value satisfies it.
+  #
+  # The year is still recorded: it dates the design, it is not a release.
   buildtag, buildtagErrs = getGitHash()
   now = datetime.utcnow()
   if buildtag == "" or len(buildtagErrs) > 0:
     buildtag = "src"
     print("warning: getGitHash() failed: %r" % buildtagErrs, file=sys.stderr)
   ufo.info.year = now.year
-  ufo.info.openTypeNameVersion = None
+  ufo.info.versionMajor = 0
+  ufo.info.versionMinor = 0
+  ufo.info.openTypeNameVersion = "Version 0.000"
+  ufo.info.openTypeHeadVersion = "0.000"
   psFamily = re.sub(r'\s', '', ufo.info.familyName)
   psStyle = re.sub(r'\s', '', ufo.info.styleName)
   #

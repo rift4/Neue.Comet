@@ -457,6 +457,16 @@ FBAKE_DISABLED += com.google.fonts/check/fontbakery_version
 # Calls a server to see if there's a newer version of fontbakery and
 # FAILs if there is. This breaks reproducible builds.
 
+FBAKE_DISABLED += com.google.fonts/check/font_version
+# "FAIL name version string for platform 3, encoding 1 (\"0.000\"), could not
+#  be parsed." / "There is no name ID 5 (version string) in the font."
+# The check requires name ID 5 to be either absent or a parseable "Version X.Y"
+# that agrees with head.fontRevision to 4 decimal places, so there is no
+# unversioned value it accepts. Neue Comet ships versionless on purpose: a
+# version would have to be edited in step with every release, which is the
+# coupling that left the download link 404ing in the first place. Name ID 5
+# carries 0.000 and head.fontRevision matches it, so the two agree.
+
 FBAKE_DISABLED += com.google.fonts/check/family/win_ascent_and_descent
 # "FAIL OS/2.usWinAscent value should be equal or greater than 2269,
 #  but got 1984 instead"
