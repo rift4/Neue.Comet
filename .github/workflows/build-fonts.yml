@@ -15,7 +15,6 @@ on:
       - "src/**"
       - Makefile
       - Pipfile
-      - version.txt
       - misc/makezip2.sh
       - "misc/tools/**"
     tags:
@@ -26,7 +25,6 @@ on:
       - "src/**"
       - Makefile
       - Pipfile
-      - version.txt
       - misc/makezip2.sh
       - "misc/tools/**"
   workflow_dispatch:
@@ -54,31 +52,24 @@ jobs:
       - name: Setup python venv
         run: make venv
 
-      - name: Define version (tag)
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Define build identity
+        # The font ships unversioned, so there is no version to read or
+        # publish. The git hash is what identifies a build, and it goes into
+        # the font's unique ID and into the local archive name.
         run: |
-          VERSION=${{ github.ref }}
-          VERSION=${VERSION:11}  # refs/tags/v1.2.3 => 1.2.3
-          echo "inter_version=$VERSION" >> $GITHUB_ENV
-
-      - name: Define version (branch)
-        if: ${{ ! startsWith(github.ref, 'refs/tags/v') }}
-        run: |
-          GITSHA=${{ github.sha }}
-          VERSION=$(cat version.txt)
-          echo "inter_version=${VERSION}-${GITSHA:0:10}" >> $GITHUB_ENV
+          echo "git_short=${GITHUB_SHA::10}" >> $GITHUB_ENV
 
       - name: make zip
         run: |
-          # On a tag, build the archive whose name the website links to, so the
-          # download resolves. Off a tag, zip a CI artifact under any name.
+          # On a tag, build the archive under exactly the name the website
+          # links to, so the download resolves. Off a tag it is a throwaway
+          # CI artifact and any name will do.
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             make -j zip_release
-            echo "inter_zip=build/release/NeueComet-${{ env.inter_version }}.zip" >> $GITHUB_ENV
+            echo "inter_zip=build/release/NeueComet.zip" >> $GITHUB_ENV
           else
             make -j zip
-            mv build/release/NeueComet-*.zip "Neue Comet-${{ env.inter_version }}.zip"
-            echo "inter_zip=Neue Comet-${{ env.inter_version }}.zip" >> $GITHUB_ENV
+            echo "inter_zip=$(ls build/release/NeueComet-*.zip | head -1)" >> $GITHUB_ENV
           fi
 
       - name: Upload archive (unless tag)
@@ -94,6 +85,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
-          name: "${{ env.inter_version }}"
+          name: "${GITHUB_REF_NAME}"
           body: "This release was created automatically"
           files: ${{ env.inter_zip }}

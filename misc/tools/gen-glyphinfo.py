@@ -6,7 +6,7 @@
 import os, sys
 from os.path import dirname, basename, abspath, relpath, join as pjoin
 sys.path.append(abspath(pjoin(dirname(__file__), 'tools')))
-from common import BASEDIR, getVersion, getLocalTimeZoneOffset
+from common import BASEDIR, getLocalTimeZoneOffset
 
 import json, re
 import time

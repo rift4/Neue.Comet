@@ -54,12 +54,8 @@ def getGitHash():  # returns tuple (hash :string, errors :string[])
   return (_gitHash, _gitHashErrs)
 
 
-_version = None
-def getVersion():
-  global _version
-  if _version is None:
-    _version = readTextFile(pjoin(BASEDIR, 'version.txt')).strip()
-  return _version
+# The font ships unversioned, so there is no version file and no getVersion().
+# A build is identified by its git hash instead; see getGitHash().
 
 
 _local_tz_offs = None

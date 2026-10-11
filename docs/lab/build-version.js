@@ -1,4 +1,4 @@
 ---
 layout: none
 ---
-const interBuildVersion = "{{site.data.fontinfo[0].version}}"
+const interBuildVersion = "{{site.time | date: "%Y%m%d%H%M%S"}}"

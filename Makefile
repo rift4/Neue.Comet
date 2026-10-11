@@ -6,7 +6,6 @@ SRCDIR   := $(abspath $(lastword $(MAKEFILE_LIST))/..)
 FONTDIR  := build/fonts
 UFODIR   := build/ufo
 VENVDIR  := $(SRCDIR)/build/venv
-VERSION  := $(shell cat version.txt)
 MAKEFILE := $(lastword $(MAKEFILE_LIST))
 
 export PATH := $(VENVDIR)/bin:$(PATH)
@@ -534,41 +533,38 @@ build/fontbakery-report-display.txt: $(STATIC_DISPLAY_FONTS_TTF) | venv
 
 zip: all
 	bash misc/makezip2.sh -reveal-in-finder \
-		"build/release/NeueComet-$(VERSION)-$(shell git rev-parse --short=10 HEAD).zip"
+		"build/release/NeueComet-$(shell git rev-parse --short=10 HEAD).zip"
 
-# The archive that a release publishes. The name has to be exactly what
-# docs/_includes/defs.html points visitors at, or the download link 404s
-# against an otherwise-successful release:
-#
-#   https://github.com/rift4/Neue.Comet/releases/download/v4.2/NeueComet-4.2.zip
-#
-# So no git hash here -- a tag is already immutable. `zip` above keeps the
-# hash because a local dev build has no tag to pin it.
+# The archive a release publishes. The font carries no version number, so the
+# archive does not either, and docs/_includes/defs.html points at
+# /releases/latest/download/NeueComet.zip. A versioned name here would need
+# the site edited in step with every release, which is exactly the coupling
+# that left the download link 404ing before.
 zip_release: all
 	bash misc/makezip2.sh \
-		"build/release/NeueComet-$(VERSION).zip"
+		"build/release/NeueComet.zip"
 
 zip_beta: $(VAR_GLYF) $(VAR_GLYF_WEB)
 	mkdir -p build/release
-	zip -j -q -X "build/release/NeueComet_beta-$(VERSION)-$(shell date '+%Y%m%d_%H%M')-$(shell git rev-parse --short=10 HEAD).zip" $^
+	zip -j -q -X "build/release/NeueComet_beta-$(shell date '+%Y%m%d_%H%M')-$(shell git rev-parse --short=10 HEAD).zip" $^
 
 .PHONY: zip zip_beta
 
 # ---------------------------------------------------------------------------------
 # distribution
-# - preflight checks for existing version archive and dirty git state.
-# - step1 rebuilds from scratch, since font version & ID is based on git hash.
+# - preflight checks for an existing archive and dirty git state.
+# - step1 rebuilds from scratch, since the font's unique ID is based on git hash.
 # - step2 runs tests, then makes a zip archive and updates the website (docs/ dir.)
 
-DIST_ZIP = build/release/NeueComet-${VERSION}.zip
+DIST_ZIP = build/release/NeueComet.zip
 
 dist:
 	@echo "——————————————————————————————————————————————————————————————————"
-	@echo "Creating distribution for version ${VERSION}"
+	@echo "Creating distribution ${DIST_ZIP}"
 	@echo "——————————————————————————————————————————————————————————————————"
-	@# check for existing version archive
+	@# check for existing archive
 	@if [ -f "${DIST_ZIP}" ]; then \
-		echo "${DIST_ZIP} already exists. Bump version or rm zip file to continue." >&2; \
+		echo "${DIST_ZIP} already exists. rm it to continue." >&2; \
 		exit 1; \
 	fi
 	@# check for uncommitted changes
@@ -596,11 +592,12 @@ dist_postflight:
 	@echo ""
 	@echo "1) Commit & push changes"
 	@echo ""
-	@echo "2) Create new release with ${DIST_ZIP} at"
-	@echo "   https://github.com/rsms/inter/releases/new?tag=v${VERSION}"
+	@echo "2) Create a new release at"
+	@echo "   https://github.com/rift4/Neue.Comet/releases/new"
+	@echo "   and attach ${DIST_ZIP}"
 	@echo ""
-	@echo "3) Bump version in version.txt (to the next future version)"
-	@echo "   and commit & push changes"
+	@echo "The site links to /releases/latest/download/NeueComet.zip, so"
+	@echo "the asset must keep the name NeueComet.zip."
 	@echo ""
 	@echo "——————————————————————————————————————————————————————————————————"
 

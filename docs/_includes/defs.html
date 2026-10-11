@@ -7,11 +7,15 @@ and font everywhere except the single path it was written for.
 The depth is the number of path segments in page.url. Ruby's split drops
 trailing empty strings, so "/lab/" yields ["", "lab"] (size 2) and the root "/"
 yields [] (size 0); depth is therefore size - 1.
+
+The font carries no version number, so the download URL below points at
+whatever the most recent release is, rather than a versioned path that would
+have to be edited in step with every tag by hand. GitHub redirects
+/releases/latest to the newest published release.
 {%- endcomment -%}
 {%-
 assign build_version   = site.time | date: "%Y%m%d%H%M%S" %}{%
 assign description     = "Neue Comet is a typeface family" %}{%
-assign release_version = site.data.fontinfo[0].version %}{%
 
 capture title %}{% if page.title %}{{ page.title }} — Neue Comet{% else %}Neue Comet font family{% endif %}{% endcapture %}{%
 
@@ -35,7 +39,7 @@ for file in site.static_files %}{%
 endfor %}{%
 
 capture download_url
-  %}https://github.com/rift4/Neue.Comet/releases/download/v{{release_version}}/NeueComet-{{release_version}}.zip{%
+  %}https://github.com/rift4/Neue.Comet/releases/latest/download/NeueComet.zip{%
 endcapture
 
 -%}

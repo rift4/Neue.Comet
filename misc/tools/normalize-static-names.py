@@ -103,8 +103,14 @@ def normalize(path):
         legacy_family = family + (" " + base if base else "")
         has_wws = True
 
-    version = name.getDebugName(5) or ""
-    ver = version.replace("Version ", "") if version else "0.000"
+    # No version number anywhere. The unique ID is the vendor tag, the git
+    # hash and the PostScript name; a version segment used to lead it, but the
+    # font ships unversioned so there is nothing to lead it with. The git tag
+    # is already in name ID 3 from the UFO, so it is read from there rather
+    # than reconstructed.
+    uid = name.getDebugName(3) or ""
+    parts = uid.split(";")
+    git = parts[0] if parts and parts[0].startswith("git") else ""
 
     changes = []
 
@@ -119,7 +125,7 @@ def normalize(path):
     setn(2, subfamily, "subfamilyName")
     setn(4, full, "fullName")
     setn(6, ps, "postScriptName")
-    setn(3, "%s;%s;%s" % (ver, font["OS/2"].achVendID, ps), "uniqueID")
+    setn(3, "%s;%s;%s" % (git, font["OS/2"].achVendID, ps), "uniqueID")
 
     # Typographic (WWS) names exist exactly when the style is not RIBBI-linked.
     # The RIBBI four are grouped via the legacy names instead, and upstream

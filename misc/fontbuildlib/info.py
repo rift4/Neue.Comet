@@ -2,8 +2,13 @@ import subprocess
 import re
 import sys
 from datetime import datetime
-from common import getGitHash, getVersion
+from common import getGitHash
 from .util import readTextFile, BASEDIR, pjoin
+
+# NOTE: this module is not imported by anything in the build. It is kept for
+# reference and still describes the old versioned scheme (getVersion() and
+# version.txt are gone). misc/tools/postprocess-designspace.py is the code
+# that actually stamps a font's name table.
 
 
 def updateFontVersion(font, dummy, isVF):
@@ -12,7 +17,7 @@ def updateFontVersion(font, dummy, isVF):
     buildtag = "src"
     now = datetime(2016, 1, 1, 0, 0, 0, 0)
   else:
-    version = getVersion()
+    version = "0.000"  # unused: this module is reference-only, see note above
     buildtag, buildtagErrs = getGitHash()
     now = datetime.utcnow()
     if buildtag == "" or len(buildtagErrs) > 0:
