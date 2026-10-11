@@ -211,6 +211,15 @@ Neue Comet is derived from [Inter](https://github.com/rsms/inter) by
 licence and design credit are retained in `LICENSE.txt` and in the font
 metadata, as the licence requires.
 
+### Capital R derived from Geist
+
+The capital R is taken from [Geist](https://github.com/vercel/geist-font) by
+The Geist Project Authors, which is also licensed under the
+[SIL Open Font License 1.1](LICENSE.txt). Geist's R has a vertical leg where
+Inter's slants; that was the reason for the change. The outline is Geist's,
+scaled to our em, not a redrawing. The Geist notice is carried in the font
+metadata alongside Inter's, as the licence requires.
+
 "Inter" is a trademark of Rasmus Andersson (RSMS). Script coverage, the
 two-axis variable model, the OpenType feature set and the underlying glyph
 design all originate with Inter; the changes made here are the family rename,

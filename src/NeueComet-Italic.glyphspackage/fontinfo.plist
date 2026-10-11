@@ -5548,11 +5548,11 @@ ellipsis = -197;
 period = -69;
 };
 "@MMK_L_R" = {
-"@MMK_R_V" = -34;
-"@MMK_R_Y" = -49;
-"@MMK_R_a" = -20;
-"@MMK_R_idieresis" = 93;
-"@MMK_R_o" = -20;
+"@MMK_R_V" = -302;
+"@MMK_R_Y" = -317;
+"@MMK_R_a" = -288;
+"@MMK_R_idieresis" = -175;
+"@MMK_R_o" = -288;
 };
 "@MMK_L_S" = {
 "@MMK_R_four.subs" = -140;
@@ -9202,11 +9202,11 @@ ellipsis = -197;
 period = -69;
 };
 "@MMK_L_R" = {
-"@MMK_R_V" = -34;
-"@MMK_R_Y" = -49;
-"@MMK_R_a" = -10;
-"@MMK_R_idieresis" = 93;
-"@MMK_R_o" = -30;
+"@MMK_R_V" = -132;
+"@MMK_R_Y" = -147;
+"@MMK_R_a" = -108;
+"@MMK_R_idieresis" = -5;
+"@MMK_R_o" = -128;
 };
 "@MMK_L_S" = {
 "@MMK_R_T" = -10;
@@ -12950,11 +12950,11 @@ ellipsis = -197;
 period = -69;
 };
 "@MMK_L_R" = {
-"@MMK_R_V" = -46;
-"@MMK_R_Y" = -69;
-"@MMK_R_a" = -10;
-"@MMK_R_idieresis" = 93;
-"@MMK_R_o" = -20;
+"@MMK_R_V" = -166;
+"@MMK_R_Y" = -189;
+"@MMK_R_a" = -130;
+"@MMK_R_idieresis" = -27;
+"@MMK_R_o" = -140;
 };
 "@MMK_L_S" = {
 "@MMK_R_A" = -58;
@@ -16453,7 +16453,7 @@ key = copyrights;
 values = (
 {
 language = dflt;
-value = "Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter). Modified by Zap, 2026 (Neue Comet).";
+value = "Copyright Zap 2026";
 }
 );
 },
