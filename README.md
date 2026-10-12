@@ -1,122 +1,133 @@
 # Neue Comet
 
-Neue Comet is a variable typeface for screens: a tall x-height, a large character
-set, and a wide weight range on two optical-size axes.
+A variable grotesque for screens, descended from
+[Inter](https://github.com/rsms/inter), with a vertical-legged capital R taken
+from [Geist](https://github.com/vercel/geist-font).
 
-Version 4.2 · SIL Open Font License
+New typefaces get new names. There is no version number — the most recent
+release is always the current one.
 
-[**Download the font files**](https://github.com/rift4/Neue.Comet/releases/latest)
+**Get the files:** [releases/latest](https://github.com/rift4/Neue.Comet/releases/latest) ·
+**Licence:** [SIL Open Font License 1.1](LICENSE.txt)
 
-## Quick questions
+---
 
-- **Where can I get it?** [Releases](https://github.com/rift4/Neue.Comet/releases/latest)
-- **Can I use it commercially?** Yes — bundle it with whatever you like, but you
-  may not sell the font itself. [Read the licence](LICENSE.txt).
-- **Something looks wrong.** [Open an issue](https://github.com/rift4/Neue.Comet/issues/new?template=bug_report.md)
-- **I have a question.** [Discussions Q&A](https://github.com/rift4/Neue.Comet/discussions/categories/q-a)
+## What it is
 
-## Installing on the web
+- **2,987 glyphs** covering **2,852 codepoints** across Latin (core, Extended-A,
+  Extended Additional), Greek and Cyrillic, plus a broad symbol set.
+- **2048 units/em.** Cap height 1490, x-height 1118, ascender 1984, descender
+  −494 — the tall x-height that reads well at UI sizes.
+- **Two variable axes**, `wght` 100–900 and `opsz` 14–32.
+- **Nine weights**, roman and italic, each in a text cut and a Display cut.
 
-Self-host the stylesheet:
+The Display cut is a second, separate set of masters, not a copy of the text
+cut. It is spaced and drawn for large sizes, where a UI grotesque's tight
+sidebearings and low contrast start to look thin and cramped.
 
-```html
-<link rel="preconnect" href="https://your-font-file-host/">
-<link rel="stylesheet" href="https://your-font-file-host/neue-comet.css">
-```
+### The variable axes
+
+| Axis | Range | Default | What it does |
+| --- | --- | --- | --- |
+| `wght` | 100–900 | 400 | The nine weights. |
+| `opsz` | 14–32 | 14 | Optical size. Interpolates the outlines — spacing, contrast and stroke weight — so the design tuned to stay legible at small text sizes opens up as the size grows. |
+
+`opsz` is the whole point of shipping two cuts as one variable font rather than
+two static families: the small-size masters and the display masters are the two
+ends of a single axis, so an application can pick the right point on it without
+loading two files.
 
 ```css
-:root { font-family: 'Neue Comet', sans-serif; }
-@supports (font-variation-settings: normal) {
-  :root { font-family: 'Neue Comet var', sans-serif; }
-}
+font-variation-settings: 'wght' 450, 'opsz' 22;
 ```
 
-Self-hosting is the recommended approach. Copy `neue-comet.css` and the
-`font-files/` directory out of this repo into your own site:
+Applications with automatic optical sizing (`font-optical-sizing: auto`) drive
+`opsz` for you from the computed font size. Otherwise set it explicitly.
+
+### The weights
+
+| Roman | Italic | `wght` |
+| --- | --- | --- |
+| Neue Comet Thin | Neue Comet Thin Italic | 100 |
+| Neue Comet ExtraLight | Neue Comet ExtraLight Italic | 200 |
+| Neue Comet Light | Neue Comet Light Italic | 300 |
+| Neue Comet Regular | Neue Comet Italic | 400 |
+| Neue Comet Medium | Neue Comet Medium Italic | 500 |
+| Neue Comet SemiBold | Neue Comet SemiBold Italic | 600 |
+| Neue Comet Bold | Neue Comet Bold Italic | 700 |
+| Neue Comet ExtraBold | Neue Comet ExtraBold Italic | 800 |
+| Neue Comet Black | Neue Comet Black Italic | 900 |
+
+36 static instances in total: 9 weights × {roman, italic} × {text, Display}.
+
+---
+
+## Using it
+
+### On the web — self-host
+
+Copy `neue-comet.css` and the `font-files/` directory from this repo onto your
+own server and link one stylesheet:
 
 ```html
 <link rel="stylesheet" href="/fonts/neue-comet.css">
 ```
 
-Serving the CSS and the WOFF2 files from one origin means no extra DNS lookup,
-no third-party connection to block, and it works offline and behind a firewall.
+```css
+body { font-family: 'Neue Comet', system-ui, sans-serif; }
+```
 
-If you want a CDN in front, put one in front of *your own* copy — Cloudflare or
-similar — rather than proxying a third-party host, so the CSS and fonts still
-share an origin.
+One origin for the CSS and the WOFF2 files means no extra DNS lookup, no
+third-party connection for a visitor's browser to block or fail, and it works
+offline and behind a strict CSP.
 
-### Testing a browser engine
+There is no CDN build and no third-party font host. If you want one in front,
+put one in front of *your* copy so the CSS and the font files still share an
+origin — otherwise you get a second connection and a cross-origin fetch that
+can fail independently of the stylesheet.
 
-[`docs/vf-test.html`](docs/vf-test.html) is a self-checking page. Open it in
-any browser and it reports, per format, whether the font loaded (rather than
-silently falling back), whether `wght` and `opsz` interpolate, and whether the
-glyf and CFF2 builds agree. It's how the CFF2 support claim below was checked,
-and it's the quickest way to confirm a browser before shipping to it.
+For the Display cut, link `neue-comet-display.css` and use the
+`NeueCometDisplay` family name.
 
-## Installing on the desktop
+### On the desktop
 
-| Format | File | Use for |
+| Format | File | For |
 | --- | --- | --- |
-| glyf | `NeueCometVariable.ttf` | the web, `@font-face`, anywhere variable-font support is uncertain |
-| CFF2 | `NeueCometVariable.otf` | desktop installs — smaller file, nicer curves |
+| glyf | `NeueCometVariable.ttf` | the web, `@font-face`, any engine where variable-font support is uncertain |
+| CFF2 | `NeueCometVariable.otf` | desktop installs — smaller file, better curve handling |
+| hinted | `NeueComet.ttc` | a collection of all 36 statics, for applications that want discrete weights |
 
-The CFF2 build is verified in **Chromium** — both axes interpolate, and the
-rendered output matches the glyf build at every weight and optical size tested,
-roman and italic. Confirmed on Chrome 154 (Linux) and on headless Chromium via
-`docs/vf-test.html`, 22/22 checks passing. It is **not yet verified in Firefox,
-Safari, or on Windows**, where variable CFF2 has historically been weaker. So
-**glyf stays the default for the web** until that testing is done.
+The CFF2 build is the one to install on a desktop. It is 36% smaller than the
+glyf build (566 KB against 886 KB) and its outlines interpolate more cleanly.
+The glyf build stays the default for the web, where broad support matters more
+than size.
 
-`make install_var` installs the glyf version, `make install_var_otf` the CFF2 one.
+```sh
+make install_var_otf   # the two CFF2 variable fonts
+make install_ttf       # NeueComet.ttc, the hinted static collection
+```
 
-`misc/tools/compare-vf-formats.py` rasterises both builds and compares them
-pixel by pixel, which is how the equivalence above was established.
+Note that `INSTALLDIR` in the `Makefile` is hardcoded to
+`$(HOME)/Library/Fonts/NeueComet`, which is a macOS path. There is no platform
+detection, so on Linux you want to override it:
 
-## What you get
+```sh
+make install_var_otf INSTALLDIR=~/.local/share/fonts/NeueComet
+```
 
-**36 static fonts + 2 variable fonts**, in nine weights (Thin 100 → Black 900),
-roman and italic, plus a Display cut tuned for large sizes.
+then run `fc-cache -f` if the system does not pick the fonts up on its own.
 
-| Roman | Italic | Weight |
-| --- | --- | --- |
-| Thin | Thin Italic | 100 |
-| ExtraLight | ExtraLight Italic | 200 |
-| Light | Light Italic | 300 |
-| Regular | Italic | 400 |
-| Medium | Medium Italic | 500 |
-| SemiBold | SemiBold Italic | 600 |
-| Bold | Bold Italic | 700 |
-| ExtraBold | ExtraBold Italic | 800 |
-| Black | Black Italic | 900 |
+`NeueCometVariable-cff2.woff2` is also published if you want CFF2 on the web and
+have confirmed your target browsers handle it.
 
-The variable font carries two axes:
+### Not covered
 
-| Axis | Range | Default |
-| --- | --- | --- |
-| `wght` | 100 – 900 | 400 |
-| `opsz` | 14 – 32 | 14 |
+No Bengali, Devanagari, Gurmukhi, Gujarati, Tamil, Thai, Arabic, Hebrew, CJK,
+Hangul, or any other non-Latin/Greek/Cyrillic script. This is inherited from
+the upstream design and is not a matter of adding a few glyphs.
 
-`opsz` is the optical-size axis: it interpolates the outlines themselves, so
-the cuts tuned to stay legible at small text sizes open up as the size grows.
-Applications with automatic optical sizing (`font-optical-sizing: auto`) will
-drive it for you; otherwise set it in `font-variation-settings`.
-
-## Script coverage
-
-2,852 encoded codepoints, 2,987 glyphs, 2048 units/em.
-
-| Covered | |
-| --- | --- |
-| Latin | core, Extended-A, Extended Additional |
-| Greek | and Greek Extended |
-| Cyrillic | and Cyrillic Extended-A |
-| Symbols | punctuation, super/subscripts, currency, arrows, math operators, geometric shapes, dingbats |
-
-**Not covered:** Bengali/Bangla, Devanagari, Gurmukhi, Gujarati, Tamil, Thai,
-Arabic, Hebrew, CJK, Hangul, or any other non-Latin/Greek/Cyrillic script.
-
-If you need one of those, set a fallback stack — don't let the font silently
-substitute. For example, for Bangla:
+**Set a fallback stack.** A missing glyph otherwise substitutes silently, which
+is how a page ends up with a mix of two typefaces nobody chose:
 
 ```css
 body {
@@ -124,107 +135,162 @@ body {
 }
 ```
 
-This is a limitation inherited from the upstream design, not something that can
-be patched by adding a few glyphs — see the note at the foot of this file.
+### OpenType features
 
-## OpenType features
+43 GSUB features, 4 GPOS. The ones you are likely to reach for:
 
-41 GSUB features and 4 GPOS features. The ones you'll actually reach for:
-
-| Feature | What it does |
+| Feature | Effect |
 | --- | --- |
 | `calt` | contextual alternates — punctuation adapts to its surroundings |
-| `zero` | slashed zero, to tell `0` from `O` |
+| `zero` | slashed zero, to distinguish `0` from `O` |
 | `tnum` / `pnum` | tabular and proportional figures |
-| `frac` / `dnom` / `numr` | fractions, denominators, numerators |
+| `frac` / `numr` / `dnom` | fractions and their parts |
 | `sups` / `subs` | super- and subscripts |
-| `ss01` – `ss08` | stylistic sets |
-| `cv01` – `cv16` | single character variants |
+| `ss01`–`ss08` | stylistic sets |
+| `cv01`–`cv16` | single-character variants |
 | `case` | case-sensitive forms |
 | `locl` | localised forms |
 
-Kerning (`kern`), mark positioning (`mark`/`mkmk`) and capital spacing
-(`cpsp`) are in GPOS.
+In GPOS: `kern` (pair kerning), `mark` and `mkmk` (mark positioning), and
+`cpsp` (capital spacing).
 
-## Working on the source
-
-The Glyphs sources live in `src/`. See [CONTRIBUTING.md](CONTRIBUTING.md) for
-how to build.
-
-```sh
-make var          # the glyf variable font
-make var_otf      # the CFF2 variable font
-make all          # everything
-make test         # fontbakery
-```
-
-There's also an interactive glyph lab in `docs/`:
-
-```sh
-make -j web && make -C docs serve
-```
-
-Two tools worth knowing about, both in `misc/tools/`:
-
-- `audit-fonts.py` — checks every shipped binary for stale branding, PostScript
-  name/filename agreement, vendor ID and style/weight consistency:
-
-  ```sh
-  python misc/tools/audit-fonts.py docs/font-files
-  ```
-
-- `normalize-static-names.py` — enforces the `NeueComet[-Display]-<Style>`
-  PostScript naming convention on the static builds. It runs automatically as
-  part of `make static`.
-
-## Derivative fonts
-
-Neue Comet is licensed under the **SIL Open Font License 1.1**. You may modify
-it, bundle it and sell it as part of something else — you may not sell the font
-files themselves, and derivatives must stay under the same licence. [Full terms.](LICENSE.txt)
-
-Please don't ship derivative works under the name "Neue Comet". Use your own.
-
-## Licence and credits
-
-Neue Comet is licensed under the [SIL Open Font License 1.1](LICENSE.txt).
-
-The OS/2 `achVendID` is currently `NONE`, meaning "unregistered". To set your
-own, register a four-character vendor ID with Microsoft first, then update
-`vendorID` in `src/NeueComet-Roman.glyphspackage/fontinfo.plist` and
-`src/NeueComet-Italic.glyphspackage/fontinfo.plist`:
-
-> Email <mstwsite@microsoft.com> with the vendor ID you want, the foundry name,
-> an email address and a link to the foundry website. See
-> [Register a font vendor ID](https://learn.microsoft.com/en-us/typography/vendors/register).
-
-`fontbakery`'s `vendor_id` check warns while the value is unregistered or
-doesn't match the manufacturer in name ID 8.
+`cv10` is worth knowing about: it *removes* the spur from the capital G. The
+default G is spurred; `cv10` gives you the spurless form, which is what you
+want in running text where the spur reads as a stray mark.
 
 ---
 
-### Based on Inter
+## Building from source
 
-Neue Comet is derived from [Inter](https://github.com/rsms/inter) by
-[Rasmus Andersson](https://rsms.me/), which is licensed under the
-[SIL Open Font License 1.1](LICENSE.txt). The original copyright notice,
-licence and design credit are retained in `LICENSE.txt` and in the font
-metadata, as the licence requires.
+Everything is scripted. There is no manual step and no macOS-only tool in the
+path — the sources are Glyphs packages, but they are compiled headlessly with
+`fontmake`/`ufo2ft`, not opened in Glyphs.app.
 
-### Capital R derived from Geist
+```sh
+./build.sh
+```
 
-The capital R is taken from [Geist](https://github.com/vercel/geist-font) by
-The Geist Project Authors, which is also licensed under the
-[SIL Open Font License 1.1](LICENSE.txt). Geist's R has a vertical leg where
-Inter's slants; that was the reason for the change. The outline is Geist's,
-scaled to our em, not a redrawing. The Geist notice is carried in the font
-metadata alongside Inter's, as the licence requires.
+One clean build with verification afterwards. It removes previous artefacts
+first, builds everything, then checks: capital R geometry against the alphabet,
+transformed components, `fontbakery check-universal` on three profiles, a
+binary audit of every shipped file, that the site's `font-files/` match the
+build, and that the site's pages still match their templates. It exits
+non-zero if any check fails.
 
-"Inter" is a trademark of Rasmus Andersson (RSMS). Script coverage, the
-two-axis variable model, the OpenType feature set and the underlying glyph
-design all originate with Inter; the changes made here are the family rename,
-the identity and licensing metadata, the CFF2 build, and the build tooling
-updates that came with it.
+`ufo2ft` is memory-hungry — four parallel jobs can exhaust a small machine, and
+the build dies with SIGTERM rather than an error. If that happens, lower the
+count:
 
-This README describes Neue Comet only. For the upstream design rationale and
-project history, see the [Inter README](https://github.com/rsms/inter#readme).
+```sh
+./build.sh -j2
+```
+
+Individual targets, if you want just one thing:
+
+```sh
+make var            # the glyf variable font
+make var_otf        # the CFF2 variable font
+make static         # the 36 static fonts
+make web            # WOFF2 for the web
+make all            # everything
+```
+
+### Checking a browser engine
+
+`docs/vf-test.html` is a self-checking page. Open it in any browser and it
+reports, per format, whether the font actually loaded rather than silently
+falling back to a system default, whether `wght` and `opsz` interpolate, and
+whether the glyf and CFF2 builds produce the same widths.
+
+It runs 21 checks: four faces (glyf, CFF2, and the italic of each) each
+checked for load, for actually applying rather than falling back, and for
+`wght` and `opsz` interpolation — then five width comparisons between the
+glyf and CFF2 roman builds. Note that the format-agreement comparison covers
+the roman only; the italic pair is checked individually but not against each
+other.
+
+Reported passing on Chromium 153, Chrome 154 (Linux) and Firefox 155. Those
+results are not recorded in this repository, and the reported count (22) is one
+more than the 21 checks the page currently runs, so re-run it yourself rather
+than taking the number on trust. Safari and Windows were also run by hand and
+reported passing.
+
+### Releasing
+
+```sh
+make zip_release
+```
+
+Produces `build/release/NeueComet.zip` — the archive the website links to. The
+site points at `/releases/latest/download/NeueComet.zip`, so the asset name has
+to stay `NeueComet.zip`; a versioned filename would have to be edited in step
+with every tag by hand, which is exactly what used to break the download link.
+
+CI builds and publishes on a `v*-*` tag. Note that this repository is a fork,
+and GitHub disables Actions on forks by default, so that job does not currently
+run — releases are made from the tag by hand.
+
+---
+
+## Project layout
+
+```
+src/
+  NeueComet-Roman.glyphspackage/    roman masters, the bulk of the work
+  NeueComet-Italic.glyphspackage/   italic masters
+build.sh                            one clean build, with verification
+Makefile                            per-target build rules
+misc/site/                          templates for the pages that share a layout
+misc/tools/                         build and audit scripts
+docs/                               the website, and the fonts it serves
+```
+
+`docs/` is a plain static site — no Jekyll, no Ruby. `docs/` itself is what gets
+published; there is no build step at deploy time. Five of the pages share a
+layout and differ in small ways (title, a redirect, how deep they sit in the
+tree), so they are generated from `misc/site/` by
+`misc/tools/build-site.py`; a sixth is a standalone redirect.
+
+```sh
+make -C docs build    # regenerate the pages
+make -C docs check    # fail if they have drifted from the templates
+make -C docs serve    # serve docs/ on http://127.0.0.1:3002
+```
+
+`make -C docs check` also runs as part of `./build.sh`, so a page edited by
+hand instead of through the templates fails the build rather than silently
+disagreeing with them.
+
+`docs/lab/` is an interactive glyph inspector; `docs/vf-test.html` is the
+browser check above. `docs/font-files/` is generated from `build/` by
+`make docs_fonts` and is what the site serves — never edit it by hand.
+
+---
+
+## Credits and licence
+
+Neue Comet is licensed under the
+[SIL Open Font License 1.1](LICENSE.txt). You may use, modify and bundle it,
+including commercially, but you may not sell the font files on their own, and a
+modified version may not use a Reserved Font Name. Please ship derivatives under
+your own name, not "Neue Comet".
+
+The OS/2 vendor ID is `NONE`, which means unregistered. That is deliberate —
+registering implies a foundry identity that does not exist yet.
+
+**Inter** © 2016 The Inter Project Authors, by
+[Rasmus Andersson](https://rsms.me/). Neue Comet is a derivative. Inter is a
+trademark of Rasmus Andersson; that trademark is not claimed here.
+
+**Geist** © 2024 The Geist Project Authors. The capital R is Geist's.
+
+Both upstream projects are under the same OFL 1.1, which requires their notices
+to travel with the font. They are reproduced in `LICENSE.txt` and carried in
+the font metadata.
+
+What changed here: the family name and identity, the capital R, the CFF2
+build, and the tooling to check all of it. The glyph designs, script coverage,
+variable model and OpenType feature set originate with Inter.
+
+For the upstream design rationale, see the
+[Inter README](https://github.com/rsms/inter#readme).
