@@ -6,6 +6,9 @@ on:
     branches: ["master"]
     paths:
       - "docs/**"
+      - "misc/site/**"
+      - "misc/tools/build-site.py"
+      - ".github/workflows/pages.yml"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,15 +30,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Setup Pages
         uses: actions/configure-pages@v2
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./docs
-          destination: ./_site
+
+      # The site is static HTML. docs/ is the site, so there is no build
+      # output to upload -- the directory is the artifact. The only thing
+      # worth doing is confirming the committed pages match the templates,
+      # so a stale page fails the deploy instead of shipping silently.
+      - name: Check the generated pages are current
+        run: |
+          python3 -m pip install --quiet pyyaml
+          python3 misc/tools/build-site.py --check
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./docs
 
   deploy:
     environment:

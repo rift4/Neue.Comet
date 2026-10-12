@@ -1,0 +1,174 @@
+<style>
+/* Page styles only; structure and gutters come from res/base.css. */
+
+h1.title {
+  font-size: clamp(3rem, 12vw, 10rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  margin: 0 0 1.5rem;
+}
+
+h2 {
+  margin: 0 0 1rem;
+}
+
+.specimen {
+  font-size: clamp(2rem, 9vw, 6rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.weight {
+  font-size: clamp(1.1rem, 3.4vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.weight .label {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  opacity: 0.45;
+  display: block;
+  margin-bottom: 0.2em;
+}
+
+pre {
+  font-size: 0.8rem;
+  line-height: 1.65;
+  /* The CDN URL is long; without this the grid is forced wider than the
+     viewport on small screens. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+dl.facts { margin: 0; }
+dl.facts dt { font-weight: 600; margin-top: 1rem; }
+dl.facts dt:first-child { margin-top: 0; }
+dl.facts dd { margin: 0; opacity: 0.7; }
+</style>
+
+
+<div class="row"><div>
+  <r-grid columns="2" columns-s="1">
+    <r-cell span="1">
+      <h1 class="title">Neue&nbsp;Comet</h1>
+      <p>
+        A variable typeface for screens. Nine weights from a thin 100 to a
+        black 900, a true italic, and two optical sizes running from text to
+        display.
+      </p>
+      <p><a class="button" href="{{url_root}}download/">Download ↓</a></p>
+    </r-cell>
+    <r-cell span="1">
+      <p>
+        2987 glyphs covering {{ lang_count }} languages across Latin, Greek and
+        Cyrillic. Interpolation happens on two axes — weight
+        (<code>wght</code>, 100–900) and optical size (<code>opsz</code>, 14–32) —
+        so one file covers everything from interface text to poster sizes.
+      </p>
+    </r-cell>
+  </r-grid>
+</div></div>
+
+
+<div class="row"><div>
+  <h2 id="specimen">Specimen</h2>
+  <p class="specimen" contenteditable spellcheck="false">Hamburgefonstiv</p>
+</div></div>
+
+
+<div class="row"><div>
+  <h2 id="weights">Weights</h2>
+  <r-grid columns="2" columns-s="1">
+    <r-cell span="1"><p class="weight" style="font-weight:100"><span class="label">Thin · 100</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:200"><span class="label">ExtraLight · 200</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:300"><span class="label">Light · 300</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:400"><span class="label">Regular · 400</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:500"><span class="label">Medium · 500</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:600"><span class="label">SemiBold · 600</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:700"><span class="label">Bold · 700</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:800"><span class="label">ExtraBold · 800</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:900"><span class="label">Black · 900</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:400;font-style:italic"><span class="label">Italic</span>Salient gazelle eyes</p></r-cell>
+    <r-cell span="1"><p class="weight" style="font-weight:700;font-style:italic"><span class="label">Bold Italic</span>Salient gazelle eyes</p></r-cell>
+  </r-grid>
+</div></div>
+
+
+<div class="row"><div>
+  <h2 id="usage">Usage</h2>
+  <r-grid columns="2" columns-s="1">
+    <r-cell span="1">
+      <pre>&lt;link rel="stylesheet" href="/fonts/neue-comet.css"&gt;
+
+/* CSS */
+:root { font-family: 'Neue Comet', sans-serif; }
+@supports (font-variation-settings: normal) {
+  :root { font-family: 'Neue Comet var', sans-serif; }
+}</pre>
+    </r-cell>
+    <r-cell span="1">
+      <p>
+        Self-host the files. Copy <code>neue-comet.css</code> and the
+        <code>font-files/</code> directory into your site, and serve them
+        from your own origin so the CSS and the WOFF2 files share a domain.
+      </p>
+      <p>
+        Optical size runs from 14 (“text”, for small sizes) to 32
+        (“display”, for large). Applications with automatic optical sizing
+        will drive it; otherwise set it in
+        <code>font-variation-settings</code>.
+      </p>
+    </r-cell>
+  </r-grid>
+</div></div>
+
+
+<div class="row"><div>
+  <h2 id="languages">Language support</h2>
+  <r-grid columns="2" columns-s="1">
+    <r-cell span="1">
+      <p>
+        Neue Comet covers Latin, Greek and Cyrillic — {{ lang_count }} languages
+        in total. It does <em>not</em> cover Bengali, Devanagari, Tamil, Thai,
+        Arabic, Hebrew, CJK or Hangul. For those, pair it with a font that does
+        and set a fallback stack, rather than letting the font substitute
+        silently.
+      </p>
+    </r-cell>
+    <r-cell span="1">
+      <dl class="facts">
+        <dt>Licence</dt>
+        <dd>SIL Open Font License 1.1</dd>
+        <dt>Coverage</dt>
+        <dd>Latin, Greek, Cyrillic</dd>
+        <dt>Axes</dt>
+        <dd><code>wght</code> 100–900, <code>opsz</code> 14–32</dd>
+        <dt>Styles</dt>
+        <dd>9 weights, roman and italic, text and display</dd>
+        <dt>Source</dt>
+        <dd><a href="https://github.com/rift4/Neue.Comet">github.com/rift4/Neue.Comet</a></dd>
+      </dl>
+    </r-cell>
+  </r-grid>
+</div></div>
+
+
+<div class="row"><div>
+  <h2 id="licence">Licence</h2>
+  <p>
+    Neue Comet is a
+    <a href="https://github.com/rift4/Neue.Comet">free and open source</a>
+    font family, derived from <a href="https://github.com/rsms/inter">Inter</a>
+    by Rasmus Andersson. The capital R is derived from
+    <a href="https://github.com/vercel/geist-font">Geist</a> by The Geist Project
+    Authors. You are free to use it in almost any way imaginable.
+    See the
+    <a href="https://github.com/rift4/Neue.Comet/blob/main/LICENSE.txt">SIL Open Font License 1.1</a>
+    for the exact terms.
+  </p>
+</div></div>

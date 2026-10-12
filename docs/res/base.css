@@ -1,16 +1,12 @@
----
-layout: none
----
-{%- assign font_v = site.time | date: "%Y%m%d%H%M%S" -%}
 @font-face {
   font-family: NeueCometVariable; font-style: normal; font-weight: 100 900;
   font-display: block; /* <-- block, not swap */
-  src: url('../font-files/NeueCometVariable.woff2?v={{font_v}}') format('woff2');
+  src: url('../font-files/NeueCometVariable.woff2?v=cc9ee8a5') format('woff2');
 }
 @font-face {
   font-family: NeueCometVariable; font-style: italic; font-weight: 100 900;
   font-display: block; /* <-- block, not swap */
-  src: url('../font-files/NeueCometVariable-Italic.woff2?v={{font_v}}') format('woff2');
+  src: url('../font-files/NeueCometVariable-Italic.woff2?v=cc9ee8a5') format('woff2');
 }
 @font-face {
   font-family: "jbmono";

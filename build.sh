@@ -209,21 +209,13 @@ else echo "  FAIL: run 'make docs_fonts_clean'"; fail=1; fi
 # ------------------------------------------------------------------ docs --
 if [ -d docs ]; then
   say "docs build"
-  # jekyll installed via `gem install` is not on a login PATH here
-  JEKYLL="$(command -v jekyll || true)"
-  if [ -z "$JEKYLL" ]; then
-    for c in "$HOME"/.local/share/gem/ruby/*/bin/jekyll /usr/local/bin/jekyll; do
-      [ -x "$c" ] && JEKYLL="$c" && break
-    done
-  fi
-  if [ -n "$JEKYLL" ]; then
-    if "$JEKYLL" build -s docs -d /tmp/neue-site --quiet 2>&1 | tail -3; then
-      echo "  ok"
-    else
-      echo "  FAIL: jekyll build"; fail=1
-    fi
+  # The site is static HTML now -- no Ruby, no Jekyll, no _site/ staging. The
+  # check is that the committed pages still match what the templates render.
+  if out="$(python misc/tools/build-site.py --check 2>&1)"; then
+    echo "$out" | sed 's/^/  /'
   else
-    echo "  jekyll not found - skipped"
+    echo "$out" | sed 's/^/  /'
+    echo "  FAIL: run 'make -C docs build'"; fail=1
   fi
 fi
 

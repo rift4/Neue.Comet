@@ -1,7 +1,3 @@
----
-layout: none
----
-{%- assign font_v = site.time | date: "%Y%m%d%H%M%S" -%}
 /*
 Font families defined by this CSS:
   - NeueCometVariable  variable font for modern web browsers
@@ -20,55 +16,55 @@ Usage example:
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('font-files/NeueCometVariable.woff2?v={{font_v}}') format('woff2');
+  src: url('font-files/NeueCometVariable.woff2?v=a171e223') format('woff2');
 }
 @font-face {
   font-family: NeueCometVariable;
   font-style: italic;
   font-weight: 100 900;
   font-display: swap;
-  src: url('font-files/NeueCometVariable-Italic.woff2?v={{font_v}}') format('woff2');
+  src: url('font-files/NeueCometVariable-Italic.woff2?v=a171e223') format('woff2');
 }
 /* legacy name "Neue Comet var" (Oct 2023) */
-@font-face { font-family:'Neue Comet var'; font-style:normal; font-weight:100 900; font-display:swap; src: url('font-files/NeueCometVariable.woff2?v={{font_v}}') format('woff2'); }
-@font-face { font-family:'Neue Comet var'; font-style:italic; font-weight:100 900; font-display:swap; src: url('font-files/NeueCometVariable-Italic.woff2?v={{font_v}}') format('woff2'); }
+@font-face { font-family:'Neue Comet var'; font-style:normal; font-weight:100 900; font-display:swap; src: url('font-files/NeueCometVariable.woff2?v=a171e223') format('woff2'); }
+@font-face { font-family:'Neue Comet var'; font-style:italic; font-weight:100 900; font-display:swap; src: url('font-files/NeueCometVariable-Italic.woff2?v=a171e223') format('woff2'); }
 /* static fonts */
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:100; font-display:swap; src:url("font-files/NeueComet-Thin.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:100; font-display:swap; src:url("font-files/NeueComet-ThinItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:200; font-display:swap; src:url("font-files/NeueComet-ExtraLight.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:200; font-display:swap; src:url("font-files/NeueComet-ExtraLightItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:300; font-display:swap; src:url("font-files/NeueComet-Light.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:300; font-display:swap; src:url("font-files/NeueComet-LightItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:400; font-display:swap; src:url("font-files/NeueComet-Regular.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:400; font-display:swap; src:url("font-files/NeueComet-Italic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:500; font-display:swap; src:url("font-files/NeueComet-Medium.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:500; font-display:swap; src:url("font-files/NeueComet-MediumItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:600; font-display:swap; src:url("font-files/NeueComet-SemiBold.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:600; font-display:swap; src:url("font-files/NeueComet-SemiBoldItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:700; font-display:swap; src:url("font-files/NeueComet-Bold.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:700; font-display:swap; src:url("font-files/NeueComet-BoldItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:800; font-display:swap; src:url("font-files/NeueComet-ExtraBold.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:800; font-display:swap; src:url("font-files/NeueComet-ExtraBoldItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:900; font-display:swap; src:url("font-files/NeueComet-Black.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:900; font-display:swap; src:url("font-files/NeueComet-BlackItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:100; font-display:swap; src:url("font-files/NeueCometDisplay-Thin.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:100; font-display:swap; src:url("font-files/NeueCometDisplay-ThinItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:200; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraLight.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:200; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraLightItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:300; font-display:swap; src:url("font-files/NeueCometDisplay-Light.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:300; font-display:swap; src:url("font-files/NeueCometDisplay-LightItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:400; font-display:swap; src:url("font-files/NeueCometDisplay-Regular.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:400; font-display:swap; src:url("font-files/NeueCometDisplay-Italic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:500; font-display:swap; src:url("font-files/NeueCometDisplay-Medium.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:500; font-display:swap; src:url("font-files/NeueCometDisplay-MediumItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:600; font-display:swap; src:url("font-files/NeueCometDisplay-SemiBold.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:600; font-display:swap; src:url("font-files/NeueCometDisplay-SemiBoldItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:700; font-display:swap; src:url("font-files/NeueCometDisplay-Bold.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:700; font-display:swap; src:url("font-files/NeueCometDisplay-BoldItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:800; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraBold.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:800; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraBoldItalic.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:900; font-display:swap; src:url("font-files/NeueCometDisplay-Black.woff2?v={{font_v}}") format("woff2"); }
-@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:900; font-display:swap; src:url("font-files/NeueCometDisplay-BlackItalic.woff2?v={{font_v}}") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:100; font-display:swap; src:url("font-files/NeueComet-Thin.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:100; font-display:swap; src:url("font-files/NeueComet-ThinItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:200; font-display:swap; src:url("font-files/NeueComet-ExtraLight.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:200; font-display:swap; src:url("font-files/NeueComet-ExtraLightItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:300; font-display:swap; src:url("font-files/NeueComet-Light.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:300; font-display:swap; src:url("font-files/NeueComet-LightItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:400; font-display:swap; src:url("font-files/NeueComet-Regular.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:400; font-display:swap; src:url("font-files/NeueComet-Italic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:500; font-display:swap; src:url("font-files/NeueComet-Medium.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:500; font-display:swap; src:url("font-files/NeueComet-MediumItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:600; font-display:swap; src:url("font-files/NeueComet-SemiBold.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:600; font-display:swap; src:url("font-files/NeueComet-SemiBoldItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:700; font-display:swap; src:url("font-files/NeueComet-Bold.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:700; font-display:swap; src:url("font-files/NeueComet-BoldItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:800; font-display:swap; src:url("font-files/NeueComet-ExtraBold.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:800; font-display:swap; src:url("font-files/NeueComet-ExtraBoldItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:normal; font-weight:900; font-display:swap; src:url("font-files/NeueComet-Black.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:'Neue Comet'; font-style:italic; font-weight:900; font-display:swap; src:url("font-files/NeueComet-BlackItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:100; font-display:swap; src:url("font-files/NeueCometDisplay-Thin.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:100; font-display:swap; src:url("font-files/NeueCometDisplay-ThinItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:200; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraLight.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:200; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraLightItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:300; font-display:swap; src:url("font-files/NeueCometDisplay-Light.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:300; font-display:swap; src:url("font-files/NeueCometDisplay-LightItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:400; font-display:swap; src:url("font-files/NeueCometDisplay-Regular.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:400; font-display:swap; src:url("font-files/NeueCometDisplay-Italic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:500; font-display:swap; src:url("font-files/NeueCometDisplay-Medium.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:500; font-display:swap; src:url("font-files/NeueCometDisplay-MediumItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:600; font-display:swap; src:url("font-files/NeueCometDisplay-SemiBold.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:600; font-display:swap; src:url("font-files/NeueCometDisplay-SemiBoldItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:700; font-display:swap; src:url("font-files/NeueCometDisplay-Bold.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:700; font-display:swap; src:url("font-files/NeueCometDisplay-BoldItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:800; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraBold.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:800; font-display:swap; src:url("font-files/NeueCometDisplay-ExtraBoldItalic.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:normal; font-weight:900; font-display:swap; src:url("font-files/NeueCometDisplay-Black.woff2?v=a171e223") format("woff2"); }
+@font-face { font-family:NeueCometDisplay; font-style:italic; font-weight:900; font-display:swap; src:url("font-files/NeueCometDisplay-BlackItalic.woff2?v=a171e223") format("woff2"); }
 
 @font-feature-values NeueCometVariable {
     @character-variant {
