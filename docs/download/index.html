@@ -6,11 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="../neue-comet.css?v=20261012161928">
+    <link rel="stylesheet" href="../neue-comet.css?v=20261012183123">
     <link rel="stylesheet" href="../res/base.css?v=20261012161928">
     <link rel="icon" type="image/png" href="../res/favicon.png?v=20261010132849">
-    <link rel="preload" href="../font-files/NeueCometVariable.woff2?v=20261012161928" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="../font-files/NeueCometVariable-Italic.woff2?v=20261012161928" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="../font-files/NeueCometVariable.woff2?v=20261012183123" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="../font-files/NeueCometVariable-Italic.woff2?v=20261012183123" as="font" type="font/woff2" crossorigin="anonymous">
     <meta name="format-detection" content="telephone=no">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:description" content="Neue Comet is a typeface family">
@@ -57,22 +57,7 @@
     Neue Comet is <a href="https://github.com/rift4/Neue.Comet">open source</a>.<br>
     Please consider giving us a small donation to keep this project alive.
   </p>
-  <div class=sponsor-buttons>
-    <a class=button
-       title="Help Neue Comet by becoming a sponsor and donating a coffee or two"
-       href="https://github.com/sponsors/rsms">
-       Support Neue Comet on GitHub...
-    </a>
-    <form action="https://www.paypal.com/donate" method="post" target="_top">
-      <input type="hidden" name="business" value="rsms@notion.se">
-      <input type="hidden" name="no_recurring" value="0">
-      <input type="hidden" name="item_name" value="Neue Comet typeface">
-      <!-- <input type="hidden" name="item_number" value="Fall Cleanup Campaign"> -->
-      <input type="hidden" name="currency_code" value="USD">
-      <input class=button type="submit" name="submit" value="or, make a donation via PayPal...">
-    </form>
-  </div>
-
+  
 </r-cell>
 
 
@@ -189,9 +174,7 @@
 @supports (font-variation-settings: normal) {
   :root { font-family: NeueCometVariable, sans-serif; }
 }</pre>
-  <p>Global <abbr title="Content Delivery Network">CDN</abbr>
-    sponsored by <a href="https://cloudflare.com/">Cloudflare</a></p>
-</r-cell>
+  </r-cell>
 
 
 
@@ -235,20 +218,6 @@ a.dim:hover { opacity:1 }
 .large { font-size: 1.375rem; }
 input.button { cursor: pointer }
 
-.sponsor-buttons {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: var(--spacingv);
-  font-size: 1.2rem;
-}
-@media only screen and (max-width: 720px) {
-  .sponsor-buttons {
-    font-size: 1.375rem;
-    flex-direction: column;
-    gap: 0rem;
-  }
-}
 
 .install-instructions { display: none; }
 .install-instructions.active { display: block; }
