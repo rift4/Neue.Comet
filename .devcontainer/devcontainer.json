@@ -1,0 +1,32 @@
+{
+  "name": "Neue Comet",
+  "build": {
+    "dockerfile": "../Containerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "remoteUser": "node",
+  "runArgs": [
+    "--userns=keep-id"
+  ],
+  "mounts": [
+    {
+      "source": "neue-comet-venv-py38",
+      "target": "/workspace/build/venv",
+      "type": "volume"
+    }
+  ],
+  "postCreateCommand": "make venv",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "tamasfe.even-better-toml"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/workspace/build/venv/bin/python"
+      }
+    }
+  }
+}

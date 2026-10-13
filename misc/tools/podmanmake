@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+#
+# Runs make in the repo's dev container -- the Podman counterpart to
+# dockermake next to it, which is hardcoded to Docker.
+#
+# The image is built on first run and cached after that. The checkout is bind
+# mounted at /workspace, so artefacts land in build/ on the host and a rebuild
+# is never needed to see them.
+#
+# Usage:
+#   misc/tools/podmanmake var        # make var
+#   misc/tools/podmanmake -j2 all    # make -j2 all
+#   misc/tools/podmanmake --shell     # interactive shell instead of make
+#   misc/tools/podmanmake --rebuild   # force an image rebuild
+#   misc/tools/podmanmake --fresh-venv  # throw away the container's venv
+#
+# On rootless Podman, --userns=keep-id is required, not cosmetic. Without it
+# the container's uid 1000 maps to a *subuid* rather than to your host uid, so
+# the non-root user in the image cannot write the bind-mounted checkout and
+# every target dies with "Permission denied" creating build/.
+set -euo pipefail
+
+ROOT="$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
+IMAGE="${PODMAN_IMAGE:-neue-comet-dev}"
+
+# The venv lives in a named volume, not in the bind-mounted checkout.
+#
+# Source is shared with the host; the venv is not. A venv is interpreter
+# specific -- absolute paths to its base interpreter are baked into
+# pyvenv.cfg and into the shebang of every script it installs -- so a venv made
+# on the host cannot run in here ("cannot execute: required file not found"),
+# and one made in here is useless on the host. Mounting a volume over
+# /workspace/build/venv keeps the two apart: the container gets a venv built by
+# its own interpreter, and build/venv on the host is never read or written.
+#
+# The rest of build/ stays on the bind mount on purpose. The compiled fonts are
+# the product, not an environment artefact, and are meant to land on the host.
+#
+# The volume name carries the Python version. When the pinned interpreter
+# changes, bump it -- a venv made by 3.8 is not reusable by 3.9, and an
+# identical name would silently hand back the stale one.
+VOLUME="${PODMAN_VOLUME:-neue-comet-venv-py38}"
+
+# Attach a TTY only when there is a real terminal on both ends. Passing -it
+# unconditionally makes podman fail outright when stdin is a pipe ("the input
+# device is not a TTY").
+#
+# -i is needed in the other case: without it podman discards piped stdin, so
+# `echo 'make var' | podmanmake --shell` runs bash with EOF on stdin and exits
+# 0 having done nothing. -i alone keeps the pipe working without allocating a
+# TTY, which is what a pipeline or CI job actually wants.
+TTY=(-i)
+if [ -t 0 ] && [ -t 1 ]; then
+  TTY=(-it)
+fi
+
+REBUILD=0
+FRESH_VENV=0
+case "${1-}" in
+  --rebuild)    REBUILD=1; shift ;;
+  --fresh-venv) FRESH_VENV=1; shift ;;
+esac
+
+if [ "$REBUILD" = 1 ] || ! podman image exists "$IMAGE"; then
+  echo "building $IMAGE ..." >&2
+  podman build -t "$IMAGE" "$ROOT"
+fi
+
+# --fresh-venv throws the volume away first. Needed after a Python version
+# bump, and as a way out of any state that leaves a half-installed venv. It
+# only ever removes the volume, never the host's build/venv.
+if [ "$FRESH_VENV" = 1 ]; then
+  echo "removing venv volume $VOLUME ..." >&2
+  podman volume rm -f "$VOLUME" >/dev/null 2>&1 || true
+fi
+
+run() {
+  podman run --rm "${TTY[@]}" \
+    --userns=keep-id \
+    -v "$ROOT:/workspace:Z" \
+    -v "$VOLUME:/workspace/build/venv" \
+    -w /workspace \
+    -e TERM="${TERM-}" \
+    "$IMAGE" "$@"
+}
+
+if [ "${1-}" = "--shell" ]; then
+  # No exec: it only works on external commands, not shell functions. run is
+  # the last command either way, so its exit status becomes the script's.
+  run bash
+  exit $?
+fi
+
+# write githash.txt when this is a worktree, matching dockermake. Only the
+# zip targets read it.
+if [ -e "$ROOT/.git" ]; then
+  git -C "$ROOT" rev-parse --short HEAD > "$ROOT/githash.txt"
+fi
+
+run make "$@"
+exit $?

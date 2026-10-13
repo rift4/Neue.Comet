@@ -195,6 +195,82 @@ make web            # WOFF2 for the web
 make all            # everything
 ```
 
+### Building in a container
+
+The toolchain is Python 3.8 plus a handful of system binaries, and the build is
+self-contained enough to run in a container. `Containerfile` is that image;
+`.devcontainer/` is the same thing wired up for a dev container.
+
+```sh
+misc/tools/podmanmake all      # build everything, in a container
+misc/tools/podmanmake var      # just the variable font
+misc/tools/podmanmake --shell  # a shell in the build environment
+```
+
+`podmanmake` is the Podman counterpart to `misc/tools/dockermake`, which is
+hardcoded to Docker and points at a prebuilt upstream image. It builds the
+local `Containerfile` on first use and caches it after that, then bind-mounts
+the checkout, so artefacts land in `build/` on the host and no rebuild is
+needed to see them. `--rebuild` forces a fresh image.
+
+```sh
+podman build -t neue-comet .
+podman run --rm -it --userns=keep-id \
+  -v "$PWD:/workspace:Z" -w /workspace neue-comet make all
+```
+
+Two things that are easy to get wrong when running this by hand:
+
+- **`--userns=keep-id` is required under rootless Podman.** Without it the
+  container's uid 1000 maps to a *subordinate* uid rather than to your host uid,
+  so the non-root user cannot write the bind-mounted checkout and every target
+  dies with `Permission denied` creating `build/`.
+- **The Python version is the pinned one.** The image is `python:3.8-slim`,
+  because `Pipfile` pins `python_version = "3.8"` and `pipenv` refuses to
+  install that lock against anything else. The Debian release underneath is not
+  pinned, and is free to move. Do not bump the tag to 3.9+ without updating
+  `Pipfile` and `Pipfile.lock` together.
+
+To build as a different uid — for a machine where your user is not 1000:
+
+```sh
+podman build --build-arg UID=1001 --build-arg GID=1001 -t neue-comet .
+```
+
+In VS Code or VSCodium, `Reopen in Container` builds the same `Containerfile`
+and runs `make venv` once on create, so the extension host finds the
+interpreter at `build/venv` without waiting for it on every start.
+
+#### The venv stays out of the checkout
+
+`build/` is bind-mounted, so compiled fonts land on the host — that is the
+product, and it is meant to cross. `build/venv` deliberately does not: it is a
+named volume mounted over that path, and the container builds its own.
+
+That split is necessary because a venv is interpreter-specific. Absolute paths
+to its base interpreter are baked into `pyvenv.cfg` and into the shebang of
+every script it installs:
+
+```text
+# made on the host, run in the container
+#!/home/zei/Projects/Neue.Comet/.venv/bin/python
+cannot execute: required file not found
+```
+
+Because the volume shadows it, a host `build/venv` is invisible in the
+container and a container venv never lands on the host. Both can coexist, and
+each is built by the interpreter that will actually run it. `make venv` is a
+no-op on the host when a valid venv is already there, so nothing is wasted.
+
+```sh
+misc/tools/podmanmake --fresh-venv var   # throw the volume away and rebuild
+podman volume rm neue-comet-venv-py38    # or remove it directly
+```
+
+The volume name carries the Python version, because a venv made by 3.8 is not
+reusable by 3.9. Bump it if the pin in `Pipfile` moves, or the stale volume
+will be handed back silently.
+
 ### Checking a browser engine
 
 `docs/vf-test.html` is a self-checking page. Open it in any browser and it
@@ -240,6 +316,8 @@ src/
   NeueComet-Italic.glyphspackage/   italic masters
 build.sh                            one clean build, with verification
 Makefile                            per-target build rules
+Containerfile                       build environment, for Podman/Docker
+.devcontainer/                      the same image, wired up for a dev container
 misc/site/                          templates for the pages that share a layout
 misc/tools/                         build and audit scripts
 docs/                               the website, and the fonts it serves
