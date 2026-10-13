@@ -723,15 +723,35 @@ update_ucd:
 #
 # We copy the Makefile (first in MAKEFILE_LIST) and disable the include to only list
 # primary targets, avoiding the generated targets.
+#
+# Two things here used to break, and both are why the extraction is written the
+# way it is rather than the shorter idiom it replaced:
+#
+#   The trailing ':' goal is gone. `make -pRrq -f file :` treats ':' as a target
+#   name, which GNU make 4.4 rejects with "No rule to make target ':'". -q
+#   already stops make from running anything, so the goal was never needed.
+#
+#   The extraction is line-based, not paragraph-based. The old form ran awk with
+#   RS="" over the range /^# File/,/^# Finished Make data base/, expecting the
+#   record beginning at "# Files" to start with that text. It does not: make
+#   emits "# 24 implicit rules..." first, so in paragraph mode that record
+#   starts there, /^# File/ never matches, the range never opens, and nothing
+#   is printed at all -- while make itself still exits 0, so the breakage
+#   looked like an empty target list rather than a failed command.
+#
+#   Prerequisites are not filtered out, so Pipfile and Pipfile.lock appear
+#   alongside the real targets. That is deliberate. make's "# Not a target:"
+#   marker can exclude them, but tracking it reliably drops real targets --
+#   editable-ufos among them -- and silently losing a target you can run is a
+#   worse failure than listing two extra filenames you cannot.
 list:
 	@mkdir -p build/etc \
 	&& cat $(MAKEFILE) \
 	 | sed 's/include /#include /g' > build/etc/Makefile-list \
-	&& $(MAKE) -pRrq -f build/etc/Makefile-list : 2>/dev/null \
-	 | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' \
-	 | sort \
-	 | egrep -v -e '^_|/' \
-	 | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
+	&& $(MAKE) -pRrq -f build/etc/Makefile-list 2>/dev/null \
+	 | awk -F: '/^[A-Za-z0-9][^$$#\t=]*:([^=]|$$)/ {print $$1}' \
+	 | sort -u \
+	 | grep -E -v -e '^_' -e '/'
 
 .PHONY: list
 
@@ -743,7 +763,15 @@ venv: $(VENVDIR)/config2.stamp
 $(VENVDIR)/config2.stamp: Pipfile.lock Pipfile
 	@mkdir -p build
 	[ ! -f "$(VENVDIR)/config.stamp" ] || rm -rf "$(VENVDIR)"
-	[ -d "$(VENVDIR)" ] || python3 -m venv "$(VENVDIR)"
+	# Test for pyvenv.cfg, not for the directory. An empty directory is not a
+	# venv, and something else creates one at this path: mounting a container
+	# volume over build/venv makes the mount point exist before anything runs.
+	# Checking -d there skipped venv creation entirely, leaving `pip` to resolve
+	# to the system one, which installed pipenv into ~/.local/bin -- where the
+	# PATH exported above does not reach, so the next line failed with a bare
+	# "pipenv: No such file or directory". This also repairs a half-made venv
+	# for free, since a venv without pyvenv.cfg is rebuilt rather than trusted.
+	[ -f "$(VENVDIR)/pyvenv.cfg" ] || python3 -m venv "$(VENVDIR)"
 	pip install pipenv==2023.8.28
 	pipenv install
 	touch $@
